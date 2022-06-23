@@ -45,3 +45,37 @@
    ```bash
    npm run dev
    ```
+
+## 프로젝트 구조
+
+디렉토리 구조는 대략 다음과 같습니다.
+
+```bash
+project_directory
++---dist
+|   +---index.js
+|   +---app.js
++---frontend
+|   +---src
+|   |   +---App.tsx
+|   |   +---index.html
+|   |   \---index.tsx
+|   +---package-lock.json
+|   +---package.json
+|   +---tailwind.config.js
+|   +---tsconfig.json
+|   +---webpack.common.js
+|   +---webpack.dev.js
+|   \---webpack.prod.js
++---backend
++---src
+|   +---index.ts
+|   +---app.ts
++---.gitignore
++---package.json
+\---README.md
+```
+
+- `src` 폴더는 백엔드 코드들이 들어갑니다.
+
+- `frontend` 폴더는 프론트엔드 코드들이 들어갑니다.
