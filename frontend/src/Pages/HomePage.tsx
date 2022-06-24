@@ -1,13 +1,16 @@
 import React from "react";
+import Header from "../Components/Header";
 import "tailwindcss/tailwind.css";
+import { Outlet } from "react-router-dom";
 
 type HomeProps = {
-    title?: string;
+
 };
 
-const HomePage = ({ title = "Simple Survey Form" }: HomeProps) => (
-    <div className="text-slate-300 text-3xl font-bold">
-        {title}
+const HomePage = ({}: HomeProps) => (
+    <div className="">
+        <Header/>
+        <Outlet />
     </div>
 ); 
  
