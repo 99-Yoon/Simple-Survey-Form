@@ -3,7 +3,7 @@ import 'tailwindcss/tailwind.css'
 
 type SignUpProps = {}
 
-const SignUpPage = ({}: SignUpProps) => (
+const SignUpPage = ({ }: SignUpProps) => (
   <div className="flex justify-center mt-3">
     <div className="text-slate-300 text-xl font-bold">
       <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
@@ -35,7 +35,7 @@ const SignUpPage = ({}: SignUpProps) => (
         placeholder="비밀번호를 입력하세요"
       />
       <div className='text-center'>
-      <button className="bg-cyan-400 text-white border rounded w-100 py-2 px-3 mt-3">회원가입</button>
+        <button className="bg-themeColor text-white border rounded w-100 py-2 px-3 mt-3">회원가입</button>
       </div>
     </div>
   </div>
