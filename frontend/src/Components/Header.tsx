@@ -2,12 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "tailwindcss/tailwind.css";
 
-type HeaderProps = {
-
-};
-
-const Header = ({ }: HeaderProps) => (
-    <div className="bg-white border-b-2 border-b-themeColor px-2 sm:px-4 py-2.5 dark:bg-gray-800">
+const Header = () => (
+    <div className="bg-white border-b-2 border-b-themeColor px-2 sm:px-4 py-2.5">
         <div className="container flex flex-wrap justify-between items-center mx-auto">
             <Link to="/" className="font-bold text-2xl text-themeColor"> Simple Survey Form </Link>
             <div className="md:flex items-center justify-end md:flex-1 lg:w-0">

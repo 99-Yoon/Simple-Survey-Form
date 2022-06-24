@@ -7,7 +7,7 @@ import "tailwindcss/tailwind.css";
 
 const HomePage = () => (
     <div>
-        <div className="text-slate-300 text-center text-3xl text-black">
+        <div className="text-slate-300 text-center text-3xl text-black my-5">
             가장 쉽게 설문지를 만드세요!
         </div>
         <div className="flex container  justify-center my-6">
