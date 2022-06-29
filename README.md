@@ -113,3 +113,99 @@ project_directory
 - `src/index.tsx`가 프로그램 실행 진입점입니다.
 - `src/SurveyRouter.tsx`는 라우트에 관련된 것을 다룹니다.
 - `src/App.tsx`가 최상위 레이아웃 입니다.
+
+## 코드 포맷터 설정
+
+### VS Code 설정
+
+VS Code에서 `Ctrl + Shift + p`를 눌러 `설정 검색` 창에 `editor: format on save`를 검색하여 항목을 선택 합니다. 이 기능은 파일을 저장할 때마다 파일 확장자에 따라서 자동으로 포맷을 맞추고 저장을 합니다.
+
+### Prettier 설치
+
+VS Code 확장에서 [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)를 설치합니다.
+
+- `.prettierrc.json` 파일 설정(이미 설정되어 있습니다).
+- 대부분의 파일에서 VS Code 맨 아래 상태 바에 Prettier라는 항목이 체크 표시되어 나타나야 합니다.
+
+## 백엔드 데이터베이스
+
+다음은 모두 백엔드 터미널에서 실행해야 합니다. 즉, 프로젝트 루트 디렉토리에서 실행해야 합니다.
+
+### 몽고디비 설치
+
+[몽고디비 윈도우즈 설치](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/#install-mongodb-community-edition)
+
+- 윈도우즈 서비스로 실행하도록 설치합니다.
+
+### 몽고디비 ORM(mongoose) 설치
+
+```bash
+npm install mongoose --save
+```
+
+## 백엔드 유효성 검사
+
+```bash
+npm install validator
+npm i -D @types/validator
+```
+
+`validator`는 문자열을 검사하는 모듈입니다.
+
+사용방법
+
+```js
+import isLength from "validator/lib/isLength";
+import isEmail from "validator/lib/isEmail";
+
+export const signup = (req, res) => {
+  // 생략
+  if (!isLength(name, { min: 2, max: 10 })) {
+    return res.status(422).send("이름은 2-10자로 입력해주세요");
+  } else if (!isLength(password, { min: 6 })) {
+    return res.status(422).send("비밀번호는 6자 이상으로 입력해주세요");
+  } else if (!isEmail(email)) {
+    return res.status(422).send("유효하지 않은 이메일입니다");
+  }
+  // 생략
+};
+```
+
+## 백엔드 비밀번호 암호화
+
+`bcryptjs` 모듈은 암호화합니다.
+
+```bash
+npm i bcryptjs
+npm i -D @types/bcryptjs
+```
+
+사용법
+
+```js
+import bcrypt from "bcryptjs";
+
+const hash = await bcrypt.hash(password, 10);
+const newUser = await userDb.createUser({
+  email,
+  password: hash,
+});
+```
+
+## 백엔드 쿠기 파서
+
+쿠키 파서를 이용해서 쿠키를 해석합니다.
+
+```bash
+npm i cookie-parser
+npm i -D @types/cookie-parser
+```
+
+사용법
+
+```js
+// src/app.ts
+import cookieParser from "cookie-parser";
+
+app.use(cookieParser());
+```
