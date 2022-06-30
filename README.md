@@ -118,7 +118,7 @@ project_directory
 
 ### VS Code 설정
 
-VS Code에서 `Ctrl + Shift + p`를 눌러 `설정 검색` 창에 `editor: format on save`를 검색하여 항목을 선택 합니다. 이 기능은 파일을 저장할 때마다 파일 확장자에 따라서 자동으로 포맷을 맞추고 저장을 합니다.
+VS Code에서 `Ctrl + Shift + p`를 눌러 `기본 설정: 사용자 설정 열기`를 선택하고, `설정 검색` 창에 `editor: format on save`를 검색하여 항목을 선택 합니다. 이 기능은 파일을 저장할 때마다 파일 확장자에 따라서 자동으로 포맷을 맞추고 저장을 합니다.
 
 ### Prettier 설치
 
