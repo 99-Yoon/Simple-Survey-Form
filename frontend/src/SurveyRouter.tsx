@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import { Login, SignUp } from "./auth";
-import { CreateSurveyForm } from "./commons";
+import { CreateSurveyForm, SurveyForm } from "./commons";
 import { Home } from "./home";
 
 export const SurveyRouter = () => {
@@ -14,6 +14,7 @@ export const SurveyRouter = () => {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="create" element={<CreateSurveyForm />} />
+          <Route path="survey" element={<SurveyForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
