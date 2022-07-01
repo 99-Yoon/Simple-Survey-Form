@@ -6,7 +6,7 @@ import React from "react";
 
 export const Login = () => (
   <div className="flex justify-center mt-3">
-    <div className="text-slate-300 text-xl font-bold">
+    <div className="flex flex-col space-y-4 mt-5 text-xl font-bold">
       <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
         이메일
       </label>
