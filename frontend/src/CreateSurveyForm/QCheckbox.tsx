@@ -5,7 +5,7 @@ type Props = {
   element: CheckboxType;
 };
 
-export const Q_Checkbox = ({ element }: Props) => (
+export const QCheckbox = ({ element }: Props) => (
   <div className="flex flex-col container w-4/5 h-auto border-2 border-themeColor items-center m-3 py-2">
     <div className="flex flexgi-row h-16 w-full place-content-between items-center">
       <p className="text-xl font-bold ml-6 border-b-2">
