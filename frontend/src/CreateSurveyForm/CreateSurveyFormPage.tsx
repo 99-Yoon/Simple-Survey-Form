@@ -37,6 +37,7 @@ export const CreateSurveyForm = () => (
         cols={60}
       ></textarea>
     </div>
+
     <Question />
 
     <div className="flex w-4/5 content-center justify-center border-2 border-black h-8 mt-3">

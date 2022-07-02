@@ -23,7 +23,7 @@ let EssayQ: EssayType = {
 export interface RadioType extends BasicQuestionType {
   content: {
     hasOther: boolean;
-    choices: any;
+    choices: any[];
     otherText: string;
   };
 }
@@ -41,7 +41,7 @@ let RadioQ: RadioType = {
 
 export interface CheckboxType extends BasicQuestionType {
   content: {
-    choices: any;
+    choices: any[];
     maxCount: number;
   };
 }
