@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { QAssay } from "./QAssay";
 import { QCheckbox } from "./QCheckbox";
 import { QRadio } from "./QRadio";
+import { QDropdown } from "./QDropdown";
+import { QFile } from "./QFile";
 
 export interface BasicQuestionType {
   type: string;
@@ -16,17 +18,28 @@ export interface EssayType extends BasicQuestionType {}
 export interface RadioType extends BasicQuestionType {
   content: {
     hasOther: boolean;
-    choices: any[];
+    choices: string[];
     otherText: string;
   };
 }
 export interface CheckboxType extends BasicQuestionType {
   content: {
-    choices: any[];
+    choices: string[];
     maxCount: number;
   };
 }
-
+export interface DropdownType extends BasicQuestionType {
+  content: {
+    choices: string[];
+    hasNone: boolean;
+  };
+}
+export interface FileType extends BasicQuestionType {
+  content: {
+    filename: string;
+    value: string;
+  };
+}
 const EssayQ: EssayType = {
   type: "assay",
   name: "Question1",
@@ -44,7 +57,7 @@ const RadioQ: RadioType = {
   content: {
     hasOther: false,
     otherText: "",
-    choices: ["1", "2", "3"],
+    choices: ["radio1", "radio2", "radio3"],
   },
 };
 const CheckboxQ: CheckboxType = {
@@ -54,8 +67,30 @@ const CheckboxQ: CheckboxType = {
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: {
-    choices: ["ch1", "ch2", "ch3"],
+    choices: ["check1", "check2", "check3"],
     maxCount: 2,
+  },
+};
+const DropdownQ: DropdownType = {
+  type: "dropdown",
+  name: "Question4",
+  title: "Question4",
+  isRequired: false,
+  comment: "질문에 대한 설명을 입력해주세요",
+  content: {
+    choices: ["drop1", "drop2", "drop3"],
+    hasNone: false,
+  },
+};
+const FileQ: FileType = {
+  type: "file",
+  name: "Question5",
+  title: "Question5",
+  isRequired: false,
+  comment: "질문에 대한 설명을 입력해주세요",
+  content: {
+    filename: "",
+    value: "",
   },
 };
 
@@ -65,6 +100,9 @@ export const Question = () => {
   const [questionList, setQuestionList] = useState<BasicQuestionType[]>([
     EssayQ,
     RadioQ,
+    CheckboxQ,
+    DropdownQ,
+    FileQ,
   ]);
   // const [survey, setSurvey] = useState();
 
@@ -96,19 +134,29 @@ export const Question = () => {
               />
             );
           case "checkbox":
-            return <QCheckbox element={element} />;
+            return (
+              <QCheckbox
+                element={element}
+                QuestionListChange={QuestionListChange}
+              />
+            );
+          case "dropdown":
+            return (
+              <QDropdown
+                element={element}
+                QuestionListChange={QuestionListChange}
+              />
+            );
+          case "file":
+            return (
+              <QFile
+                element={element}
+                QuestionListChange={QuestionListChange}
+              />
+            );
           default:
             break;
         }
-        // if (element.type === "assay") {
-        //   return (
-        //     <QAssay element={element} QuestionListChange={QuestionListChange} />
-        //   );
-        // } else if (element.type === "radio") {
-        //   return <QRadio element={element} />;
-        // } else if (element.type === "checkbox") {
-        //   return <QCheckbox element={element} />;
-        // }
       })}
     </>
   );
