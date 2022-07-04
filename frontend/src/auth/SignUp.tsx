@@ -1,51 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 type SignUpProps = {};
 
 export const SignUp = ({}: SignUpProps) => {
-  const USER = {
-    name: "",
-    email: "",
-    password: "2345",
-    password2: "1234",
-  };
+  interface IUSER {
+    name: string;
+    email: string;
+    password: string;
+    password2: string;
+  }
 
-  const [user, setUser] = useState(USER);
-  const [error, setError] = useState('')
-  const [disabled, setDisabled] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [user, setUser] = useState<IUSER>({
+    name: "user",
+    email: "user1234@naver.com",
+    password: "1234",
+    password2: "1234",
+  });
+
+  const [error, setError] = useState("");
+  const [disabled, setDisabled] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setDisabled(!(user.name && user.email && user.password && user.password2))
-  }, [user])
+    setDisabled(!(user.name && user.email && user.password && user.password2));
+  }, [user]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = event.target
-    setUser({...user, [name]: value})
+    const { id, value } = event.target;
+    setUser({ ...user, [id]: value });
   }
-  
+
   async function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     try {
-      // console.log('checkPassword:',checkPassword())
-      // const passwordMatch = checkPassword()
+      console.log("checkPassword:", passwordmatch());
       if (passwordmatch()) {
-        // const res = await userApi.signup(user)
-        // console.log('서버연결됬나요', res)
-        console.log('회원가입')
-        setSuccess(true)
-        setError('')
+        const res = await axios.post("/api/auth/signup", user);
+        console.log("서버연결됬나요", res);
+        console.log("회원가입");
+        setSuccess(true);
+        setError("");
       }
     } catch (error) {
-      console.log('에러발생')
+      console.log("에러발생");
       // catchErrors(error, setError)
     } finally {
       // setLoading(false);
     }
   }
-  
+
   function passwordmatch() {
     if (user.password !== user.password2) {
       alert("비밀번호가 일치하지않습니다");
@@ -56,10 +62,10 @@ export const SignUp = ({}: SignUpProps) => {
       return true;
     }
   }
-  
+
   if (success) {
-    alert('회원가입 되었습니다')
-    navigate(`../`)
+    alert("회원가입 되었습니다");
+    navigate(`../`);
   }
 
   return (
@@ -111,7 +117,9 @@ export const SignUp = ({}: SignUpProps) => {
         <div className="text-center mt-3">
           <button
             className="bg-themeColor text-white border rounded w-100 py-2 px-3 mt-3"
+            type="submit"
             onClick={handleSubmit}
+            disabled={disabled}
           >
             회원가입
           </button>
