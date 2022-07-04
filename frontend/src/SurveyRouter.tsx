@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import { Login, SignUp } from "./auth";
-import { CreateSurveyForm, SurveyForm } from "./commons";
+import { SurveyForm } from "./commons";
+import { CreateSurveyForm } from "./CreateSurveyForm";
 import { Home } from "./home";
 
 export const SurveyRouter = () => {
