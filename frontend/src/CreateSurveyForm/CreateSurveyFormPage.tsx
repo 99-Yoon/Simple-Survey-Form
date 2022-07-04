@@ -48,7 +48,7 @@ export interface RatingType extends BasicQuestionType {
 const EssayQ: EssayType = {
   type: "essay",
   id: "000000000000",
-  title: "Question1",
+  title: "Question Title",
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: null,
@@ -56,7 +56,7 @@ const EssayQ: EssayType = {
 const RadioQ: RadioType = {
   type: "radio",
   id: "000000000001",
-  title: "Question2",
+  title: "Question Title",
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: {
@@ -68,7 +68,7 @@ const RadioQ: RadioType = {
 const CheckboxQ: CheckboxType = {
   type: "checkbox",
   id: "000000000002",
-  title: "Question3",
+  title: "Question Title",
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: {
@@ -79,7 +79,7 @@ const CheckboxQ: CheckboxType = {
 const DropdownQ: DropdownType = {
   type: "dropdown",
   id: "000000000003",
-  title: "Question4",
+  title: "Question Title",
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: {
@@ -90,7 +90,7 @@ const DropdownQ: DropdownType = {
 const FileQ: FileType = {
   type: "file",
   id: "000000000004",
-  title: "Question5",
+  title: "Question Title",
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: {
@@ -101,7 +101,7 @@ const FileQ: FileType = {
 const RatingQ: RatingType = {
   type: "rating",
   id: "000000000005",
-  title: "Question6",
+  title: "Question Title",
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: {
@@ -153,7 +153,7 @@ export const CreateSurveyForm = () => {
 
   return (
     <div className="flex flex-col place-items-center">
-      <div className="flex flex-col container place-items-center">
+      <div className="flex flex-col container place-items-center mt-4">
         <input
           type="text"
           className="font-bold text-4xl text-center m-2 border-b-2"
@@ -171,6 +171,11 @@ export const CreateSurveyForm = () => {
         QuestionListChange={QuestionListChange}
         addQuestion={addQuestion}
       />
+      <div>
+        <button className="border bg-themeColor my-5 py-2 px-3 font-bold text-white">
+          설문조사 생성
+        </button>
+      </div>
     </div>
   );
 };
