@@ -1,5 +1,5 @@
 import React from "react";
-import { RadioType } from "./Question";
+import { RadioType } from "./CreateSurveyFormPage";
 
 type Props = {
   element: RadioType;
@@ -11,8 +11,8 @@ export const QRadio = ({ element, QuestionListChange }: Props) => (
     <div className="flex h-16 w-full place-content-between items-center">
       <input
         type="text"
-        name={element.name}
-        id="title"
+        id={element.id}
+        name="title"
         className="text-xl font-bold ml-6 border-b-2 w-1/2"
         placeholder={element.title}
         onChange={QuestionListChange}
@@ -36,8 +36,8 @@ export const QRadio = ({ element, QuestionListChange }: Props) => (
     <div className="flex w-full justify-center">
       <input
         type="text"
-        name={element.name}
-        id="comment"
+        id={element.id}
+        name="comment"
         className="border w-11/12"
         placeholder="질문에 대한 설명을 입력해주세요"
         onChange={QuestionListChange}

@@ -1,4 +1,4 @@
-export const mongoUri = "mongodb://localhost/survey";
+export const mongoUri = "mongodb://localhost:27017/survey";
 
 export const jwtCofig = {
   secret: "HelloSecretString",
