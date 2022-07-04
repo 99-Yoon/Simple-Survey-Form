@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 
 type SignUpProps = {};
 
 export const SignUp = ({}: SignUpProps) => {
-  const USER = {
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
-  };
-  // interface USER {
-  //   name: "";
-  //   email: "";
-  //   password: "";
-  //   password2: "";
-  // }
+  interface IUSER {
+    name: string;
+    email: string;
+    password: string;
+    password2: string;
+  }
 
-  const [user, setUser] = useState(USER);
-  // const [user, setUser] = useState<USER>();
+  const [user, setUser] = useState<IUSER>({
+    name: "user",
+    email: "user1234@naver.com",
+    password: "1234",
+    password2: "1234",
+  });
+
   const [error, setError] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -39,8 +38,8 @@ export const SignUp = ({}: SignUpProps) => {
     try {
       console.log("checkPassword:", passwordmatch());
       if (passwordmatch()) {
-        // const res = await axios.post("/api/signup", user);
-        // console.log("서버연결됬나요", res);
+        const res = await axios.post("/api/auth/signup", user);
+        console.log("서버연결됬나요", res);
         console.log("회원가입");
         setSuccess(true);
         setError("");
@@ -69,7 +68,6 @@ export const SignUp = ({}: SignUpProps) => {
     navigate(`../`);
   }
 
-  // const { name, email, password, password2 } = user;
   return (
     <div className="flex justify-center mt-3">
       <div className="flex flex-col space-y-4 mt-5 text-xl font-bold">
