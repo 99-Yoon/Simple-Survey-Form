@@ -5,6 +5,7 @@ import { QCheckbox } from "./QCheckbox";
 import { QRadio } from "./QRadio";
 import { QDropdown } from "./QDropdown";
 import { QFile } from "./QFile";
+import { QRating } from "./QRating";
 
 type Props = {
   questionList: BasicQuestionType[];
@@ -57,7 +58,13 @@ export const Question = ({
                 QuestionListChange={QuestionListChange}
               />
             );
-
+          case "rating":
+            return (
+              <QRating
+                element={element}
+                QuestionListChange={QuestionListChange}
+              />
+            );
           default:
             break;
         }

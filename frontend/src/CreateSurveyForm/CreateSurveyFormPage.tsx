@@ -38,8 +38,10 @@ export interface FileType extends BasicQuestionType {
 }
 export interface RatingType extends BasicQuestionType {
   content: {
-    rateMin: number;
-    rateMax: number;
+    rateValues: {
+      value: number;
+      text: string;
+    }[];
     minRateDescription: string;
     maxRateDescription: string;
   };
@@ -105,8 +107,11 @@ const RatingQ: RatingType = {
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: {
-    rateMin: 0,
-    rateMax: 10,
+    rateValues: [
+      { value: 1, text: "1" },
+      { value: 2, text: "2" },
+      { value: 3, text: "3" },
+    ],
     minRateDescription: "가장 낮음",
     maxRateDescription: "가장 높음",
   },
