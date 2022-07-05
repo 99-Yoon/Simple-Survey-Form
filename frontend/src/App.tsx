@@ -1,12 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { AuthProvider } from "./auth/auth.context";
 import { Header } from "./commons";
 
 const App = () => (
-  <div>
+  <AuthProvider>
     <Header />
     <Outlet />
-  </div>
+  </AuthProvider>
 );
 
 export default App;
