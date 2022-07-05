@@ -118,6 +118,7 @@ const RatingQ: RatingType = {
 };
 
 export const CreateSurveyForm = () => {
+  const [currentId, setCurrentId] = useState<string>("");
   const [questionList, setQuestionList] = useState<Array<BasicQuestionType>>([
     EssayQ,
     RadioQ,
@@ -125,11 +126,15 @@ export const CreateSurveyForm = () => {
   ]);
   const [survey, setSurvey] = useState();
 
+  function changeCurrentId(event: React.MouseEvent<HTMLButtonElement>): void {
+    setCurrentId(event.currentTarget.id);
+  }
+
   function QuestionListChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const newList: BasicQuestionType[] = [...questionList];
-    const targetId: any = e.target.name;
-    const obj: any = newList.find((a) => a.id === e.target.id);
-    obj[targetId] = e.target.value;
+    const obj: any = newList.find((a) => a.id === e.target.id); //고유 _id로 질문찾기
+    const targetKey: any = e.target.name;
+    obj[targetKey] = e.target.value;
     setQuestionList(newList);
   }
 
@@ -157,30 +162,34 @@ export const CreateSurveyForm = () => {
   function deleteQuestion(): void {}
 
   return (
-    <div className="flex flex-col place-items-center">
-      <div className="flex flex-col container place-items-center mt-4">
-        <input
-          type="text"
-          className="font-bold text-4xl text-center m-2 border-b-2"
-          placeholder="설문지 제목"
-        ></input>
-        <textarea
-          className="font-bold text-1xl text-center m-2 resize-none"
-          placeholder="설문조사에 대한 설명을 입력해주세요"
-          rows={2}
-          cols={60}
-        ></textarea>
+    <>
+      {console.log(currentId)}
+      <div className="flex flex-col place-items-center">
+        <div className="flex flex-col container place-items-center mt-4">
+          <input
+            type="text"
+            className="font-bold text-4xl text-center m-2 border-b-2"
+            placeholder="설문지 제목"
+          ></input>
+          <textarea
+            className="font-bold text-1xl text-center m-2 resize-none"
+            placeholder="설문조사에 대한 설명을 입력해주세요"
+            rows={2}
+            cols={60}
+          ></textarea>
+        </div>
+        <Question
+          questionList={questionList}
+          QuestionListChange={QuestionListChange}
+          addQuestion={addQuestion}
+          changeCurrentId={changeCurrentId}
+        />
+        <div>
+          <button className="border bg-themeColor my-5 py-2 px-3 font-bold text-white">
+            설문조사 생성
+          </button>
+        </div>
       </div>
-      <Question
-        questionList={questionList}
-        QuestionListChange={QuestionListChange}
-        addQuestion={addQuestion}
-      />
-      <div>
-        <button className="border bg-themeColor my-5 py-2 px-3 font-bold text-white">
-          설문조사 생성
-        </button>
-      </div>
-    </div>
+    </>
   );
 };

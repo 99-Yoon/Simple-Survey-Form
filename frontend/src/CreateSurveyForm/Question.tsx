@@ -11,12 +11,14 @@ type Props = {
   questionList: BasicQuestionType[];
   QuestionListChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   addQuestion: () => void;
+  changeCurrentId: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const Question = ({
   questionList,
   QuestionListChange,
   addQuestion,
+  changeCurrentId,
 }: Props) => {
   return (
     <>
@@ -28,6 +30,7 @@ export const Question = ({
               <QEssay
                 element={element}
                 QuestionListChange={QuestionListChange}
+                changeCurrentId={changeCurrentId}
               />
             );
           case "radio":

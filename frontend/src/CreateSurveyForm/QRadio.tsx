@@ -44,12 +44,19 @@ export const QRadio = ({ element, QuestionListChange }: Props) => (
       ></input>
     </div>
     <div className="flex mt-4">
-      {element.content.choices.map((e: string) => (
+      {element.content.choices.map((e: string, index: number) => (
         <div>
-          <input type="radio" id={e} name="choice" value={e} checked={false} />
+          <input
+            type="radio"
+            id={element.id}
+            name="choice"
+            value={e}
+            disabled
+          />
           <input
             type="text"
-            name="content"
+            name={"choice" + `${index}`}
+            // key={`${index}`}
             className="mx-2 border-b-2"
             placeholder={e}
             onChange={QuestionListChange}

@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { EssayType } from "./CreateSurveyFormPage";
+import { Edit } from "./Edit";
 
 type Props = {
   element: EssayType;
   QuestionListChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  changeCurrentId: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-export const QEssay = ({ element, QuestionListChange }: Props) => {
+export const QEssay = ({
+  element,
+  QuestionListChange,
+  changeCurrentId,
+}: Props) => {
   return (
     <div className="flex flex-col container w-4/5 h-auto border-2 border-themeColor items-center m-3 py-2">
       <div className="flex h-16 w-full place-content-between items-center">
@@ -52,6 +58,7 @@ export const QEssay = ({ element, QuestionListChange }: Props) => {
         <button className="w-1/12">필수</button>
         <button className="w-1/12">옵션</button>
         <button className="w-1/12">삭제</button>
+        <Edit id={element.id} changeCurrentId={changeCurrentId} />
       </div>
     </div>
   );
