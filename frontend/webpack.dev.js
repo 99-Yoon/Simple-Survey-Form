@@ -6,5 +6,14 @@ const common = require("./webpack.common.js");
 module.exports = merge(common, {
   mode: "development",
   devtool: "eval-cheap-module-source-map",
-  devServer: { historyApiFallback: true },
+  devServer: {
+    proxy: [
+      {
+        context: ["/api"],
+        target: "http://localhost:3000",
+        changeOrigin: true,
+      },
+    ],
+    historyApiFallback: true,
+  },
 });
