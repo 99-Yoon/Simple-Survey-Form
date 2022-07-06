@@ -10,7 +10,7 @@ import { QRating } from "./QRating";
 type Props = {
   questionList: BasicQuestionType[];
   QuestionListChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  addQuestion: () => void;
+  addQuestion: (event: React.MouseEvent<HTMLButtonElement>) => void;
   changeCurrentId: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 

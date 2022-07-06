@@ -15,7 +15,7 @@ const validateEmail = (email: string) => {
 const schema = new Schema<IUser>({
   email: {
     type: String,
-    rquired: true,
+    required: true,
     unique: true,
     validate: [validateEmail, "이메일을 입력해주세요"],
   },

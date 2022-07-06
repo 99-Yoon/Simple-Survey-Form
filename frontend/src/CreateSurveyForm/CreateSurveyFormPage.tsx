@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Question } from "./Question";
+import axios from "axios";
 
 export interface BasicQuestionType {
   type: string;
@@ -119,6 +120,9 @@ const RatingQ: RatingType = {
 
 export const CreateSurveyForm = () => {
   const [currentId, setCurrentId] = useState<string>("");
+  const [error, setError] = useState("");
+  const [disabled, setDisabled] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [questionList, setQuestionList] = useState<Array<BasicQuestionType>>([
     EssayQ,
     RadioQ,
@@ -138,7 +142,20 @@ export const CreateSurveyForm = () => {
     setQuestionList(newList);
   }
 
-  function addQuestion(): void {
+  async function addQuestion(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    try {
+      const res = await axios.post("/api/question/create");
+      console.log("서버연결됬나요", res);
+      console.log("회원가입");
+      setSuccess(true);
+      setError("");
+    } catch (error) {
+      console.log("에러발생");
+      // catchErrors(error, setError)
+    } finally {
+      // setLoading(false);
+    }
     //무작위로 12자리 ID제공, 추후에 질문을 DB에 생성하고 _id를 DB에서 가져오는 것으로 교체할 예정
     function getRandomInt(min: number, max: number): string {
       min = Math.ceil(min);
