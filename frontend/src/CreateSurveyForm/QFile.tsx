@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { FileType } from "./CreateSurveyFormPage";
+import { useQuestion } from "./question.context";
 
 type Props = {
   element: FileType;
-  QuestionListChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const QFile = ({ element, QuestionListChange }: Props) => {
+export const QFile = ({ element }: Props) => {
+  const { questionListChange } = useQuestion();
+
   return (
     <div className="flex flex-col container w-4/5 h-auto border-2 border-themeColor items-center m-3 py-2">
       <div className="flex h-16 w-full place-content-between items-center">
         <input
           type="text"
-          name={element.name}
-          id="title"
+          name="title"
+          id={element._id}
           className="text-xl font-bold ml-6 border-b-2 w-1/2"
           placeholder={element.title}
-          onChange={QuestionListChange}
+          onChange={questionListChange}
         ></input>
         <select
           id="Questions"
@@ -38,11 +40,11 @@ export const QFile = ({ element, QuestionListChange }: Props) => {
       <div className="flex w-full justify-center">
         <input
           type="text"
-          name={element.name}
-          id="comment"
+          name="comment"
+          id={element._id}
           className="border w-11/12"
           placeholder="질문에 대한 설명을 입력해주세요"
-          onChange={QuestionListChange}
+          onChange={questionListChange}
         ></input>
       </div>
       <div id="commentarea" className="flex mt-4 w-full justify-center">
