@@ -2,10 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { userDb } from "../db";
 import { asyncWrap } from "../helpers/asyncWrap";
 import { TypedRequestAuth } from "./auth.controller";
-export const getUsers = asyncWrap(async (req, res) => {
-  const users = await userDb.getUsers();
-  return res.json(users);
-});
 
 export const createUser = asyncWrap(async (req, res) => {
   const user = req.body;
@@ -19,6 +15,11 @@ export const deleteUser = asyncWrap(async (req, res) => {
   console.log("user id:", userId);
   const deletedUser = await userDb.deleteUserById(userId);
   return res.json(deletedUser);
+});
+
+export const getUsers = asyncWrap(async (req, res) => {
+  const users = await userDb.getUsers();
+  return res.json(users);
 });
 
 export const userById = async (
