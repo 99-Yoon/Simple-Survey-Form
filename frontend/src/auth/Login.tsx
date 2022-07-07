@@ -1,15 +1,22 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { catchErrors } from "../helpers";
 import { SpinnerIcon } from "../icons";
 import { useAuth } from "./auth.context";
+
+interface LocationState {
+  state: { from: string };
+}
 
 export const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  const location = useLocation() as LocationState;
   const { login } = useAuth();
+
+  const from = location.state.from || "/";
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.currentTarget;
@@ -18,11 +25,10 @@ export const Login = () => {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    console.log(loginData);
     const { email, password } = loginData;
     try {
       setLoading(true);
-      await login(email, password, () => navigate("/", { replace: true }));
+      await login(email, password, () => navigate(from, { replace: true }));
     } catch (error) {
       setLoading(false);
       catchErrors(error, setError);
