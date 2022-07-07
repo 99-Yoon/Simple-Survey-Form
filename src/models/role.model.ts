@@ -5,9 +5,12 @@ interface IRole {
   priority: number;
 }
 
-const schema = new Schema<IRole>({
-  name: { type: String },
-  priority: { type: Number },
-});
+const schema = new Schema<IRole>(
+  {
+    name: { type: String, unique: true },
+    priority: { type: Number },
+  },
+  { toJSON: { versionKey: false } }
+);
 
 export default model<IRole>("Role", schema);
