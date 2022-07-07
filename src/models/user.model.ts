@@ -12,16 +12,26 @@ const validateEmail = (email: string) => {
   return re.test(email);
 };
 
-const schema = new Schema<IUser>({
-  email: {
-    type: String,
-    rquired: true,
-    unique: true,
-    validate: [validateEmail, "이메일을 입력해주세요"],
+const schema = new Schema<IUser>(
+  {
+    email: {
+      type: String,
+      rquired: true,
+      unique: true,
+      validate: [validateEmail, "이메일을 입력해주세요"],
+    },
+    name: { type: String },
+    password: { type: String, required: true, select: false },
+    role: { type: Schema.Types.ObjectId, ref: "Role" },
   },
-  name: { type: String },
-  password: { type: String, required: true, select: false },
-  role: { type: Schema.Types.ObjectId, ref: "Role" },
-});
+  {
+    toJSON: {
+      versionKey: false,
+      transform(doc, ret, options) {
+        delete ret.password;
+      },
+    },
+  }
+);
 
 export default model<IUser>("User", schema);
