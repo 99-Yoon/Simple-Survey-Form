@@ -5,5 +5,5 @@ export const createQuestion = asyncWrap(async (req, res) => {
   const question = req.body;
   console.log("question body", question);
   const newQuestion = await questionDb.createQuestion(question);
-  return res.json(question);
+  return res.json(newQuestion);
 });

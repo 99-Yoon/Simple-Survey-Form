@@ -1,13 +1,15 @@
 import React from "react";
+import { useQuestion } from "./question.context";
 
 type Props = {
   id: string;
-  changeCurrentId: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-export const Edit = ({ id, changeCurrentId }: Props) => {
+export const Edit = ({ id }: Props) => {
+  const { editClick } = useQuestion();
+
   return (
-    <button id={id} className="" onClick={changeCurrentId}>
+    <button id={id} className="w-1/12" onClick={editClick}>
       수정
     </button>
   );

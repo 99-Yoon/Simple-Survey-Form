@@ -2,7 +2,7 @@ import { model, Schema, Types } from "mongoose";
 
 export interface IQuestion {
     type: string;
-    id: string;
+    // id: string;
     title?: string;
     isRequired: boolean;
     comment?: string;
@@ -10,7 +10,7 @@ export interface IQuestion {
   }
   
   const schema = new Schema<IQuestion>({
-    id: {type:String},
+    // id: {type:String},
     type:{type:String},
     title: {type:String},
     isRequired: {type:Boolean},

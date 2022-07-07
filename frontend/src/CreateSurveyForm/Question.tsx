@@ -1,73 +1,34 @@
 import React, { useState } from "react";
-import { BasicQuestionType } from "./CreateSurveyFormPage";
 import { QEssay } from "./QEssay";
 import { QCheckbox } from "./QCheckbox";
 import { QRadio } from "./QRadio";
 import { QDropdown } from "./QDropdown";
 import { QFile } from "./QFile";
 import { QRating } from "./QRating";
+import { useQuestion } from "./question.context";
 
-type Props = {
-  questionList: BasicQuestionType[];
-  QuestionListChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  addQuestion: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  changeCurrentId: (event: React.MouseEvent<HTMLButtonElement>) => void;
-};
+type Props = {};
 
-export const Question = ({
-  questionList,
-  QuestionListChange,
-  addQuestion,
-  changeCurrentId,
-}: Props) => {
+export const Question = ({}: Props) => {
+  const { addQuestion, questionList, currentId } = useQuestion();
+
   return (
     <>
-      {console.log(questionList)}
+      {console.log(questionList, currentId)}
       {questionList.map((element) => {
         switch (element.type) {
           case "essay":
-            return (
-              <QEssay
-                element={element}
-                QuestionListChange={QuestionListChange}
-                changeCurrentId={changeCurrentId}
-              />
-            );
+            return <QEssay element={element} />;
           case "radio":
-            return (
-              <QRadio
-                element={element}
-                QuestionListChange={QuestionListChange}
-              />
-            );
+            return <QRadio element={element} />;
           case "checkbox":
-            return (
-              <QCheckbox
-                element={element}
-                QuestionListChange={QuestionListChange}
-              />
-            );
+            return <QCheckbox element={element} />;
           case "dropdown":
-            return (
-              <QDropdown
-                element={element}
-                QuestionListChange={QuestionListChange}
-              />
-            );
+            return <QDropdown element={element} />;
           case "file":
-            return (
-              <QFile
-                element={element}
-                QuestionListChange={QuestionListChange}
-              />
-            );
+            return <QFile element={element} />;
           case "rating":
-            return (
-              <QRating
-                element={element}
-                QuestionListChange={QuestionListChange}
-              />
-            );
+            return <QRating element={element} />;
           default:
             break;
         }

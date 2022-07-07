@@ -5,7 +5,6 @@ const router = express.Router();
 
 router
   .route("/create")
-  .get()
   .post(questionCtrl.createQuestion);
 
 export default router;
