@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import isLength from "validator/lib/isLength";
 import isEmail from "validator/lib/isEmail";
 import { asyncWrap } from "../helpers";
-import { userDb } from "../db";
+import { roleDb, userDb } from "../db";
 import { jwtCofig, envConfig, cookieConfig } from "../config";
 
 export interface TypedRequestAuth<T> extends Request {
@@ -36,6 +36,30 @@ export const authenticate = asyncWrap(
     }
   }
 );
+
+/**
+ * 지정된 역할 이상으로 권한이 있는지를 판단하는 미들웨어를 반환합니다.
+ * @param roleName 역할 문자열
+ * @returns 미들웨어
+ */
+export const hasRole = (roleName: string) => {
+  // roleName 이상으로 허락하는 것
+  return async (reqExp: Request, res: Response, next: NextFunction) => {
+    const req = reqExp as TypedRequestAuth<{ userId: string }>;
+
+    if (!req.auth) {
+      return res.status(401).send("로그인이 필요합니다");
+    }
+    const { userId } = req.auth;
+    const userRole = await roleDb.findRoleByUserId(userId);
+    const maxRole = await roleDb.findRoleByName(roleName);
+    if (maxRole && Number(maxRole.priority) >= Number(userRole.priority)) {
+      return next();
+    } else {
+      return res.status(401).send("이용 권한이 없습니다");
+    }
+  };
+};
 
 export const login = asyncWrap(async (req, res) => {
   const { email, password } = req.body;
