@@ -9,7 +9,34 @@ import { jwtCofig, envConfig, cookieConfig } from "../config";
 
 export interface TypedRequestAuth<T> extends Request {
   auth: T;
+  user: any;
 }
+
+/**
+ * 함수를 호출하기 전에 req에 user 정보를 지정해야 합니다.
+ */
+export const authenticate = asyncWrap(
+  async (reqExp: Request, res: Response, next: NextFunction) => {
+    try {
+      const req = reqExp as TypedRequestAuth<{ userId: string }>;
+      if (req.auth) {
+        const { userId } = req.auth;
+        const user = req.user;
+        if (user && user.id === userId) {
+          return next();
+        } else {
+          throw new Error("권한이 필요합니다");
+        }
+      } else {
+        throw new Error("로그인이 필요합니다");
+      }
+    } catch (error: any) {
+      console.log(error);
+      return res.status(401).send(error.message || "권한 없음");
+    }
+  }
+);
+
 export const login = asyncWrap(async (req, res) => {
   const { email, password } = req.body;
   console.log(`email: ${email}, password: ${password}`);
@@ -84,12 +111,12 @@ export const signup = asyncWrap(async (req, res) => {
   if (userExist) {
     return res.status(422).send(`${email} 사용자가 이미 존재합니다`);
   }
-  // 3) 비밀번호 암호화
-  const hash = await bcrypt.hash(password, 10);
+  // 3) 비밀번호 암호화는 useDb.createUser에서 처리
+  // const hash = await bcrypt.hash(password, 10);
   // 4) 새로운 사용자 만들기
   const newUser = await userDb.createUser({
     email,
-    password: hash,
+    password,
   });
   // 5) 사용자 반환
   res.json(newUser);
