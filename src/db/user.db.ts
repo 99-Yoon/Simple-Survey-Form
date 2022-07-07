@@ -1,11 +1,24 @@
 import bcrypt from "bcryptjs";
-import { IUser, User } from "../models";
+import { IUser, Role, User } from "../models";
 
 export const createUser = async (user: IUser) => {
   // 비밀번호 암호화
   const hash = await bcrypt.hash(user.password, 10);
-  const newUser = await User.create({ email: user.email, password: hash });
-  return newUser;
+  // 사용자 역할 추가: 기본값은 "user"
+  let userRole = null;
+  if (user.role) {
+    userRole = await Role.findById(user.role);
+  } else {
+    userRole = await Role.findOne({ name: "user" });
+  }
+  const newUser = new User({
+    email: user.email,
+    password: hash,
+    role: userRole,
+    isNew: true,
+  });
+  const retUser = await newUser.save();
+  return retUser;
 };
 
 export const deleteUserById = async (userId: string) => {
