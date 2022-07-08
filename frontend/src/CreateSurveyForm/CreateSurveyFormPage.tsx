@@ -143,7 +143,7 @@ export const CreateSurveyForm = () => {
           </div>
           <Question />
           <div>
-            <button className="border bg-themeColor my-5 py-2 px-3 font-bold text-white">
+            <button className="border rounded bg-themeColor my-5 py-2 px-3 font-bold text-white">
               설문조사 생성
             </button>
           </div>
