@@ -46,7 +46,7 @@ export const QRadio = ({ element }: Props) => {
         ></input>
       </div>
       <div className="flex mt-4">
-        {element.content.choices.map((e: string, index: number) => (
+        {element.content.choices.map((e: any, index: number) => (
           <div>
             <input
               type="radio"

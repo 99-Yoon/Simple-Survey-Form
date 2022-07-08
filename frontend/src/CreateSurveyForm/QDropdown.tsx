@@ -47,7 +47,7 @@ export const QDropdown = ({ element }: Props) => {
         ></input>
       </div>
       <div id="commentarea" className="flex mt-4">
-        {element.content.choices.map((e: string) => (
+        {element.content.choices.map((e: any) => (
           <div>
             <input type="checkbox" checked={false}></input>
             <input

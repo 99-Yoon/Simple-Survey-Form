@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 export const Profile = () => {
   return (
-    <div className="flex justify-center">
-      <div className="  m-5">나의 설문조사</div>
+    <div className="flex flex-col items-center">
+      <div className="m-5">나의 설문조사</div>
       <div className="flex flex-row space-x-4 mt-5">
         <Link
           to="/create"

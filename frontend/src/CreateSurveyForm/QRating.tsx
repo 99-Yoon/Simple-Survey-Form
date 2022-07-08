@@ -56,7 +56,7 @@ export const QRating = ({ element }: Props) => {
           size={10}
           placeholder={element.content.minRateDescription}
         ></input>
-        {element.content.rateValues.map((e) => (
+        {element.content.choices.map((e) => (
           <input
             name="text"
             id={element._id}

@@ -67,9 +67,9 @@ export const SignUp = () => {
   }
 
   return (
-    <div className="flex flex-col items-center mt-3">
-      <div className="text-2xl">회원 가입</div>
-      <form onSubmit={handleSubmit} className="flex flex-col mt-5 w-80">
+    <div className="flex flex-col items-center mt-5">
+      <div className="text-2xl mt-5">회원가입</div>
+      <form onSubmit={handleSubmit} className="flex flex-col mt-3 w-80">
         <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
           이름
         </label>

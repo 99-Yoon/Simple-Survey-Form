@@ -15,19 +15,28 @@ export interface EssayType extends BasicQuestionType {}
 export interface RadioType extends BasicQuestionType {
   content: {
     hasOther: boolean;
-    choices: string[];
+    choices: {
+      value: number;
+      text: string;
+    }[];
     otherText: string;
   };
 }
 export interface CheckboxType extends BasicQuestionType {
   content: {
-    choices: string[];
+    choices: {
+      value: number;
+      text: string;
+    }[];
     maxCount: number;
   };
 }
 export interface DropdownType extends BasicQuestionType {
   content: {
-    choices: string[];
+    choices: {
+      value: number;
+      text: string;
+    }[];
     hasNone: boolean;
   };
 }
@@ -39,7 +48,7 @@ export interface FileType extends BasicQuestionType {
 }
 export interface RatingType extends BasicQuestionType {
   content: {
-    rateValues: {
+    choices: {
       value: number;
       text: string;
     }[];
@@ -65,7 +74,11 @@ const RadioQ: RadioType = {
   content: {
     hasOther: false,
     otherText: "",
-    choices: ["radio1", "radio2", "radio3"],
+    choices: [
+      { value: 1, text: "radio1" },
+      { value: 2, text: "radio2" },
+      { value: 3, text: "radio3" },
+    ],
   },
 };
 const CheckboxQ: CheckboxType = {
@@ -75,7 +88,11 @@ const CheckboxQ: CheckboxType = {
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: {
-    choices: ["check1", "check2", "check3"],
+    choices: [
+      { value: 1, text: "check1" },
+      { value: 2, text: "check2" },
+      { value: 3, text: "check3" },
+    ],
     maxCount: 2,
   },
 };
@@ -86,7 +103,11 @@ const DropdownQ: DropdownType = {
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: {
-    choices: ["drop1", "drop2", "drop3"],
+    choices: [
+      { value: 1, text: "drop1" },
+      { value: 2, text: "drop2" },
+      { value: 3, text: "drop3" },
+    ],
     hasNone: false,
   },
 };
@@ -108,7 +129,7 @@ const RatingQ: RatingType = {
   isRequired: false,
   comment: "질문에 대한 설명을 입력해주세요",
   content: {
-    rateValues: [
+    choices: [
       { value: 1, text: "1" },
       { value: 2, text: "2" },
       { value: 3, text: "3" },

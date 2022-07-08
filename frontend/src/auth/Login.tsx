@@ -36,11 +36,9 @@ export const Login = () => {
   }
 
   return (
-    <div className="flex justify-center mt-3">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col space-y-4 mt-5 text-xl font-bold"
-      >
+    <div className="flex flex-col items-center mt-5">
+      <div className="text-2xl mt-5">로그인</div>
+      <form onSubmit={handleSubmit} className="flex flex-col mt-3 w-80">
         <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
           이메일
         </label>
@@ -75,7 +73,7 @@ export const Login = () => {
           <button
             type="submit"
             disabled={loading ? true : false}
-            className="bg-themeColor text-white border rounded w-100 py-2 px-3 mt-3"
+            className="bg-themeColor text-white border rounded w-100 py-2 px-3 mt-5"
           >
             {loading && (
               <SpinnerIcon className="animate-spin h-5 w-5 mr-1 text-white" />
