@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import axios from "axios";
 import { BasicQuestionType } from "../types";
+import { questionApi } from "../apis";
 
 interface IQuestionContext {
   questionListChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -38,17 +39,10 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setQuestionList(newList);
   }
 
-  async function addQuestion(e: React.MouseEvent<HTMLButtonElement>) {
+  async function addQuestion() {
     try {
-      const res = await axios.post("/api/questions/create", {
-        type: "essay",
-        title: "Question Title",
-        isRequired: false,
-        comment: "질문에 대한 설명을 입력해주세요",
-        content: null,
-      });
-      console.log(res.data);
-      setQuestionList([...questionList, res.data]);
+      const newQ: BasicQuestionType = await questionApi.createQuestion();
+      setQuestionList([...questionList, newQ]);
       // setSuccess(true);
       // setError("");
     } catch (error) {
