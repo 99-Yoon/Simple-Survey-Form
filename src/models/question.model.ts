@@ -10,13 +10,14 @@ export interface IQuestion {
   }
   
   const schema = new Schema<IQuestion>({
-    // id: {type:String},
     type:{type:String},
     title: {type:String},
     isRequired: {type:Boolean},
     comment:{type: String},
     content:{type: Object},
-  });
+  }, {toJSON: {
+    versionKey: false
+  }});
   
   export default model<IQuestion>("Question", schema);
   

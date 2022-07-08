@@ -34,7 +34,9 @@ export const Questions = ({}: Props) => {
         }
       })}
       <div className="flex w-4/5 content-center justify-center border-2 border-black h-8 mt-3">
-        <button onClick={addQuestion}>질문 추가</button>
+        <button type="button" onClick={addQuestion}>
+          질문 추가
+        </button>
       </div>
     </>
   );

@@ -1,5 +1,4 @@
 import axios from "axios";
-import {  } from "../types";
 import baseUrl from "./baseUrl";
 
 export const createQuestion = async () => {

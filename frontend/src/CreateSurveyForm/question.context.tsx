@@ -5,32 +5,67 @@ import React, {
   useContext,
   useState,
 } from "react";
-import axios from "axios";
-import { BasicQuestionType } from "../types";
-import { questionApi } from "../apis";
+import { BasicQuestionType, SurveyType } from "../types";
+import { questionApi, surveyApi } from "../apis";
 
 interface IQuestionContext {
+  handleSurvey: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   questionListChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   questionList: BasicQuestionType[];
   editClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  editCompleteClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   currentId: string;
   addQuestion: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
 }
 
 const QuestionContext = createContext<IQuestionContext>({
+  handleSurvey: () => {},
+  handleSubmit: () => {},
   questionListChange: () => {},
   questionList: [],
   editClick: () => {},
+  editCompleteClick: () => {},
   currentId: "",
   addQuestion: async () => {},
 });
 
 export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const [error, setError] = useState("");
+  const [disabled, setDisabled] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [questionList, setQuestionList] = useState<Array<BasicQuestionType>>(
     []
   );
   const [currentId, setCurrentId] = useState<string>("");
+  const [survey, setSurvey] = useState<SurveyType>({
+    title: "",
+    comment: "",
+    //questions 는 _id들의 배열
+    questions: [],
+  });
 
+  function handleSurvey(event: React.ChangeEvent<HTMLInputElement>) {
+    setSurvey({
+      ...survey,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    try {
+      const newSurvey: SurveyType = await surveyApi.createSurvey(survey);
+      console.log(newSurvey);
+      // setSuccess(true);
+      // setError("");
+    } catch (error) {
+      console.log("에러발생");
+      // catchErrors(error, setError)
+    } finally {
+      // setLoading(false);
+    }
+  }
   function questionListChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const newList: BasicQuestionType[] = [...questionList];
     const obj: any = newList.find((a) => a._id === e.target.id); //고유 _id로 질문찾기
@@ -42,6 +77,7 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
   async function addQuestion() {
     try {
       const newQ: BasicQuestionType = await questionApi.createQuestion();
+      setSurvey({ ...survey, questions: [...survey.questions, newQ._id] });
       setQuestionList([...questionList, newQ]);
       // setSuccess(true);
       // setError("");
@@ -57,13 +93,18 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setCurrentId(e.currentTarget.id);
   }
 
+  function editCompleteClick(e: React.MouseEvent<HTMLButtonElement>) {}
+
   return (
     <QuestionContext.Provider
       value={{
+        handleSurvey,
+        handleSubmit,
         questionListChange,
         addQuestion,
         questionList,
         editClick,
+        editCompleteClick,
         currentId,
       }}
     >
