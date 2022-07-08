@@ -18,9 +18,9 @@ export function TypeChange({ tt }: typeChangeProps) {
     ["grid", "그리드"],
     ["date", "날짜"],
   ]);
-  function changeDD(e: ChangeEvent<HTMLSelectElement>) {
+  function changeDD(e: React.ChangeEvent<HTMLSelectElement>) {
     const tt = e.target.value;
-    questionTypeChange(e);
+    // questionTypeChange(e);
     console.log(tt);
     //if문으로 type별로 content 바뀌게 해보기
   }
