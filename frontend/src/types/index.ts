@@ -3,3 +3,9 @@ export interface IUser {
   isLoggedIn: boolean;
   _id?: string;
 }
+
+export interface SignupUser {
+  email: string;
+  name: string;
+  password: string;
+}

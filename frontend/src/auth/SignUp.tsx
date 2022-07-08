@@ -1,28 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import React, { FormEvent, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { authApi } from "../apis";
+import { catchErrors } from "../helpers";
+import { SpinnerIcon } from "../icons";
+import { SignupUser } from "../types";
 
-type SignUpProps = {};
-
-export const SignUp = ({}: SignUpProps) => {
-  interface IUSER {
-    name: string;
-    email: string;
-    password: string;
-    password2: string;
-  }
-
-  const [user, setUser] = useState<IUSER>({
-    name: "user",
-    email: "user1234@naver.com",
-    password: "1234",
-    password2: "1234",
+export const SignUp = () => {
+  const [user, setUser] = useState<SignupUser & { password2: string }>({
+    name: "",
+    email: "",
+    password: "",
+    password2: "",
   });
 
   const [error, setError] = useState("");
   const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setDisabled(!(user.name && user.email && user.password && user.password2));
@@ -33,12 +27,16 @@ export const SignUp = ({}: SignUpProps) => {
     setUser({ ...user, [id]: value });
   }
 
-  async function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     try {
-      console.log("checkPassword:", passwordmatch());
-      if (passwordmatch()) {
-        const res = await axios.post("/api/auth/signup", user);
+      setError("");
+      console.log("checkPassword:", passwordMatch());
+      console.log("user data", user);
+      if (passwordMatch()) {
+        const { password2, ...sUser } = user;
+        setLoading(true);
+        const res = await authApi.signup(sUser);
         console.log("서버연결됬나요", res);
         console.log("회원가입");
         setSuccess(true);
@@ -46,15 +44,15 @@ export const SignUp = ({}: SignUpProps) => {
       }
     } catch (error) {
       console.log("에러발생");
-      // catchErrors(error, setError)
+      catchErrors(error, setError);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   }
 
-  function passwordmatch() {
+  function passwordMatch() {
     if (user.password !== user.password2) {
-      alert("비밀번호가 일치하지않습니다");
+      setError("비밀번호가 일치하지않습니다");
       console.log("password fail");
       return false;
     } else {
@@ -65,12 +63,15 @@ export const SignUp = ({}: SignUpProps) => {
 
   if (success) {
     alert("회원가입 되었습니다");
-    navigate(`../`);
+    return <Navigate to={"/login"} replace />;
   }
 
   return (
     <div className="flex justify-center mt-3">
-      <div className="flex flex-col space-y-4 mt-5 text-xl font-bold">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col space-y-4 mt-5 font-bold"
+      >
         <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
           이름
         </label>
@@ -81,7 +82,10 @@ export const SignUp = ({}: SignUpProps) => {
           placeholder="이름을 입력하세요"
           onChange={handleChange}
         />
-        <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
+        <label
+          htmlFor="email"
+          className="block text-gray-700 text-sm font-bold mb-2 mt-3"
+        >
           이메일
         </label>
         <input
@@ -89,42 +93,57 @@ export const SignUp = ({}: SignUpProps) => {
           id="email"
           type="text"
           placeholder="이메일을 입력하세요"
+          autoComplete="username"
           onChange={handleChange}
         />
 
-        <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
+        <label
+          htmlFor="password"
+          className="block text-gray-700 text-sm font-bold mb-2 mt-3"
+        >
           비밀번호
         </label>
         <input
           className="shadow appearance-none border rounded py-2 px-3 text-gray-70"
           id="password"
           type="password"
+          autoComplete="new-password"
           placeholder="비밀번호를 입력하세요"
           onChange={handleChange}
         />
 
-        <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
+        <label
+          htmlFor="password2"
+          className="block text-gray-700 text-sm font-bold mb-2 mt-3"
+        >
           비밀번호 확인
         </label>
         <input
           className="shadow appearance-none border rounded py-2 px-3 text-gray-70"
           id="password2"
           type="password"
+          autoComplete="new-password"
           placeholder="비밀번호를 다시 입력하세요"
           onChange={handleChange}
         />
-
+        {error && (
+          <div className="text-red-500 text-sm">
+            <p>{error}</p>
+          </div>
+        )}
         <div className="text-center mt-3">
           <button
-            className="bg-themeColor text-white border rounded w-100 py-2 px-3 mt-3"
             type="submit"
-            onClick={handleSubmit}
+            className="bg-themeColor text-white border rounded w-100 py-2 px-3 mt-3"
             disabled={disabled}
           >
+            {loading && (
+              <SpinnerIcon className="animate-spin h-5 w-5 mr-1 text-slate" />
+            )}
             회원가입
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
