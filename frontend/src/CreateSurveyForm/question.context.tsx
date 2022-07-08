@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import axios from "axios";
 import { BasicQuestionType } from "./CreateSurveyFormPage";
+import e from "express";
 
 interface IQuestionContext {
   questionListChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,6 +15,7 @@ interface IQuestionContext {
   editClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   currentId: string;
   addQuestion: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
+  questionTypeChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const QuestionContext = createContext<IQuestionContext>({
@@ -22,6 +24,7 @@ const QuestionContext = createContext<IQuestionContext>({
   editClick: () => {},
   currentId: "",
   addQuestion: async () => {},
+  questionTypeChange: () => {},
 });
 
 export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
@@ -36,6 +39,13 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const targetKey: any = e.target.name;
     obj[targetKey] = e.target.value;
     setQuestionList(newList);
+  }
+  function questionTypeChange(e: React.ChangeEvent<HTMLSelectElement>): void {
+    const newType: BasicQuestionType[] = [...questionList];
+    const objType: any = newType.find((t) => t._id === e.target.id);
+    const targetType: string = e.target.name;
+    objType[targetType] = e.target.value;
+    setQuestionList(newType);
   }
 
   async function addQuestion(e: React.MouseEvent<HTMLButtonElement>) {
@@ -71,6 +81,7 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
         questionList,
         editClick,
         currentId,
+        questionTypeChange,
       }}
     >
       {children}

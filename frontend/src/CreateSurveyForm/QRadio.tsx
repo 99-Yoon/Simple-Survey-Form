@@ -1,6 +1,7 @@
 import React from "react";
 import { RadioType } from "./CreateSurveyFormPage";
 import { useQuestion } from "./question.context";
+import { TypeChange } from "./typeDD";
 
 type Props = {
   element: RadioType;
@@ -19,21 +20,7 @@ export const QRadio = ({ element }: Props) => {
           placeholder={element.title}
           onChange={questionListChange}
         ></input>
-        <select
-          id="Questions"
-          className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor focus:themeColor block w-full mr-3 p-2.5"
-        >
-          <option>질문종류</option>
-          <option value="Essay">주관식</option>
-          <option value="MultipleChoice" selected>
-            객관식
-          </option>
-          <option value="Dropdown">드롭다운(객관식)</option>
-          <option value="CheckBox">체크박스(객관식)</option>
-          <option value="Rating">선형</option>
-          <option value="Grid">그리드</option>
-          <option value="Date">날짜</option>
-        </select>
+        <TypeChange tt="radio" />
       </div>
       <div className="flex w-full justify-center">
         <input
