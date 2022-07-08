@@ -67,16 +67,14 @@ export const SignUp = () => {
   }
 
   return (
-    <div className="flex justify-center mt-3">
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col space-y-4 mt-5 font-bold"
-      >
+    <div className="flex flex-col items-center mt-3">
+      <div className="text-2xl">회원 가입</div>
+      <form onSubmit={handleSubmit} className="flex flex-col mt-5 w-80">
         <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
           이름
         </label>
         <input
-          className="shadow appearance-none border rounded  py-2 px-3 text-gray-60"
+          className="shadow appearance-none border rounded py-2 px-3 text-gray-70"
           id="name"
           type="text"
           placeholder="이름을 입력하세요"
@@ -89,7 +87,7 @@ export const SignUp = () => {
           이메일
         </label>
         <input
-          className="shadow appearance-none border rounded  py-2 px-3 text-gray-70"
+          className="shadow appearance-none border rounded py-2 px-3 text-gray-70"
           id="email"
           type="text"
           placeholder="이메일을 입력하세요"
