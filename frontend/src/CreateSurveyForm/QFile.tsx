@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FileType } from "./CreateSurveyFormPage";
+import { FileType } from "../types";
 import { useQuestion } from "./question.context";
 
 type Props = {

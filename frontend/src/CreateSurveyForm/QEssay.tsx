@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EssayType } from "./CreateSurveyFormPage";
+import { EssayType } from "../types";
 import { useQuestion } from "./question.context";
 import { Edit } from "./Edit";
 

@@ -1,2 +1,2 @@
 export { CreateSurveyForm } from "./CreateSurveyFormPage";
-export { Question } from "./Question";
+export { Questions } from "./Questions";

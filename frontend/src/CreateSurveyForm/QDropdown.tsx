@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownType } from "./CreateSurveyFormPage";
+import { DropdownType } from "../types";
 import { useQuestion } from "./question.context";
 
 type Props = {
@@ -47,13 +47,13 @@ export const QDropdown = ({ element }: Props) => {
         ></input>
       </div>
       <div id="commentarea" className="flex mt-4">
-        {element.content.choices.map((e: string) => (
+        {element.content.choices.map((e: any) => (
           <div>
             <input type="checkbox" checked={false}></input>
             <input
               type="text"
               className="mx-2 border-b-2"
-              placeholder={e}
+              placeholder={e.text}
             ></input>
           </div>
         ))}

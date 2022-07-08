@@ -9,7 +9,7 @@ import { useQuestion } from "./question.context";
 
 type Props = {};
 
-export const Question = ({}: Props) => {
+export const Questions = ({}: Props) => {
   const { addQuestion, questionList, currentId } = useQuestion();
 
   return (

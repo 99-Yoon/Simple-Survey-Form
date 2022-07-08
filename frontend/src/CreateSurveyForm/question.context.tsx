@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import axios from "axios";
-import { BasicQuestionType } from "./CreateSurveyFormPage";
+import { BasicQuestionType } from "../types";
 
 interface IQuestionContext {
   questionListChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

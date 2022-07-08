@@ -1,5 +1,5 @@
 import React from "react";
-import { RadioType } from "./CreateSurveyFormPage";
+import { RadioType } from "../types";
 import { useQuestion } from "./question.context";
 
 type Props = {
@@ -46,21 +46,21 @@ export const QRadio = ({ element }: Props) => {
         ></input>
       </div>
       <div className="flex mt-4">
-        {element.content.choices.map((e: string, index: number) => (
+        {element.content.choices.map((e: any) => (
           <div>
             <input
               type="radio"
               id={element._id}
               name="choice"
-              value={e}
+              value={e.text}
               disabled
             />
             <input
               type="text"
-              name={"choice" + `${index}`}
+              name={"choice"}
               // key={`${index}`}
               className="mx-2 border-b-2"
-              placeholder={e}
+              placeholder={e.text}
               onChange={questionListChange}
             ></input>
             <button></button>
