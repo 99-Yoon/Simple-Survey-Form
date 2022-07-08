@@ -16,7 +16,7 @@ export const Login = () => {
   const location = useLocation() as LocationState;
   const { login } = useAuth();
 
-  const from = location.state.from || "/";
+  const from = location.state?.from || "/";
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.currentTarget;
