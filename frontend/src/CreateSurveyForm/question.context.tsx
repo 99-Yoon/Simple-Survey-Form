@@ -17,6 +17,7 @@ interface IQuestionContext {
   editCompleteClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   currentId: string;
   addQuestion: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
+  questionTypeChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const QuestionContext = createContext<IQuestionContext>({
@@ -28,6 +29,7 @@ const QuestionContext = createContext<IQuestionContext>({
   editCompleteClick: () => {},
   currentId: "",
   addQuestion: async () => {},
+  questionTypeChange: () => {},
 });
 
 export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
@@ -73,6 +75,13 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
     obj[targetKey] = e.target.value;
     setQuestionList(newList);
   }
+  function questionTypeChange(e: React.ChangeEvent<HTMLSelectElement>): void {
+    const newType: BasicQuestionType[] = [...questionList];
+    const objType: any = newType.find((t) => t._id === e.target.id);
+    const targetType: string = e.target.name;
+    objType[targetType] = e.target.value;
+    setQuestionList(newType);
+  }
 
   async function addQuestion() {
     try {
@@ -106,6 +115,7 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
         editClick,
         editCompleteClick,
         currentId,
+        questionTypeChange,
       }}
     >
       {children}

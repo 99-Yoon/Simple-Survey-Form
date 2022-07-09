@@ -1,6 +1,7 @@
 import React from "react";
 import { DropdownType } from "../types";
 import { useQuestion } from "./question.context";
+import { TypeChange } from "./typeDD";
 
 type Props = {
   element: DropdownType;
@@ -19,22 +20,7 @@ export const QDropdown = ({ element }: Props) => {
           placeholder={element.title}
           onChange={questionListChange}
         ></input>
-        <select
-          id="Questions"
-          className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
-        >
-          <option>질문종류</option>
-          <option value="essay">주관식</option>
-          <option value="radio">객관식</option>
-          <option value="dropdown" selected>
-            드롭다운(객관식)
-          </option>
-          <option value="checkbox">체크박스(객관식)</option>
-          <option value="file">파일업로드</option>
-          <option value="rating">선형</option>
-          <option value="grid">그리드</option>
-          <option value="date">날짜</option>
-        </select>
+        <TypeChange tt="dropdown" />
       </div>
       <div className="flex w-full justify-center">
         <input
