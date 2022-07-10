@@ -7,6 +7,7 @@ import { SurveyForm } from "./commons";
 import { CreateSurveyForm } from "./CreateSurveyForm";
 import { Home } from "./home";
 import { Profile } from "./profile";
+import { CreateSurvey } from "./survey";
 
 export const SurveyRouter = () => {
   return (
@@ -16,7 +17,7 @@ export const SurveyRouter = () => {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="create" element={<CreateSurveyForm />} />
+          <Route path="surveys/create" element={<CreateSurvey />} />
           <Route path="survey" element={<SurveyForm />} />
           <Route
             path="profile"
