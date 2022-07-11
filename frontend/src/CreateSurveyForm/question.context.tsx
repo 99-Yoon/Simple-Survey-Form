@@ -5,8 +5,13 @@ import React, {
   useContext,
   useState,
 } from "react";
-import { BasicQuestionType, SurveyType } from "../types";
+import { BasicQuestionType, SurveyType, EssayType, RadioType } from "../types";
 import { questionApi, surveyApi } from "../apis";
+
+interface questionTypeChangeProp {
+  id: string;
+  tt: string;
+}
 
 interface IQuestionContext {
   handleSurvey: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -17,7 +22,7 @@ interface IQuestionContext {
   editCompleteClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   currentId: string;
   addQuestion: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
-  questionTypeChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  questionTypeChange: ({ id, tt }: questionTypeChangeProp) => void;
 }
 
 const QuestionContext = createContext<IQuestionContext>({
@@ -68,6 +73,7 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
       // setLoading(false);
     }
   }
+  //질문 Title, Comment바꾸는 함수
   function questionListChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const newList: BasicQuestionType[] = [...questionList];
     const obj: any = newList.find((a) => a._id === e.target.id); //고유 _id로 질문찾기
@@ -75,11 +81,15 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
     obj[targetKey] = e.target.value;
     setQuestionList(newList);
   }
-  function questionTypeChange(e: React.ChangeEvent<HTMLSelectElement>): void {
+  //질문 Type 바꾸는 함수
+  function questionTypeChange({ id, tt }: questionTypeChangeProp): void {
     const newType: BasicQuestionType[] = [...questionList];
-    const objType: any = newType.find((t) => t._id === e.target.id);
-    const targetType: string = e.target.name;
-    objType[targetType] = e.target.value;
+    const objType: any = newType.find((t) => t._id === id);
+    objType.type = tt;
+    // TODO
+    if ((tt = "essay")) {
+      objType.content;
+    }
     setQuestionList(newType);
   }
 

@@ -22,7 +22,7 @@ export const QRating = ({ element }: Props) => {
           placeholder={element.title}
           onChange={questionListChange}
         ></input>
-        <TypeChange tt="rating" />
+        <TypeChange tt="rating" id={element._id} />
       </div>
       <div className="flex w-full justify-center">
         <input

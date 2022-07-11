@@ -20,7 +20,7 @@ export const QDropdown = ({ element }: Props) => {
           placeholder={element.title}
           onChange={questionListChange}
         ></input>
-        <TypeChange tt="dropdown" />
+        <TypeChange tt="dropdown" id={element._id} />
       </div>
       <div className="flex w-full justify-center">
         <input

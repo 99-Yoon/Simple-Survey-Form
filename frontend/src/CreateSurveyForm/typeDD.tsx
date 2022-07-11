@@ -2,10 +2,11 @@ import React, { ChangeEvent, useState } from "react";
 import { useQuestion } from "./question.context";
 
 type typeChangeProps = {
+  id: string;
   tt: string;
 };
 
-export function TypeChange({ tt }: typeChangeProps) {
+export function TypeChange({ tt, id }: typeChangeProps) {
   const { questionTypeChange } = useQuestion();
 
   const typeDD = new Map([
@@ -18,10 +19,13 @@ export function TypeChange({ tt }: typeChangeProps) {
     ["grid", "그리드"],
     ["date", "날짜"],
   ]);
+
   function changeDD(e: React.ChangeEvent<HTMLSelectElement>) {
     const tt = e.target.value;
     // questionTypeChange(e);
-    console.log(tt);
+    console.log(e.target.value);
+    console.log(id);
+    questionTypeChange({ id, tt });
     //if문으로 type별로 content 바뀌게 해보기
   }
 
