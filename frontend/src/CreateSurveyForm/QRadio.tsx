@@ -20,7 +20,7 @@ export const QRadio = ({ element }: Props) => {
           placeholder={element.title}
           onChange={questionListChange}
         ></input>
-        <TypeChange tt="radio" id={element._id} />
+        <TypeChange selectedType="radio" id={element._id} />
       </div>
       <div className="flex w-full justify-center">
         <input

@@ -10,7 +10,7 @@ import { questionApi, surveyApi } from "../apis";
 
 interface questionTypeChangeProp {
   id: string;
-  tt: string;
+  selectedType: string;
 }
 
 interface IQuestionContext {
@@ -22,7 +22,7 @@ interface IQuestionContext {
   editCompleteClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   currentId: string;
   addQuestion: (e: React.MouseEvent<HTMLButtonElement>) => Promise<void>;
-  questionTypeChange: ({ id, tt }: questionTypeChangeProp) => void;
+  questionTypeChange: ({ id, selectedType }: questionTypeChangeProp) => void;
 }
 
 const QuestionContext = createContext<IQuestionContext>({
@@ -82,12 +82,15 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setQuestionList(newList);
   }
   //질문 Type 바꾸는 함수
-  function questionTypeChange({ id, tt }: questionTypeChangeProp): void {
+  function questionTypeChange({
+    id,
+    selectedType,
+  }: questionTypeChangeProp): void {
     const newType: BasicQuestionType[] = [...questionList];
     const objType: any = newType.find((t) => t._id === id);
-    objType.type = tt;
+    objType.type = selectedType;
     // TODO
-    if ((tt = "essay")) {
+    if ((selectedType = "essay")) {
       objType.content;
     }
     setQuestionList(newType);

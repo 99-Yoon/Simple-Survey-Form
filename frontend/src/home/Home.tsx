@@ -9,7 +9,7 @@ export const Home = () => (
     <div className="flex flex-col place-items-center container">
       <div>
         <Link
-          to="/create"
+          to="/surveys/create"
           className="flex h-14 w-28 items-center border-2 border-themeColor font-bold text-black bg-gray-200 hover:bg-themeColor rounded-lg "
         >
           <div className="text-center w-28 font-bold text-black place-items-center">

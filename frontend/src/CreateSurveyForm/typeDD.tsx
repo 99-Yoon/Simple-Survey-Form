@@ -3,10 +3,10 @@ import { useQuestion } from "./question.context";
 
 type typeChangeProps = {
   id: string;
-  tt: string;
+  selectedType: string;
 };
 
-export function TypeChange({ tt, id }: typeChangeProps) {
+export function TypeChange({ selectedType, id }: typeChangeProps) {
   const { questionTypeChange } = useQuestion();
 
   const typeDD = new Map([
@@ -21,11 +21,11 @@ export function TypeChange({ tt, id }: typeChangeProps) {
   ]);
 
   function changeDD(e: React.ChangeEvent<HTMLSelectElement>) {
-    const tt = e.target.value;
+    const targetType = e.target.value;
     // questionTypeChange(e);
     console.log(e.target.value);
     console.log(id);
-    questionTypeChange({ id, tt });
+    questionTypeChange({ id, selectedType });
     //if문으로 type별로 content 바뀌게 해보기
   }
 
@@ -33,8 +33,8 @@ export function TypeChange({ tt, id }: typeChangeProps) {
     <select
       id="Questions"
       name="type"
-      className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
-      defaultValue={tt}
+      className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full mr-3 p-2.5"
+      defaultValue={selectedType}
       onChange={changeDD}
     >
       {Array.from(typeDD.entries()).map(([k, v]) => (

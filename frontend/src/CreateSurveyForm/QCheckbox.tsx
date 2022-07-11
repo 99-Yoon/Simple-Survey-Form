@@ -22,7 +22,7 @@ export const QCheckbox = ({ element }: Props) => {
           placeholder={element.title}
           onChange={questionListChange}
         ></input>
-        <TypeChange tt="checkbox" id={element._id} />
+        <TypeChange selectedType="checkbox" id={element._id} />
       </div>
       <div className="flex w-full justify-center">
         <input

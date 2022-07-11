@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BasicQuestionType, EssayType } from "../types";
 import { EssayForm } from "./EssayForm";
+import { RadioForm } from "./RadioForm";
 
 type Props = {
   element: BasicQuestionType;
@@ -32,7 +33,7 @@ export const Question = ({ element }: Props) => {
       case "essay":
         return <EssayForm element={element} />;
       case "radio":
-      // return <RadioForm element={element} />;
+        return <RadioForm element={element} />;
       case "checkbox":
       // return <CheckboxForm element={element} />;
       case "dropdown":
@@ -60,12 +61,12 @@ export const Question = ({ element }: Props) => {
         <select
           id="Questions"
           name="type"
-          className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
+          className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full mr-3 p-2.5"
           defaultValue={element.type}
           onChange={changeDD}
         >
-          {Array.from(typeDD.entries()).map(([k, v]) => (
-            <option value={k}>{v}</option>
+          {Array.from(typeDD.entries()).map(([key, value]) => (
+            <option value={key}>{value}</option>
           ))}
         </select>
       </div>
@@ -81,11 +82,11 @@ export const Question = ({ element }: Props) => {
       </div>
       {getContent(element)}
 
-      <div className="flex w-full justify-end py-2">
-        <button className="w-1/12">필수</button>
-        <button className="w-1/12">옵션</button>
-        <button className="w-1/12">삭제</button>
-        <button id={element.id} className="w-1/12" onClick={handleClick}>
+      <div className="place-self-end py-2">
+        <button className="px-0.5">필수</button>
+        <button className="px-0.5">옵션</button>
+        <button className="px-0.5">삭제</button>
+        <button id={element.id} className="px-0.5" onClick={handleClick}>
           수정
         </button>
       </div>

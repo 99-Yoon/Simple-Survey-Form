@@ -23,7 +23,7 @@ export const QEssay = ({ element }: Props) => {
           onChange={questionListChange}
         ></input>
         {/* <TypeChange tt={"essay"} id={element._id} /> */}
-        <TypeChange tt={"essay"} id={element._id} />
+        <TypeChange selectedType={"essay"} id={element._id} />
       </div>
       <div className="flex w-full justify-center">
         <input

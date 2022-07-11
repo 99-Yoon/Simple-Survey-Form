@@ -21,7 +21,7 @@ export const QFile = ({ element }: Props) => {
           placeholder={element.title}
           onChange={questionListChange}
         ></input>
-        <TypeChange tt="file" id={element._id} />
+        <TypeChange selectedType="file" id={element._id} />
       </div>
       <div className="flex w-full justify-center">
         <input
