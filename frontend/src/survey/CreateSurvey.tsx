@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import { questionApi, surveyApi } from "../apis";
-import { Question } from "../questions";
+// import { Question } from "../questions";
 import { BasicQuestionType, SurveyType } from "../types";
 
 export const CreateSurvey = () => {
@@ -65,9 +65,9 @@ export const CreateSurvey = () => {
               onChange={handleChange}
             ></input>
           </div>
-          {questions.map((question) => (
+          {/* {questions.map((question) => (
             <Question element={question} />
-          ))}
+          ))} */}
           <div className="flex w-4/5 content-center justify-center border-2 border-black h-8 mt-3">
             <button type="button" onClick={addQuestion}>
               질문 추가
