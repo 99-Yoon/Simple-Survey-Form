@@ -96,7 +96,7 @@ export const QuestionProvider: FC<{ children: ReactNode }> = ({ children }) => {
   async function addQuestion() {
     try {
       const newQ: BasicQuestionType = await questionApi.createQuestion();
-      setSurvey({ ...survey, questions: [...survey.questions, newQ._id] });
+      setSurvey({ ...survey, questions: [...survey.questions, newQ] });
       setQuestionList([...questionList, newQ]);
       // setSuccess(true);
       // setError("");

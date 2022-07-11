@@ -10,10 +10,10 @@ export interface SignupUser {
   password: string;
 }
 
-export interface SurveyType{
+export interface SurveyType {
   title: string;
   comment: string;
-  questions: string[];
+  questions: BasicQuestionType[];
 }
 
 export interface BasicQuestionType {
