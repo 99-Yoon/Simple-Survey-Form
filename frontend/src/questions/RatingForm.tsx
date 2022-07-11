@@ -1,84 +1,87 @@
-import React from "react";
+import React, { useState } from "react";
 import { RatingType } from "../types";
-import { useQuestion } from "./question.context";
-import { TypeChange } from "./typeDD";
 
 type Props = {
   element: RatingType;
-  //   deleteValue: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleQuestion: (id: string) => void;
 };
 
-export const QRating = ({ element }: Props) => {
-  const { questionListChange } = useQuestion();
+export const RatingForm = ({ element, handleQuestion }: Props) => {
+  const [choices, setChoices] = useState([...element.content.choices]);
+
+  function handleContent(event: React.ChangeEvent<HTMLInputElement>) {
+    const { id, value, name } = event.target;
+    if (name === "text") {
+      choices[+id].text = value;
+      element.content.choices = choices;
+    } else if (name === "minRateDescription") {
+      element.content = { ...element.content, minRateDescription: value };
+    } else if (name === "maxRateDescription") {
+      element.content = { ...element.content, maxRateDescription: value };
+    }
+    handleQuestion(element._id);
+    console.log(choices);
+  }
+
+  function deleteValue() {
+    //제일 마지막 index 제거
+    choices.splice(-1, 1);
+    element.content.choices = choices;
+    handleQuestion(element._id);
+  }
+  function addValue() {
+    choices.push({ text: "0", value: 0 });
+    element.content.choices = choices;
+    handleQuestion(element._id);
+  }
 
   return (
-    <div className="flex flex-col container w-4/5 h-auto border-2 border-themeColor items-center m-3 py-2">
-      <div className="flex h-16 w-full place-content-between items-center">
-        <input
-          type="text"
-          name="title"
-          id={element._id}
-          className="text-xl font-bold ml-6 border-b-2 w-1/2"
-          placeholder={element.title}
-          onChange={questionListChange}
-        ></input>
-        <TypeChange tt="rating" />
-      </div>
-      <div className="flex w-full justify-center">
-        <input
-          type="text"
-          name="comment"
-          id={element._id}
-          className="border w-11/12"
-          placeholder="질문에 대한 설명을 입력해주세요"
-          onChange={questionListChange}
-        ></input>
-      </div>
+    <>
       <div className="flex place-content-between items-center p-5">
         <input
           name="minRateDescription"
-          id={element._id}
           className="border-b-2 text-center"
           size={10}
           placeholder={element.content.minRateDescription}
+          onChange={handleContent}
         ></input>
-        {element.content.choices.map((e) => (
+        {choices.map((e: any, index: number) => (
           <input
             name="text"
-            id={element._id}
+            id={`${index}`}
             type="text"
             className="border border-black rounded-full py-1 m-2 text-center"
             size={1}
             placeholder={e.text}
+            onChange={handleContent}
           ></input>
         ))}
         <input
           name="maxRateDescription"
-          id={element._id}
           className="border-b-2 text-center"
           size={10}
           placeholder={element.content.maxRateDescription}
+          onChange={handleContent}
         ></input>
       </div>
       <div>
         <button
-          //   type="button"
+          type="button"
           name="rateValues"
-          id={element._id}
           className="border border-red-500 rounded mx-2 px-2"
-          //   onClick={deleteValue}
+          onClick={deleteValue}
         >
           삭제
         </button>
-        <button className="border border-blue-500 rounded mx-2 px-2">
+        <button
+          type="button"
+          name="rateValues"
+          className="border border-blue-500 rounded mx-2 px-2"
+          onClick={addValue}
+        >
           추가
         </button>
       </div>
-      <div className="flex w-full justify-end py-2">
-        <button className="w-1/12">필수</button>
-        <button className="w-1/12">옵션</button>
-        <button className="w-1/12">삭제</button>
-      </div>
-    </div>
+    </>
   );
 };
