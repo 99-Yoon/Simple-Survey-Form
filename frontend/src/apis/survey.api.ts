@@ -7,8 +7,3 @@ export const createSurvey = async (survey:SurveyType) => {
     const {data} = await axios.post(`${baseUrl}/surveys/create`, {...survey})
     return data;
 }
-
-// export const getSurvey = async () => {
-//     const {data} = await axios.get(`${baseUrl}/surveys/profile`)
-//     return data;
-// }
