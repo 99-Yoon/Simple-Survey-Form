@@ -5,7 +5,7 @@ export const createSurvey = async (survey: ISurvey) => {
   return newSurvey;
 };
 
-export const getSurveys = async () => {
-  const surveys = await Survey.find({}).populate("questions")
-  return surveys
-}
+// export const getSurveys = async () => {
+//   const surveys = await Survey.find({}).populate("questions")
+//   return surveys
+// }

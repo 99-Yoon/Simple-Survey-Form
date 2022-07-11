@@ -7,7 +7,7 @@ router
   .route("/create")
   .post(surveyCtrl.createSurvey);
   
-router
-  .route("/profile")
-  .get(surveyCtrl.getSurveys)
+// router
+//   .route("/profile")
+//   .get(surveyCtrl.getSurveys)
 export default router;

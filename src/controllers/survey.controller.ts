@@ -8,7 +8,7 @@ export const createSurvey = asyncWrap(async (req, res) => {
   return res.json(newSurvey);
 });
 
-export const getSurveys = asyncWrap(async (req, res) => {
-  const surveys = await surveyDb.getSurveys();
-  return res.json(surveys);
-});
+// export const getSurveys = asyncWrap(async (req, res) => {
+//   const surveys = await surveyDb.getSurveys();
+//   return res.json(surveys);
+// });
