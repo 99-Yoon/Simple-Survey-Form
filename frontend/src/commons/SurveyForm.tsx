@@ -15,7 +15,7 @@ export const SurveyForm = () => {
           rows={2}
           cols={60}
         ></textarea>
-        <ACheckboxForm></ACheckboxForm>
+        {/* <ACheckboxForm></ACheckboxForm> */}
         <ADropdownForm></ADropdownForm>
         <AEssayForm></AEssayForm>
         <ARadioForm></ARadioForm>

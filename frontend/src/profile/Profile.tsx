@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SurveyType } from "../types";
 
 export const Profile = () => {
   const navigate = useNavigate();
+  // const [Ssurvey, setSsurvey] = useState<SurveyType>({
+  //   title: "",
+  //   comment: "",
+  //   //questions 는 _id들의 배열
+  //   questions: [],
+  // });
+
+  // function handleAnswer(event: React.ChangeEvent<HTMLInputElement>) {
+  //   setSsurvey({
+  //     ...survey,
+  //     [event.currentTarget.name]: event.currentTarget.value,
+  //   })
+  // }
 
   const createSurvey = () => {
     // 먼저 서버에 survey 테이블에 새로운 survey 항목 추가 로직 필요

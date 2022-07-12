@@ -23,7 +23,7 @@ export const Home = () => {
         <div className="flex h-14 w-28 items-center border-2 border-themeColor font-bold text-black bg-gray-200 hover:bg-themeColor rounded-lg ">
           <button
             type="button"
-            className="text-center h-full w-28 font-bold text-black place-items-center mb-3"
+            className="text-center h-full w-28 font-bold text-black place-items-center"
             onClick={clickHome}
           >
             +

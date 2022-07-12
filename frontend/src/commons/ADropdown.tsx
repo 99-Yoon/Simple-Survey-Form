@@ -7,7 +7,7 @@ export const ADropdownForm = () => {
         <form className="text-xl font-bold ml-6 w-1/2">dropdown</form>
       </div>
       <form className="border w-11/12 my-3">설문조사 설명</form>
-      <select className="py-2 bg-themeColor rounded text-white">
+      <select className="py-2 hover:bg-themeColor bg-gray-200 rounded ">
         <option selected>choose answer</option>
         <option>first</option>
         <option>second</option>

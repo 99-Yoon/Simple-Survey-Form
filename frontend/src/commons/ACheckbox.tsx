@@ -16,6 +16,32 @@ export const ACheckboxForm = () => {
           />
           <input className="ml-2 text-lg font-medium">First checkbox</input>
         </div>
+        <div className="mb-4 mx-3">
+          <input
+            id="default-checkbox"
+            type="checkbox"
+            className="w-5 h-5 mt-3 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label className="ml-2 text-lg font-medium">Second checkbox</label>
+        </div>
+        <div className="mb-4 mx-3">
+          <input
+            id="default-checkbox"
+            type="checkbox"
+            value=""
+            className="w-5 h-5 mt-3 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label className="ml-2 text-lg font-medium">Third checkbox</label>
+        </div>
+        <div className="mb-4 mx-4">
+          <input
+            id="default-checkbox"
+            type="checkbox"
+            value=""
+            className="w-5 h-5 mt-3 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label className="ml-2 text-lg font-medium">Fourth checkbox</label>
+        </div>
       </div>
     </div>
   );
