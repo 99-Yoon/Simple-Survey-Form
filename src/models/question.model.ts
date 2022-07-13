@@ -2,7 +2,7 @@ import { model, ObjectId, Schema, Types } from "mongoose";
 
 export interface IQuestion {
   _id?: Types.ObjectId;
-  user: Types.ObjectId;
+  user?: Types.ObjectId;
   type: string;
   title?: string;
   isRequired: boolean;

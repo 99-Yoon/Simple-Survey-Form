@@ -43,6 +43,7 @@ export const Question = ({
         element
       );
       console.log(newQuestion);
+      changeCurrentId("");
       // setSuccess(true);
       // setError("");
     } catch (error) {

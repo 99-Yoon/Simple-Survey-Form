@@ -12,7 +12,6 @@ export const Profile = () => {
     questions: [],
   });
   async function createSurvey() {
-    // 먼저 서버에 survey 테이블에 새로운 survey 항목 추가 로직 필요
     const newSurvey: SurveyType = await surveyApi.createSurvey(survey);
     navigate(`/surveys/edit/${newSurvey._id}`, {
       replace: true,
