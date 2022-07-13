@@ -10,7 +10,15 @@ export const CreateSurvey = () => {
     questions: [],
   });
 
-  const handleChange = () => {};
+  const handleQuestion = (id: string) => {
+    const newList: BasicQuestionType[] = [...survey.questions];
+    setSurvey({ ...survey, questions: newList });
+  };
+
+  const handleSurvey = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+    setSurvey({ ...survey, [name]: value });
+  };
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -31,7 +39,23 @@ export const CreateSurvey = () => {
     try {
       const newQuestion: BasicQuestionType = await questionApi.createQuestion();
       setSurvey({ ...survey, questions: [...survey.questions, newQuestion] });
-      // setQuestions([...questions, newQuestion]);
+      // setSuccess(true);
+      // setError("");
+    } catch (error) {
+      console.log("에러발생");
+      // catchErrors(error, setError)
+    } finally {
+      // setLoading(false);
+    }
+  }
+
+  async function deleteQuestion(id: string) {
+    const newList: BasicQuestionType[] = [...survey.questions];
+    try {
+      const newQuestion: BasicQuestionType = await questionApi.deleteQuestion(
+        id
+      );
+      setSurvey({ ...survey, questions: newList.filter((a) => a._id !== id) });
       // setSuccess(true);
       // setError("");
     } catch (error) {
@@ -43,7 +67,7 @@ export const CreateSurvey = () => {
   }
 
   const questions = survey.questions;
-
+  console.log(questions);
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -54,7 +78,7 @@ export const CreateSurvey = () => {
               name="title"
               className="font-bold text-4xl text-center m-2 border-b-2"
               placeholder="설문지 제목"
-              onChange={handleChange}
+              onChange={handleSurvey}
             ></input>
             <input
               type="text"
@@ -62,11 +86,15 @@ export const CreateSurvey = () => {
               className="font-bold text-1xl text-center m-2 resize-none"
               placeholder="설문조사에 대한 설명을 입력해주세요"
               size={50}
-              onChange={handleChange}
+              onChange={handleSurvey}
             ></input>
           </div>
           {questions.map((question) => (
-            <Question element={question} />
+            <Question
+              element={question}
+              handleQuestion={handleQuestion}
+              deleteQuestion={deleteQuestion}
+            />
           ))}
           <div className="flex w-4/5 content-center justify-center border-2 border-black h-8 mt-3">
             <button type="button" onClick={addQuestion}>

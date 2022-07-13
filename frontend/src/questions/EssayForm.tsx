@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { EssayType } from "../types";
 
 type Props = {

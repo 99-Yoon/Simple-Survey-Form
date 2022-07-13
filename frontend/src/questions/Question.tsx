@@ -1,31 +1,95 @@
 import React, { useState } from "react";
 import { BasicQuestionType, EssayType } from "../types";
+import { questionApi } from "../apis";
 import { EssayForm } from "./EssayForm";
+import { CheckboxForm } from "./CheckboxForm";
 import { RadioForm } from "./RadioForm";
+import { DropdownForm } from "./DropdownForm";
+import { FileForm } from "./FileForm";
+import { RatingForm } from "./RatingForm";
 
 type Props = {
   element: BasicQuestionType;
+  handleQuestion: (id: string) => void;
+  deleteQuestion: (id: string) => void;
 };
 
-export const Question = ({ element }: Props) => {
-  const handleClick = () => {};
+const typeDropDown = new Map([
+  ["essay", "주관식"],
+  ["radio", "객관식"],
+  ["dropdown", "드롭다운"],
+  ["checkbox", "체크박스"],
+  ["file", "파일"],
+  ["rating", "선형"],
+  ["grid", "그리드"],
+  ["date", "날짜"],
+]);
 
-  const typeDD = new Map([
-    ["essay", "주관식"],
-    ["radio", "객관식"],
-    ["dropdown", "드롭다운(객관식)"],
-    ["checkbox", "체크박스"],
-    ["file", "파일"],
-    ["rating", "선형"],
-    ["grid", "그리드"],
-    ["date", "날짜"],
-  ]);
+export const Question = ({
+  element,
+  handleQuestion,
+  deleteQuestion,
+}: Props) => {
+  const handleEdit = () => {
+    //setCurrentId해주고 currentId===element._id가 같은 input들만 disabled=false
+  };
+  async function handleComplete() {
+    //db에서 element._id인 애를 findOneAndUpdate() 해준다.
+    try {
+      const newQuestion: BasicQuestionType = await questionApi.updateQuestion(
+        element
+      );
+      console.log(newQuestion);
+      // setSuccess(true);
+      // setError("");
+    } catch (error) {
+      console.log("에러발생");
+      // catchErrors(error, setError)
+    } finally {
+      // setLoading(false);
+    }
+  }
 
-  function changeDD(e: React.ChangeEvent<HTMLSelectElement>) {
-    const tt = e.target.value;
-    // questionTypeChange(e);
-    console.log(tt);
-    //if문으로 type별로 content 바뀌게 해보기
+  function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
+    const selectedType = event.currentTarget.value;
+    console.log(selectedType);
+    if (
+      selectedType === "radio" ||
+      selectedType === "dropdown" ||
+      selectedType === "checkbox"
+    ) {
+      element.content = {
+        choices: [
+          { text: "선택지1", value: "1" },
+          { text: "선택지2", value: "2" },
+          { text: "선택지3", value: "3" },
+        ],
+      };
+    } else if (selectedType === "essay") {
+      element.content = { choices: [] };
+    } else if (selectedType === "rating") {
+      element.content = {
+        minRateDescription: "가장 낮음",
+        maxRateDescription: "가장 높음",
+        choices: [
+          { text: "1", value: "1" },
+          { text: "2", value: "2" },
+          { text: "3", value: "3" },
+        ],
+      };
+    }
+    element.type = selectedType;
+    handleQuestion(element._id);
+  }
+
+  function handleQuestionInfo(event: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.currentTarget;
+    element[name] = value;
+    handleQuestion(element._id);
+  }
+
+  function handleDelete() {
+    deleteQuestion(element._id);
   }
 
   function getContent(element: BasicQuestionType) {
@@ -33,15 +97,19 @@ export const Question = ({ element }: Props) => {
       case "essay":
         return <EssayForm element={element} />;
       case "radio":
-        return <RadioForm element={element} />;
+        return <RadioForm handleQuestion={handleQuestion} element={element} />;
       case "checkbox":
-      // return <CheckboxForm element={element} />;
+        return (
+          <CheckboxForm handleQuestion={handleQuestion} element={element} />
+        );
       case "dropdown":
-      // return <DropdownForm element={element} />;
+        return (
+          <DropdownForm handleQuestion={handleQuestion} element={element} />
+        );
       case "file":
-      //  return <FileForm element={element} />;
+        return <FileForm element={element} />;
       case "rating":
-      //  return <RatingForm element={element} />;
+        return <RatingForm handleQuestion={handleQuestion} element={element} />;
       default:
         return <></>;
     }
@@ -55,18 +123,24 @@ export const Question = ({ element }: Props) => {
           name="title"
           id={element._id}
           className="text-xl font-bold ml-6 border-b-2 w-1/2"
-          placeholder={element.title}
-          // onChange={questionListChange}
+          placeholder={"Question Title"}
+          value={element.title}
+          onChange={handleQuestionInfo}
         ></input>
         <select
-          id="Questions"
+          id={element._id}
           name="type"
-          className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full mr-3 p-2.5"
-          defaultValue={element.type}
-          onChange={changeDD}
+          onChange={handleSelect}
+          className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
         >
-          {Array.from(typeDD.entries()).map(([key, value]) => (
-            <option value={key}>{value}</option>
+          {Array.from(typeDropDown.entries()).map(([key, value]) => (
+            <option
+              id={element._id}
+              value={key}
+              selected={key === element.type}
+            >
+              {value}
+            </option>
           ))}
         </select>
       </div>
@@ -77,17 +151,27 @@ export const Question = ({ element }: Props) => {
           id={element._id}
           className="border w-11/12"
           placeholder="질문에 대한 설명을 입력해주세요"
-          // onChange={questionListChange}
+          value={element.comment}
+          onChange={handleQuestionInfo}
         ></input>
       </div>
       {getContent(element)}
 
       <div className="place-self-end py-2">
-        <button className="px-0.5">필수</button>
-        <button className="px-0.5">옵션</button>
-        <button className="px-0.5">삭제</button>
-        <button id={element.id} className="px-0.5" onClick={handleClick}>
+        <button type="button" className="px-1">
+          필수
+        </button>
+        <button type="button" className="px-1">
+          옵션
+        </button>
+        <button type="button" className="px-1" onClick={handleDelete}>
+          삭제
+        </button>
+        <button type="button" className="px-1" onClick={handleEdit}>
           수정
+        </button>
+        <button type="button" className="px-1" onClick={handleComplete}>
+          완료
         </button>
       </div>
     </div>

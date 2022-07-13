@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { RadioType } from "../types";
 
 type Props = {
   element: RadioType;
+  handleQuestion: (id: string) => void;
 };
 
-export const RadioForm = ({ element }: Props) => {
+export const RadioForm = ({ element, handleQuestion }: Props) => {
+  const [choices, setChoices] = useState([...element.content.choices]);
+
+  function handleContent(event: React.ChangeEvent<HTMLInputElement>) {
+    const { id, value } = event.target;
+    choices[+id].text = value;
+    element.content.choices = choices;
+    handleQuestion(element._id);
+    console.log(choices);
+  }
   return (
-    <div className="flex mt-4">
-      {element.content.choices.map((e: any, index: number) => (
+    <div id="content" className="flex mt-4">
+      {choices.map((choice: any, index: number) => (
         <div>
+          <input type="radio" disabled></input>
           <input
-            type="radio"
-            id={element._id}
-            name="choice"
-            value={e.text}
-            disabled
-          />
+            id={`${index}`}
+            type="text"
+            className="mx-2 border-b-2"
+            placeholder={choice.text}
+            onChange={handleContent}
+          ></input>
         </div>
       ))}
     </div>

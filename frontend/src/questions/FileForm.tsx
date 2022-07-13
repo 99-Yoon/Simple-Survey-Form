@@ -5,9 +5,9 @@ type Props = {
   element: FileType;
 };
 
-export const QFile = ({ element }: Props) => {
+export const FileForm = ({ element }: Props) => {
   return (
-    <div id="commentarea" className="flex mt-4 w-full justify-center">
+    <div id="content" className="flex mt-4 w-full justify-center">
       <input type="file" className=" w-11/12 h-16" disabled></input>
     </div>
   );
