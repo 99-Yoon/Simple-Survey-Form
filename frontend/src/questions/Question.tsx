@@ -34,12 +34,10 @@ export const Question = ({
   changeCurrentId,
   currentId,
 }: Props) => {
-  const handleEdit = () => {
-    //setCurrentId해주고 currentId===element._id가 같은 input들만 disabled=false
+  const handleEditClick = () => {
     changeCurrentId(element._id);
   };
-  async function handleComplete() {
-    //db에서 element._id인 애를 findOneAndUpdate() 해준다.
+  async function handleEditComplete() {
     try {
       const newQuestion: BasicQuestionType = await questionApi.updateQuestion(
         element
@@ -65,21 +63,21 @@ export const Question = ({
     ) {
       element.content = {
         choices: [
-          { text: "선택지1", value: "1" },
-          { text: "선택지2", value: "2" },
-          { text: "선택지3", value: "3" },
+          { text: "", value: 0 },
+          { text: "", value: 1 },
+          { text: "", value: 2 },
         ],
       };
     } else if (selectedType === "essay") {
       element.content = { choices: [] };
     } else if (selectedType === "rating") {
       element.content = {
-        minRateDescription: "가장 낮음",
-        maxRateDescription: "가장 높음",
+        minRateDescription: "",
+        maxRateDescription: "",
         choices: [
-          { text: "1", value: "1" },
-          { text: "2", value: "2" },
-          { text: "3", value: "3" },
+          { text: "", value: 0 },
+          { text: "", value: 1 },
+          { text: "", value: 2 },
         ],
       };
     }
@@ -100,21 +98,41 @@ export const Question = ({
   function getContent(element: BasicQuestionType) {
     switch (element.type) {
       case "essay":
-        return <EssayForm element={element} />;
+        return <EssayForm element={element} currentId={currentId} />;
       case "radio":
-        return <RadioForm handleQuestion={handleQuestion} element={element} />;
+        return (
+          <RadioForm
+            handleQuestion={handleQuestion}
+            element={element}
+            currentId={currentId}
+          />
+        );
       case "checkbox":
         return (
-          <CheckboxForm handleQuestion={handleQuestion} element={element} />
+          <CheckboxForm
+            handleQuestion={handleQuestion}
+            element={element}
+            currentId={currentId}
+          />
         );
       case "dropdown":
         return (
-          <DropdownForm handleQuestion={handleQuestion} element={element} />
+          <DropdownForm
+            handleQuestion={handleQuestion}
+            element={element}
+            currentId={currentId}
+          />
         );
       case "file":
-        return <FileForm element={element} />;
+        return <FileForm element={element} currentId={currentId} />;
       case "rating":
-        return <RatingForm handleQuestion={handleQuestion} element={element} />;
+        return (
+          <RatingForm
+            handleQuestion={handleQuestion}
+            element={element}
+            currentId={currentId}
+          />
+        );
       default:
         return <></>;
     }
@@ -131,6 +149,7 @@ export const Question = ({
           placeholder={"Question Title"}
           value={element.title}
           onChange={handleQuestionInfo}
+          disabled={currentId !== element._id}
         ></input>
         <select
           id={element._id}
@@ -158,6 +177,7 @@ export const Question = ({
           placeholder="질문에 대한 설명을 입력해주세요"
           value={element.comment}
           onChange={handleQuestionInfo}
+          disabled={currentId !== element._id}
         ></input>
       </div>
       {getContent(element)}
@@ -173,11 +193,11 @@ export const Question = ({
           삭제
         </button>
         {currentId === element._id ? (
-          <button type="button" className="px-1" onClick={handleComplete}>
+          <button type="button" className="px-1" onClick={handleEditComplete}>
             수정완료
           </button>
         ) : (
-          <button type="button" className="px-1" onClick={handleEdit}>
+          <button type="button" className="px-1" onClick={handleEditClick}>
             수정하기
           </button>
         )}

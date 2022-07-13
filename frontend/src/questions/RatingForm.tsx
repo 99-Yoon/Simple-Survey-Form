@@ -4,9 +4,10 @@ import { RatingType } from "../types";
 type Props = {
   element: RatingType;
   handleQuestion: (id: string) => void;
+  currentId: string;
 };
 
-export const RatingForm = ({ element, handleQuestion }: Props) => {
+export const RatingForm = ({ element, handleQuestion, currentId }: Props) => {
   const [choices, setChoices] = useState([...element.content.choices]);
 
   function handleContent(event: React.ChangeEvent<HTMLInputElement>) {
@@ -30,7 +31,7 @@ export const RatingForm = ({ element, handleQuestion }: Props) => {
     handleQuestion(element._id);
   }
   function addValue() {
-    choices.push({ text: "0", value: 0 });
+    choices.push({ text: "0", value: choices.length });
     element.content.choices = choices;
     handleQuestion(element._id);
   }
@@ -42,26 +43,32 @@ export const RatingForm = ({ element, handleQuestion }: Props) => {
           name="minRateDescription"
           className="border-b-2 text-center"
           size={10}
-          placeholder={element.content.minRateDescription}
+          placeholder="비동의"
+          value={element.content.minRateDescription}
           onChange={handleContent}
+          disabled={currentId !== element._id}
         ></input>
-        {choices.map((e: any, index: number) => (
+        {choices.map((choice: any, index: number) => (
           <input
             name="text"
             id={`${index}`}
             type="text"
             className="border border-black rounded-full py-1 m-2 text-center"
             size={1}
-            placeholder={e.text}
+            placeholder="0"
+            value={choice.text}
             onChange={handleContent}
+            disabled={currentId !== element._id}
           ></input>
         ))}
         <input
           name="maxRateDescription"
           className="border-b-2 text-center"
           size={10}
-          placeholder={element.content.maxRateDescription}
+          placeholder="동의"
+          value={element.content.maxRateDescription}
           onChange={handleContent}
+          disabled={currentId !== element._id}
         ></input>
       </div>
       <div>
@@ -70,6 +77,7 @@ export const RatingForm = ({ element, handleQuestion }: Props) => {
           name="rateValues"
           className="border border-red-500 rounded mx-2 px-2"
           onClick={deleteValue}
+          disabled={currentId !== element._id}
         >
           삭제
         </button>
@@ -78,6 +86,7 @@ export const RatingForm = ({ element, handleQuestion }: Props) => {
           name="rateValues"
           className="border border-blue-500 rounded mx-2 px-2"
           onClick={addValue}
+          disabled={currentId !== element._id}
         >
           추가
         </button>
