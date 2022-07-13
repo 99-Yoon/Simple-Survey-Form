@@ -1,14 +1,46 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { questionApi, surveyApi } from "../apis";
+import { SpinnerIcon } from "../icons";
 import { Question } from "../questions";
 import { BasicQuestionType, SurveyType } from "../types";
 
-export const CreateSurvey = () => {
+export const EditSurvey = () => {
+  let { surveyId } = useParams<{ surveyId: string }>();
+  useEffect(() => {
+    getSurvey();
+  }, [surveyId]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [survey, setSurvey] = useState<SurveyType>({
+    _id: surveyId,
+    user: {},
     title: "",
     comment: "",
     questions: [],
   });
+  const [currentId, setCurrentId] = useState("");
+  const changeCurrentId = (id: string) => {
+    setCurrentId(id);
+  };
+  async function getSurvey() {
+    try {
+      if (surveyId) {
+        const thisSurvey: SurveyType = await surveyApi.getSurvey(surveyId);
+        setSurvey(thisSurvey);
+        setSuccess(true);
+        setError("");
+      } else {
+        setLoading(true);
+      }
+    } catch (error) {
+      console.log("에러발생");
+      // catchErrors(error, setError)
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const handleQuestion = (id: string) => {
     const newList: BasicQuestionType[] = [...survey.questions];
@@ -23,7 +55,7 @@ export const CreateSurvey = () => {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     try {
-      const newSurvey: SurveyType = await surveyApi.createSurvey(survey);
+      const newSurvey: SurveyType = await surveyApi.editSurvey(survey);
       console.log(newSurvey);
       // setSuccess(true);
       // setError("");
@@ -70,6 +102,9 @@ export const CreateSurvey = () => {
   console.log(questions);
   return (
     <>
+      {loading && (
+        <SpinnerIcon className="animate-spin h-5 w-5 mr-1 text-slate" />
+      )}
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col place-items-center">
           <div className="flex flex-col container place-items-center mt-4">
@@ -94,6 +129,8 @@ export const CreateSurvey = () => {
               element={question}
               handleQuestion={handleQuestion}
               deleteQuestion={deleteQuestion}
+              changeCurrentId={changeCurrentId}
+              currentId={currentId}
             />
           ))}
           <div className="flex w-4/5 content-center justify-center border-2 border-black h-8 mt-3">

@@ -1,1 +1,1 @@
-export { CreateSurvey } from "./CreateSurvey";
+export { EditSurvey } from "./EditSurvey";

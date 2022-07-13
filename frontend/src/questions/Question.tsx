@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import { BasicQuestionType, EssayType } from "../types";
 import { questionApi } from "../apis";
 import { EssayForm } from "./EssayForm";
@@ -12,6 +12,8 @@ type Props = {
   element: BasicQuestionType;
   handleQuestion: (id: string) => void;
   deleteQuestion: (id: string) => void;
+  changeCurrentId: (id: string) => void;
+  currentId: string;
 };
 
 const typeDropDown = new Map([
@@ -29,9 +31,12 @@ export const Question = ({
   element,
   handleQuestion,
   deleteQuestion,
+  changeCurrentId,
+  currentId,
 }: Props) => {
   const handleEdit = () => {
     //setCurrentId해주고 currentId===element._id가 같은 input들만 disabled=false
+    changeCurrentId(element._id);
   };
   async function handleComplete() {
     //db에서 element._id인 애를 findOneAndUpdate() 해준다.
@@ -167,12 +172,15 @@ export const Question = ({
         <button type="button" className="px-1" onClick={handleDelete}>
           삭제
         </button>
-        <button type="button" className="px-1" onClick={handleEdit}>
-          수정
-        </button>
-        <button type="button" className="px-1" onClick={handleComplete}>
-          완료
-        </button>
+        {currentId === element._id ? (
+          <button type="button" className="px-1" onClick={handleComplete}>
+            수정완료
+          </button>
+        ) : (
+          <button type="button" className="px-1" onClick={handleEdit}>
+            수정하기
+          </button>
+        )}
       </div>
     </div>
   );

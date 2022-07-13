@@ -1,16 +1,17 @@
 import { model, Schema, Types } from "mongoose";
 
 export interface ISurvey {
+  _id?: Types.ObjectId;
   title?: string;
   comment?: string;
-  // userId: Types.ObjectId;
+  user: Types.ObjectId;
   questions: Types.ObjectId[];
 }
 
 const schema = new Schema<ISurvey>({
   title: { type: String },
   comment: { type: String },
-  // userId: { type: Schema.Types.ObjectId, ref: "User" },
+  user: { type: Schema.Types.ObjectId, ref: "User" },
   questions: [{ type: Schema.Types.ObjectId, ref: "Question" }],
 });
 

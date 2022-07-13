@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { surveyApi } from "../apis";
+import { SurveyType } from "../types";
 
 export const Profile = () => {
   const navigate = useNavigate();
-
-  const createSurvey = () => {
+  const [survey, setSurvey] = useState<SurveyType>({
+    user: {},
+    title: "",
+    comment: "",
+    questions: [],
+  });
+  async function createSurvey() {
     // 먼저 서버에 survey 테이블에 새로운 survey 항목 추가 로직 필요
-    navigate("/surveys/create", { replace: true });
-  };
+    const newSurvey: SurveyType = await surveyApi.createSurvey(survey);
+    navigate(`/surveys/edit/${newSurvey._id}`, {
+      replace: true,
+    });
+  }
 
   return (
     <div className="flex flex-col items-center">
