@@ -21,7 +21,7 @@ export const Profile = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="m-5">나의 설문조사</div>
-      <div className="flex flex-row space-x-4 mt-5">
+      <div className="flex space-x-4 mt-5">
         <button
           onClick={createSurvey}
           className="flex h-60 w-48 items-center border-2 border-themeColor font-bold bg-gray-200 hover:bg-themeColor rounded-lg "
@@ -40,7 +40,7 @@ export const Profile = () => {
             <div className="px-2 py-2">
               <label>설문조사 이름</label>
             </div>
-            <div className="flex justify-end dropdown-toggle">
+            <div className="flex justify-end">
               <select className="py-2 w-14 bg-themeColor rounded text-white">
                 <option selected>옵션</option>
                 <option>삭제</option>
@@ -59,7 +59,7 @@ export const Profile = () => {
             <div className="px-2 py-2">
               <label>설문조사이름</label>
             </div>
-            <div className="flex justify-end dropdown-toggle">
+            <div className="flex justify-end">
               <select className="py-2 w-14 bg-themeColor rounded text-white">
                 <option selected>옵션</option>
                 <option>삭제</option>
@@ -78,7 +78,7 @@ export const Profile = () => {
             <div className="px-2 py-2">
               <label>설문조사 이름</label>
             </div>
-            <div className="flex justify-end dropdown-toggle">
+            <div className="flex justify-end">
               <select className="py-2 w-14 bg-themeColor rounded text-white">
                 <option selected>옵션</option>
                 <option>삭제</option>
@@ -97,7 +97,7 @@ export const Profile = () => {
             <div className="px-2 py-2">
               <label>설문조사 이름</label>
             </div>
-            <div className="flex justify-end dropdown-toggle">
+            <div className="flex justify-end">
               <select className="py-2 w-14 bg-themeColor rounded text-white">
                 <option selected>옵션</option>
                 <option>삭제</option>
