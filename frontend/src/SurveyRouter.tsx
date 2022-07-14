@@ -4,10 +4,9 @@ import App from "./App";
 import { Login, SignUp } from "./auth";
 import { RequireAuth } from "./auth/RequireAuth";
 import { SurveyForm } from "./commons";
-import { CreateSurveyForm } from "./CreateSurveyForm";
 import { Home } from "./home";
 import { Profile } from "./profile";
-import { CreateSurvey } from "./survey";
+import { EditSurvey } from "./survey";
 
 export const SurveyRouter = () => {
   return (
@@ -17,7 +16,7 @@ export const SurveyRouter = () => {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="surveys/create" element={<CreateSurvey />} />
+          <Route path="surveys/edit/:surveyId" element={<EditSurvey />} />
           <Route path="survey" element={<SurveyForm />} />
           <Route
             path="profile"

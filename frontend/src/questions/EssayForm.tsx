@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { EssayType } from "../types";
-// import { useQuestion } from "./question.context";
-// import { Edit } from "./Edit";
-// import { TypeChange } from "./typeDD";
 
 type Props = {
   element: EssayType;
+  currentId: string;
 };
 
-export const EssayForm = ({ element }: Props) => {
-  // const { questionListChange } = useQuestion();
-
+export const EssayForm = ({ element, currentId }: Props) => {
   return (
     <div id="commentarea" className="flex mt-4 w-full justify-center">
       <input className="border w-11/12 h-16" disabled></input>

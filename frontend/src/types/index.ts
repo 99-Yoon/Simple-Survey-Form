@@ -11,6 +11,8 @@ export interface SignupUser {
 }
 
 export interface SurveyType {
+  _id?: string;
+  user: any;
   title: string;
   comment: string;
   questions: BasicQuestionType[];
