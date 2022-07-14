@@ -26,6 +26,12 @@ export const getSurveyById = asyncWrap(async (req, res) => {
   return res.json(survey);
 });
 
+//동혁
+export const getSurveys = asyncWrap(async(req,res)=>{
+  const surveys = await surveyDb.getSurveys();
+  return res.json(surveys);
+});
+
 export const updateSurvey = asyncWrap(async (req, res) => {
   const survey = req.body;
   const newSurvey = await surveyDb.updateSurvey(survey);

@@ -20,6 +20,10 @@ export const getSurveyById = async (surveyId: string) => {
   const survey = await Survey.findById(surveyId).populate("questions");
   return survey;
 };
+export const getSurveys = async () => {
+  const surveys = await Survey.find();
+  return surveys;
+};
 
 export const updateSurvey = async (survey: ISurvey) => {
   const newSurvey = await Survey.findOneAndUpdate({ _id: survey._id }, survey);

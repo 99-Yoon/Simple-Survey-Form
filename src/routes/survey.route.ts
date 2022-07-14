@@ -8,7 +8,8 @@ router
   .route("/edit/:surveyId")
   .get(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.getSurveyById)
   .put(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.updateSurvey);
-
+router.route("/")
+.get(authCtrl.requireLogin,surveyCtrl.getSurveys);
 router.param("surveyId", surveyCtrl.userBySurveyId);
 
 export default router;
