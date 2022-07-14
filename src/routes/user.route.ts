@@ -1,12 +1,12 @@
 import express from "express";
-import { userCtrl, authCtrl } from "../controllers";
+import { userCtrl, authCtrl, fileCtrl } from "../controllers";
 
 const router = express.Router();
 
 router
   .route("/")
   .get(authCtrl.requireLogin, userCtrl.getUsers)
-  .post(authCtrl.requireLogin, userCtrl.createUser);
+  .post(authCtrl.requireLogin, fileCtrl.fileUpload, userCtrl.createUser);
 
 router
   .route("/:userId")

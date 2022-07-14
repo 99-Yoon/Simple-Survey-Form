@@ -5,6 +5,7 @@ export interface IUser {
   name?: string;
   password: string;
   role?: Types.ObjectId;
+  avatar?: Types.ObjectId;
 }
 
 const validateEmail = (email: string) => {
@@ -23,6 +24,7 @@ const schema = new Schema<IUser>(
     name: { type: String },
     password: { type: String, required: true, select: false },
     role: { type: Schema.Types.ObjectId, ref: "Role" },
+    avatar: { type: Schema.Types.ObjectId, ref: "File" },
   },
   {
     toJSON: {

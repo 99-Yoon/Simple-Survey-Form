@@ -3,9 +3,18 @@ import { userDb } from "../db";
 import { asyncWrap } from "../helpers/asyncWrap";
 import { TypedRequestAuth } from "./auth.controller";
 
-export const createUser = asyncWrap(async (req, res) => {
+interface TypedRequest extends Request {
+  auth: any;
+  user: any;
+  files: any;
+}
+
+export const createUser = asyncWrap(async (reqExp, res) => {
+  const req = reqExp as TypedRequest;
+
   const user = req.body;
   console.log("user body", user);
+  console.log("files ", req.files);
   const newUser = await userDb.createUser(user);
   return res.json(newUser);
 });
