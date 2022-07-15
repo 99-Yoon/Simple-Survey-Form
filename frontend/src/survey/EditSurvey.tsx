@@ -1,12 +1,14 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { questionApi, surveyApi } from "../apis";
 import { SpinnerIcon } from "../icons";
 import { Question } from "../questions";
 import { BasicQuestionType, SurveyType } from "../types";
+import { catchErrors } from "../helpers";
 
 export const EditSurvey = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
+  const navigate = useNavigate();
   useEffect(() => {
     getSurvey();
   }, [surveyId]);
@@ -35,8 +37,10 @@ export const EditSurvey = () => {
         setLoading(true);
       }
     } catch (error) {
-      console.log("에러발생");
-      // catchErrors(error, setError)
+      catchErrors(error, setError);
+      // navigate(`/`, {
+      //   replace: false,
+      // });
     } finally {
       setLoading(false);
     }
@@ -57,13 +61,12 @@ export const EditSurvey = () => {
     try {
       const newSurvey: SurveyType = await surveyApi.editSurvey(survey);
       console.log(newSurvey);
-      // setSuccess(true);
-      // setError("");
+      setSuccess(true);
+      setError("");
     } catch (error) {
-      console.log("에러발생");
-      // catchErrors(error, setError)
+      catchErrors(error, setError);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   }
 
@@ -71,13 +74,12 @@ export const EditSurvey = () => {
     try {
       const newQuestion: BasicQuestionType = await questionApi.createQuestion();
       setSurvey({ ...survey, questions: [...survey.questions, newQuestion] });
-      // setSuccess(true);
-      // setError("");
+      setSuccess(true);
+      setError("");
     } catch (error) {
-      console.log("에러발생");
-      // catchErrors(error, setError)
+      catchErrors(error, setError);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   }
 
@@ -88,13 +90,12 @@ export const EditSurvey = () => {
         id
       );
       setSurvey({ ...survey, questions: newList.filter((a) => a._id !== id) });
-      // setSuccess(true);
-      // setError("");
+      setSuccess(true);
+      setError("");
     } catch (error) {
-      console.log("에러발생");
-      // catchErrors(error, setError)
+      catchErrors(error, setError);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   }
 
@@ -102,6 +103,7 @@ export const EditSurvey = () => {
   console.log(questions);
   return (
     <>
+      {error ? alert(error) : <></>}
       {loading && (
         <SpinnerIcon className="animate-spin h-5 w-5 mr-1 text-slate" />
       )}
@@ -113,6 +115,7 @@ export const EditSurvey = () => {
               name="title"
               className="font-bold text-4xl text-center m-2 border-b-2"
               placeholder="설문지 제목"
+              value={survey.title}
               onChange={handleSurvey}
             ></input>
             <input
@@ -121,6 +124,7 @@ export const EditSurvey = () => {
               className="font-bold text-1xl text-center m-2 resize-none"
               placeholder="설문조사에 대한 설명을 입력해주세요"
               size={50}
+              value={survey.comment}
               onChange={handleSurvey}
             ></input>
           </div>
@@ -143,7 +147,7 @@ export const EditSurvey = () => {
               type="submit"
               className="border bg-themeColor my-5 py-2 px-3 font-bold text-white"
             >
-              설문조사 생성
+              저장하기
             </button>
           </div>
         </div>

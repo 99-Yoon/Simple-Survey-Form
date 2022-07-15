@@ -16,6 +16,8 @@ export interface SurveyType {
   title: string;
   comment: string;
   questions: BasicQuestionType[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface BasicQuestionType {

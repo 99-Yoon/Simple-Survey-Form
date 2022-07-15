@@ -31,7 +31,7 @@ export const RatingForm = ({ element, handleQuestion, currentId }: Props) => {
     handleQuestion(element._id);
   }
   function addValue() {
-    choices.push({ text: "0", value: choices.length });
+    choices.push({ text: "", value: choices.length });
     element.content.choices = choices;
     handleQuestion(element._id);
   }

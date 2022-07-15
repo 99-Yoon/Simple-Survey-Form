@@ -24,3 +24,8 @@ export const editSurvey = async (survey: SurveyType) => {
   );
   return data;
 };
+
+export const deleteSurvey = async (surveyId: string) => {
+  const { data } = await axios.delete(`${baseUrl}/surveys/delete/${surveyId}`);
+  return data;
+};

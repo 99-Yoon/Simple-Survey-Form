@@ -8,7 +8,7 @@ export interface TypedRequestAuth<T> extends Request {
 }
 
 export const createSurvey = asyncWrap(
-  async (reqExp: Request, res: Response, next: NextFunction) => {
+  async (reqExp: Request, res: Response) => {
     const req = reqExp as TypedRequestAuth<{ userId: string }>;
     const { userId } = req.auth;
     let survey = req.body;
@@ -21,14 +21,16 @@ export const createSurvey = asyncWrap(
 
 export const getSurveyById = asyncWrap(async (req, res) => {
   const { surveyId } = req.params;
-  const survey = await surveyDb.getSurveyById(surveyId);
+  const survey: any = await surveyDb.getSurveyById(surveyId);
   console.log("Get완료", survey);
   return res.json(survey);
 });
 
 //동혁
-export const getSurveys = asyncWrap(async(req,res)=>{
-  const surveys = await surveyDb.getSurveys();
+export const getSurveys = asyncWrap(async (reqExp: Request, res: Response) => {
+  const req = reqExp as TypedRequestAuth<{ userId: string }>;
+  const { userId } = req.auth;
+  const surveys = await surveyDb.getSurveys(userId);
   return res.json(surveys);
 });
 
@@ -36,6 +38,12 @@ export const updateSurvey = asyncWrap(async (req, res) => {
   const survey = req.body;
   const newSurvey = await surveyDb.updateSurvey(survey);
   return res.json(newSurvey);
+});
+
+export const deleteSurvey = asyncWrap(async (req, res) => {
+  const { surveyId } = req.params;
+  const survey = await surveyDb.deleteSurvey(surveyId);
+  return res.json(survey);
 });
 
 export const userBySurveyId = async (
@@ -48,10 +56,11 @@ export const userBySurveyId = async (
     const req = reqExp as TypedRequestAuth<{ userId: string }>;
     let user = await surveyDb.findUserBySurveyId(surveyId);
     if (!user) {
-      return res.status(404).send("사용자를 찾을 수 없습니다");
+      return res.status(404).send("올바른 접근이 아닙니다.");
+    } else {
+      req.user = user;
+      next();
     }
-    req.user = user;
-    next();
   } catch (error: any) {
     return res
       .status(500)
