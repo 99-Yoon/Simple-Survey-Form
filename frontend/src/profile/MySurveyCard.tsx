@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { surveyApi } from "../apis";
 import { SurveyType } from "../types";
+import { catchErrors } from "../helpers";
 
 type Props = {
   data: SurveyType;
@@ -31,7 +32,7 @@ export const MySurveyCard = ({ data }: Props) => {
       }
     } catch (error) {
       console.log("에러발생");
-      // catchErrors(error, setError)
+      catchErrors(error, setError);
     } finally {
       setLoading(false);
     }

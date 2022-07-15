@@ -4,11 +4,6 @@ import { surveyApi } from "../apis";
 import { SurveyType } from "../types";
 import { MySurveyCard } from "./MySurveyCard";
 
-const testData = [
-  { id: 0, name: "이름1", description: "설명1" },
-  { id: 1, name: "이름2", description: "설명2" },
-  { id: 2, name: "이름3", description: "설명3" },
-];
 export const Profile = () => {
   const navigate = useNavigate();
   const [survey, setSurvey] = useState<SurveyType>({
