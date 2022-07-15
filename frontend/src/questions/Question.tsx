@@ -143,7 +143,10 @@ export const Question = ({
     changeCurrentId(element._id);
   };
   return (
-    <div className="flex flex-col container w-4/5 h-auto border-2 border-themeColor items-center m-3 py-2">
+    <div
+      style={{ borderColor: currentId === element._id ? "red" : "#58ACFA" }}
+      className="flex flex-col container w-4/5 h-auto border-2 items-center m-3 py-2"
+    >
       <div className="flex h-16 w-full place-content-between items-center">
         <input
           type="text"

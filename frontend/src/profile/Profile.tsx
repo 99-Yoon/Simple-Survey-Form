@@ -39,8 +39,8 @@ export const Profile = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="m-5 text-bold">나의 설문조사</div>
-      <div className="flex space-x-4 mt-5">
+      <div className="mt-10 text-xl font-bold">나의 설문조사</div>
+      <div className="flex space-x-4 mt-6">
         <button
           onClick={createSurvey}
           className="flex h-60 w-52 items-center border-2 border-themeColor font-bold bg-gray-200 hover:bg-themeColor rounded-lg "
