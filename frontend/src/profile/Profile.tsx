@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { surveyApi } from "../apis";
+import { baseImageUrl, surveyApi } from "../apis";
 import { SurveyType } from "../types";
 
 export const Profile = () => {
@@ -21,6 +21,7 @@ export const Profile = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="m-5">나의 설문조사</div>
+      <img src={`${baseImageUrl}/9e24ad36a2947b08c89913b01`} />
       <div className="flex space-x-4 mt-5">
         <button
           onClick={createSurvey}
