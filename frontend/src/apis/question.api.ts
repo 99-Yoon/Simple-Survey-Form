@@ -21,7 +21,9 @@ export const updateQuestion = async (question: BasicQuestionType) => {
   return data;
 };
 
-export const deleteQuestion = async (id: string) => {
-  const { data } = await axios.delete(`${baseUrl}/questions/delete/${id}`);
+export const deleteQuestion = async (questionId: string) => {
+  const { data } = await axios.delete(
+    `${baseUrl}/questions/delete/${questionId}`
+  );
   return data;
 };

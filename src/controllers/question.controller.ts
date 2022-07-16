@@ -41,10 +41,11 @@ export const userByQuestionId = async (
     const req = reqExp as TypedRequestAuth<{ userId: string }>;
     let user = await questionDb.findUserByQuestionId(questionId);
     if (!user) {
-      return res.status(404).send("사용자를 찾을 수 없습니다");
+      return res.status(404).send("올바른 접근이 아닙니다");
+    } else {
+      req.user = user;
+      next();
     }
-    req.user = user;
-    next();
   } catch (error: any) {
     return res
       .status(500)

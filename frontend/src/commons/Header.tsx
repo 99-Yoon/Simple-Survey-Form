@@ -14,37 +14,30 @@ export const Header = () => {
         </Link>
         <div className="md:flex items-center justify-end md:flex-1 lg:w-0">
           {user.isLoggedIn ? (
-            <div className="">
+            <div>
               <button
                 onClick={() => logout()}
-                className="whitespace-nowrap font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md"
+                className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md"
               >
                 로그아웃
               </button>
-              {location.pathname === "/profile" ? (
-                ""
-              ) : (
-                <Link
-                  to="/profile"
-                  className="whitespace-nowrap font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md"
-                >
+              <Link to="/profile">
+                <button className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md">
                   프로필
-                </Link>
-              )}
+                </button>
+              </Link>
             </div>
           ) : (
             <div>
-              <Link
-                to="/login"
-                className="whitespace-nowrap font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md"
-              >
-                로그인
+              <Link to="/login">
+                <button className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md">
+                  로그인
+                </button>
               </Link>
-              <Link
-                to="/signup"
-                className="whitespace-nowrap font-bold text-white hover:bg-blue-500 mx-1 py-2 px-3 bg-themeColor rounded-md "
-              >
-                회원가입
+              <Link to="/signup">
+                <button className="font-bold text-white hover:bg-blue-500 mx-1 py-2 px-3 bg-themeColor rounded-md ">
+                  회원가입
+                </button>
               </Link>
             </div>
           )}

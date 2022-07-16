@@ -34,9 +34,6 @@ export const Question = ({
   changeCurrentId,
   currentId,
 }: Props) => {
-  const handleEditClick = () => {
-    changeCurrentId(element._id);
-  };
   async function handleEditComplete() {
     try {
       const newQuestion: BasicQuestionType = await questionApi.updateQuestion(
@@ -92,10 +89,6 @@ export const Question = ({
     handleQuestion(element._id);
   }
 
-  function handleDelete() {
-    deleteQuestion(element._id);
-  }
-
   function getContent(element: BasicQuestionType) {
     switch (element.type) {
       case "essay":
@@ -138,9 +131,22 @@ export const Question = ({
         return <></>;
     }
   }
-
+  const handleRequired = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = event.currentTarget;
+    element[value] = checked;
+    handleQuestion(element._id);
+  };
+  const handleDelete = () => {
+    deleteQuestion(element._id);
+  };
+  const handleEditClick = () => {
+    changeCurrentId(element._id);
+  };
   return (
-    <div className="flex flex-col container w-4/5 h-auto border-2 border-themeColor items-center m-3 py-2">
+    <div
+      style={{ borderColor: currentId === element._id ? "red" : "#58ACFA" }}
+      className="flex flex-col container w-4/5 h-auto border-2 items-center m-3 py-2"
+    >
       <div className="flex h-16 w-full place-content-between items-center">
         <input
           type="text"
@@ -184,12 +190,17 @@ export const Question = ({
       {getContent(element)}
 
       <div className="place-self-end py-2">
-        <button type="button" className="px-1">
+        <input
+          type="checkbox"
+          id="isRequired"
+          value="isRequired"
+          onChange={handleRequired}
+          disabled={currentId !== element._id}
+          checked={element.isRequired}
+        />
+        <label htmlFor="isRequired" className="px-1">
           필수
-        </button>
-        <button type="button" className="px-1">
-          옵션
-        </button>
+        </label>
         <button type="button" className="px-1" onClick={handleDelete}>
           삭제
         </button>
