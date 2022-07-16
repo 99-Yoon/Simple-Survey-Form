@@ -24,7 +24,7 @@ const schema = new Schema<IUser>(
     name: { type: String },
     password: { type: String, required: true, select: false },
     role: { type: Schema.Types.ObjectId, ref: "Role" },
-    avatar: { type: Schema.Types.ObjectId, ref: "File" },
+    avatar: { type: Schema.Types.ObjectId, ref: "FileInfo" },
   },
   {
     toJSON: {

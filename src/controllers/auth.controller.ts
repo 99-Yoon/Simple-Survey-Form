@@ -50,7 +50,11 @@ export const hasRole = (roleName: string) => {
     if (!req.auth) {
       return res.status(401).send("로그인이 필요합니다");
     }
+
     const { userId } = req.auth;
+    if (!(await userDb.isValidUserId(userId))) {
+      return res.status(401).send("유효한 사용자가 아닙니다");
+    }
     const userRole = await roleDb.findRoleByUserId(userId);
     const maxRole = await roleDb.findRoleByName(roleName);
     if (maxRole && Number(maxRole.priority) >= Number(userRole.priority)) {

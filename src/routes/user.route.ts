@@ -6,7 +6,12 @@ const router = express.Router();
 router
   .route("/")
   .get(authCtrl.requireLogin, userCtrl.getUsers)
-  .post(authCtrl.requireLogin, fileCtrl.fileUpload, userCtrl.createUser);
+  .post(
+    authCtrl.requireLogin,
+    authCtrl.hasRole("admin"),
+    fileCtrl.uploadAvatar,
+    userCtrl.createUser
+  );
 
 router
   .route("/:userId")

@@ -15,6 +15,7 @@ export const createUser = async (user: IUser) => {
     email: user.email,
     password: hash,
     role: userRole,
+    avatar: user.avatar,
     isNew: true,
   });
   const retUser = await newUser.save();
@@ -45,12 +46,24 @@ export const findUserByEmail = async (
 };
 
 export const getUsers = async () => {
-  const users = await User.find({});
+  const users = await User.find({}).populate({
+    path: "avatar",
+    select: "_id name url",
+  });
   return users;
 };
 
 export const isUser = async (email: string) => {
   const user = await User.findOne({ email });
+  if (user) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const isValidUserId = async (userId: string) => {
+  const user = await User.findById(userId);
   if (user) {
     return true;
   } else {
