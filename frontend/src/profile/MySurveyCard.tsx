@@ -20,6 +20,12 @@ export const MySurveyCard = ({ data }: Props) => {
     });
   };
 
+  const goSurvey = () => {
+    navigate(`/surveys/${data._id}`, {
+      replace: true,
+    });
+  };
+
   async function deleteSurvey() {
     try {
       if (data._id) {
@@ -47,9 +53,11 @@ export const MySurveyCard = ({ data }: Props) => {
       </div>
       <div className="flex flex-col px-5 py-3">
         <div className="h-12">
-          <p className="font-bold">
-            {data.title ? data.title : "제목없는 설문조사"}
-          </p>
+          <button type="button" onClick={goSurvey}>
+            <p className="font-bold">
+              {data.title ? data.title : "제목없는 설문조사"}
+            </p>
+          </button>
           <p className="text-gray-500 text-sm">
             {data.updatedAt?.substring(0, 10)}
           </p>
