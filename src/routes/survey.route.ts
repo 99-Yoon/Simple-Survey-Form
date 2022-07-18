@@ -6,6 +6,9 @@ const router = express.Router();
 router.route("/").get(authCtrl.requireLogin, surveyCtrl.getSurveys);
 router.route("/create").post(authCtrl.requireLogin, surveyCtrl.createSurvey);
 router
+  .route("/:surveyId")
+  .get(surveyCtrl.getSurveyById);
+router
   .route("/edit/:surveyId")
   .get(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.getSurveyById)
   .put(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.updateSurvey);
