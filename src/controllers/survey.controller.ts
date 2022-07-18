@@ -26,7 +26,6 @@ export const getSurveyById = asyncWrap(async (req, res) => {
   return res.json(survey);
 });
 
-//동혁
 export const getSurveys = asyncWrap(async (reqExp: Request, res: Response) => {
   const req = reqExp as TypedRequestAuth<{ userId: string }>;
   const { userId } = req.auth;

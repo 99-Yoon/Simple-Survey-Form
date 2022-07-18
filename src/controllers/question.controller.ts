@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { questionDb } from "../db";
+import { questionDb, surveyDb } from "../db";
 import { asyncWrap } from "../helpers/asyncWrap";
 
 export interface TypedRequestAuth<T> extends Request {
@@ -9,13 +9,28 @@ export interface TypedRequestAuth<T> extends Request {
 
 export const createQuestion = asyncWrap(
   async (reqExp: Request, res: Response, next: NextFunction) => {
-    const req = reqExp as TypedRequestAuth<{ userId: string }>;
-    const { userId } = req.auth;
-    let question = req.body;
-    question.user = userId;
-    console.log("question body", question);
-    const newQuestion = await questionDb.createQuestion(question);
-    return res.json(newQuestion);
+    try {
+      const req = reqExp as TypedRequestAuth<{ userId: string }>;
+      const { userId } = req.auth;
+      if (!userId) {
+        return res.status(404).send("올바른 접근이 아닙니다");
+      } else {
+        let question = req.body;
+        question.user = userId;
+        const newQuestion = await questionDb.createQuestion(question);
+        const { surveyId } = req.params;
+        const updatedSurvey = await surveyDb.putNewQuestion(
+          newQuestion,
+          surveyId
+        );
+        console.log(updatedSurvey);
+        return res.json(updatedSurvey?.questions);
+      }
+    } catch (error: any) {
+      return res
+        .status(500)
+        .send(error.message || "질문을 생성하는 중 오류 발생");
+    }
   }
 );
 

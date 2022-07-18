@@ -36,7 +36,7 @@ export const Profile = () => {
     <div className="flex flex-col items-center">
       <div className="mt-10 text-xl font-bold">나의 설문조사</div>
       <img src={`${baseImageUrl}/9e24ad36a2947b08c89913b01`} />
-      <div className="flex space-x-4 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-4 mt-6">
         <button
           onClick={createSurvey}
           className="flex h-60 w-52 items-center border-2 border-themeColor font-bold bg-gray-200 hover:bg-themeColor rounded-lg "

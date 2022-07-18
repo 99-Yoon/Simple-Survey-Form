@@ -2,14 +2,17 @@ import axios from "axios";
 import { BasicQuestionType } from "../types";
 import baseUrl from "./baseUrl";
 
-export const createQuestion = async () => {
-  const { data } = await axios.post(`${baseUrl}/questions/create`, {
-    type: "essay",
-    title: "",
-    isRequired: false,
-    comment: "",
-    content: { choices: [] },
-  });
+export const createQuestion = async (surveyId: string) => {
+  const { data } = await axios.post(
+    `${baseUrl}/surveys/${surveyId}/questions`,
+    {
+      type: "essay",
+      title: "",
+      isRequired: false,
+      comment: "",
+      content: { choices: [] },
+    }
+  );
   return data;
 };
 

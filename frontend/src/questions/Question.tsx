@@ -7,13 +7,12 @@ import { RadioForm } from "./RadioForm";
 import { DropdownForm } from "./DropdownForm";
 import { FileForm } from "./FileForm";
 import { RatingForm } from "./RatingForm";
+import { DateForm } from "./DateForm";
 
 type Props = {
   element: BasicQuestionType;
   handleQuestion: (id: string) => void;
   deleteQuestion: (id: string) => void;
-  changeCurrentId: (id: string) => void;
-  currentId: string;
 };
 
 const typeDropDown = new Map([
@@ -31,16 +30,15 @@ export const Question = ({
   element,
   handleQuestion,
   deleteQuestion,
-  changeCurrentId,
-  currentId,
 }: Props) => {
+  const [save, setSave] = useState(true);
   async function handleEditComplete() {
     try {
       const newQuestion: BasicQuestionType = await questionApi.updateQuestion(
         element
       );
       console.log(newQuestion);
-      changeCurrentId("");
+      setSave(true);
       // setSuccess(true);
       // setError("");
     } catch (error) {
@@ -92,13 +90,13 @@ export const Question = ({
   function getContent(element: BasicQuestionType) {
     switch (element.type) {
       case "essay":
-        return <EssayForm element={element} currentId={currentId} />;
+        return <EssayForm element={element} save={save} />;
       case "radio":
         return (
           <RadioForm
             handleQuestion={handleQuestion}
             element={element}
-            currentId={currentId}
+            save={save}
           />
         );
       case "checkbox":
@@ -106,7 +104,7 @@ export const Question = ({
           <CheckboxForm
             handleQuestion={handleQuestion}
             element={element}
-            currentId={currentId}
+            save={save}
           />
         );
       case "dropdown":
@@ -114,19 +112,21 @@ export const Question = ({
           <DropdownForm
             handleQuestion={handleQuestion}
             element={element}
-            currentId={currentId}
+            save={save}
           />
         );
       case "file":
-        return <FileForm element={element} currentId={currentId} />;
+        return <FileForm element={element} save={save} />;
       case "rating":
         return (
           <RatingForm
             handleQuestion={handleQuestion}
             element={element}
-            currentId={currentId}
+            save={save}
           />
         );
+      case "date":
+        return <DateForm />;
       default:
         return <></>;
     }
@@ -140,11 +140,11 @@ export const Question = ({
     deleteQuestion(element._id);
   };
   const handleEditClick = () => {
-    changeCurrentId(element._id);
+    setSave(false);
   };
   return (
     <div
-      style={{ borderColor: currentId === element._id ? "red" : "#58ACFA" }}
+      style={{ borderColor: save ? "#58ACFA" : "red" }}
       className="flex flex-col container w-4/5 h-auto border-2 items-center m-3 py-2"
     >
       <div className="flex h-16 w-full place-content-between items-center">
@@ -156,7 +156,7 @@ export const Question = ({
           placeholder={"Question Title"}
           value={element.title}
           onChange={handleQuestionInfo}
-          disabled={currentId !== element._id}
+          disabled={save}
         ></input>
         <select
           id={element._id}
@@ -184,7 +184,7 @@ export const Question = ({
           placeholder="질문에 대한 설명을 입력해주세요"
           value={element.comment}
           onChange={handleQuestionInfo}
-          disabled={currentId !== element._id}
+          disabled={save}
         ></input>
       </div>
       {getContent(element)}
@@ -195,7 +195,7 @@ export const Question = ({
           id="isRequired"
           value="isRequired"
           onChange={handleRequired}
-          disabled={currentId !== element._id}
+          disabled={save}
           checked={element.isRequired}
         />
         <label htmlFor="isRequired" className="px-1">
@@ -204,13 +204,13 @@ export const Question = ({
         <button type="button" className="px-1" onClick={handleDelete}>
           삭제
         </button>
-        {currentId === element._id ? (
-          <button type="button" className="px-1" onClick={handleEditComplete}>
-            수정완료
-          </button>
-        ) : (
+        {save ? (
           <button type="button" className="px-1" onClick={handleEditClick}>
             수정하기
+          </button>
+        ) : (
+          <button type="button" className="px-1" onClick={handleEditComplete}>
+            수정완료
           </button>
         )}
       </div>

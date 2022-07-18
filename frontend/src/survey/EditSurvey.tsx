@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { questionApi, surveyApi } from "../apis";
 import { SpinnerIcon } from "../icons";
 import { Question } from "../questions";
@@ -8,7 +8,6 @@ import { catchErrors } from "../helpers";
 
 export const EditSurvey = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
-  const navigate = useNavigate();
   useEffect(() => {
     getSurvey();
   }, [surveyId]);
@@ -22,10 +21,6 @@ export const EditSurvey = () => {
     comment: "",
     questions: [],
   });
-  const [currentId, setCurrentId] = useState("");
-  const changeCurrentId = (id: string) => {
-    setCurrentId(id);
-  };
   async function getSurvey() {
     try {
       if (surveyId) {
@@ -38,9 +33,6 @@ export const EditSurvey = () => {
       }
     } catch (error) {
       catchErrors(error, setError);
-      // navigate(`/`, {
-      //   replace: false,
-      // });
     } finally {
       setLoading(false);
     }
@@ -72,10 +64,17 @@ export const EditSurvey = () => {
 
   async function addQuestion() {
     try {
-      const newQuestion: BasicQuestionType = await questionApi.createQuestion();
-      setSurvey({ ...survey, questions: [...survey.questions, newQuestion] });
-      setSuccess(true);
-      setError("");
+      if (surveyId) {
+        const questions: BasicQuestionType[] = await questionApi.createQuestion(
+          surveyId
+        );
+        console.log(questions);
+        setSurvey({ ...survey, questions: questions });
+        setSuccess(true);
+        setError("");
+      } else {
+        setLoading(true);
+      }
     } catch (error) {
       catchErrors(error, setError);
     } finally {
@@ -133,8 +132,6 @@ export const EditSurvey = () => {
               element={question}
               handleQuestion={handleQuestion}
               deleteQuestion={deleteQuestion}
-              changeCurrentId={changeCurrentId}
-              currentId={currentId}
             />
           ))}
           <div className="flex w-4/5 content-center justify-center border-2 border-black h-8 mt-3">

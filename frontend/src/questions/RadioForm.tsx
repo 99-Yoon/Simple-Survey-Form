@@ -4,10 +4,10 @@ import { RadioType } from "../types";
 type Props = {
   element: RadioType;
   handleQuestion: (id: string) => void;
-  currentId: string;
+  save: boolean;
 };
 
-export const RadioForm = ({ element, handleQuestion, currentId }: Props) => {
+export const RadioForm = ({ element, handleQuestion, save }: Props) => {
   const [choices, setChoices] = useState([...element.content.choices]);
 
   function handleContent(event: React.ChangeEvent<HTMLInputElement>) {
@@ -42,7 +42,7 @@ export const RadioForm = ({ element, handleQuestion, currentId }: Props) => {
               placeholder="선택지"
               value={choice.text}
               onChange={handleContent}
-              disabled={currentId !== element._id}
+              disabled={save}
             ></input>
           </div>
         ))}
@@ -53,7 +53,7 @@ export const RadioForm = ({ element, handleQuestion, currentId }: Props) => {
           name="rateValues"
           className="border border-red-500 rounded mx-2 px-2"
           onClick={deleteValue}
-          disabled={currentId !== element._id}
+          disabled={save}
         >
           삭제
         </button>
@@ -62,7 +62,7 @@ export const RadioForm = ({ element, handleQuestion, currentId }: Props) => {
           name="rateValues"
           className="border border-blue-500 rounded mx-2 px-2"
           onClick={addValue}
-          disabled={currentId !== element._id}
+          disabled={save}
         >
           추가
         </button>

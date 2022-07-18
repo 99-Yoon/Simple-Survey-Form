@@ -22,7 +22,7 @@ export const getSurveyById = async (surveyId: string) => {
 };
 
 export const getSurveys = async (userId: string) => {
-  const surveys = await Survey.find({ user: userId });
+  const surveys = await Survey.find({ user: userId }).sort({ updatedAt: -1 });
   return surveys;
 };
 
@@ -35,4 +35,17 @@ export const deleteSurvey = async (surveyId: string) => {
   console.log("survey id", surveyId);
   const survey = await Survey.findOneAndDelete({ _id: surveyId });
   return survey;
+};
+
+export const putNewQuestion = async (newQuestion: any, surveyId: string) => {
+  console.log(newQuestion, surveyId);
+  if (newQuestion !== null) {
+    const updatedSurvey = await Survey.findOneAndUpdate(
+      { _id: surveyId },
+      { $push: { questions: newQuestion } },
+      { new: true }
+    ).populate("questions");
+    return updatedSurvey;
+  }
+  return null;
 };

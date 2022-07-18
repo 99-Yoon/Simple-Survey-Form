@@ -1,9 +1,11 @@
 import express from "express";
-import { authCtrl, surveyCtrl } from "../controllers";
+import { authCtrl, surveyCtrl, questionCtrl } from "../controllers";
 
 const router = express.Router();
 
 router.route("/").get(authCtrl.requireLogin, surveyCtrl.getSurveys);
+router.route("/:surveyId").get(surveyCtrl.getSurveyById);
+
 router.route("/create").post(authCtrl.requireLogin, surveyCtrl.createSurvey);
 router
   .route("/edit/:surveyId")
@@ -16,6 +18,10 @@ router
     authCtrl.authenticate,
     surveyCtrl.deleteSurvey
   );
+
+router
+  .route("/:surveyId/questions")
+  .post(authCtrl.requireLogin, questionCtrl.createQuestion);
 
 router.param("surveyId", surveyCtrl.userBySurveyId);
 
