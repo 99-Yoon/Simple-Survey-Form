@@ -162,6 +162,7 @@ export const Question = ({
           id={element._id}
           name="type"
           onChange={handleSelect}
+          disabled={save}
           className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
         >
           {Array.from(typeDropDown.entries()).map(([key, value]) => (
