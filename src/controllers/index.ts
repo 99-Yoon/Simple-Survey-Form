@@ -4,3 +4,4 @@ export * as questionCtrl from "./question.controller";
 export * as surveyCtrl from "./survey.controller";
 export * as roleCtrl from "./role.controller";
 export * as userCtrl from "./user.controller";
+export * as answerCtrl from "./answer.controller";

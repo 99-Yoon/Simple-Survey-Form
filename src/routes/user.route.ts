@@ -9,7 +9,7 @@ router
   .post(
     authCtrl.requireLogin,
     authCtrl.hasRole("admin"),
-    fileCtrl.uploadAvatar,
+    fileCtrl.uploadFile,
     userCtrl.createUser
   );
 

@@ -2,7 +2,7 @@ import formidable from "formidable";
 import { asyncWrap } from "../helpers/asyncWrap";
 import { TypedRequest } from "../types";
 
-export const uploadAvatar = asyncWrap(async (reqExp, res, next) => {
+export const uploadFile = asyncWrap(async (reqExp, res, next) => {
   const req = reqExp as TypedRequest;
   const form = formidable({ multiples: false, uploadDir: "uploads" });
 
@@ -12,12 +12,10 @@ export const uploadAvatar = asyncWrap(async (reqExp, res, next) => {
         reject(err);
         return;
       }
-
-      // console.log("fields", fields);
-      // console.log("files", files);
+      console.log("fields", fields);
+      console.log("files", files);
       req.body = fields;
       req.files = files;
-
       resolve(files);
     });
   });

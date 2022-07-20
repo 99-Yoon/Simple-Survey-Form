@@ -1,13 +1,13 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { surveyApi } from "../apis";
+import { surveyApi, answerApi } from "../apis";
 import { catchErrors } from "../helpers";
 import { AnswerType, SurveyType } from "../types";
 import { AQuestion } from "./AQuestion";
-import { ARadioForm } from "./ARadioForm";
 
 export const SurveyForm = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
+  const [files, setFiles] = useState<{ questionId: string; file: File }[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -18,8 +18,8 @@ export const SurveyForm = () => {
     comment: "",
     questions: [],
   });
-  const [response, setResponse] = useState<AnswerType>({
-    surveyId: surveyId,
+  const [answer, setResponse] = useState<AnswerType>({
+    surveyId: "surveyId",
     guestId: "",
     answers: [{ questionId: "", answer: "" }],
   });
@@ -28,23 +28,30 @@ export const SurveyForm = () => {
     ansSurvey();
   }, [surveyId]);
 
+  const addFiles = (oneFile: { questionId: string; file: File }) => {
+    if (!files.find((a) => a.questionId === oneFile.questionId)) {
+      setFiles([...files, oneFile]);
+    }
+  };
   async function ansSurvey() {
     try {
       if (surveyId) {
-        const answersurvey: SurveyType = await surveyApi.ansSurvey(surveyId);
+        const answersurvey: any = await surveyApi.ansSurvey(surveyId);
         console.log(answersurvey);
-        const questionIds = answersurvey.questions.map((el) => {
+        const questionIds = answersurvey.questions.map((el: any) => {
           return { questionId: el._id, answer: "" };
         });
         console.log(questionIds);
-        setResponse({
-          ...response,
-          surveyId: answersurvey._id,
-          answers: questionIds,
-        });
-        setSurvey(answersurvey);
-        setSuccess(true);
-        setError("");
+        if (answersurvey) {
+          setResponse({
+            ...answer,
+            surveyId: answersurvey._id,
+            answers: questionIds,
+          });
+          setSurvey(answersurvey);
+          setSuccess(true);
+          setError("");
+        }
       } else {
         setLoading(true);
       }
@@ -55,18 +62,35 @@ export const SurveyForm = () => {
     }
   }
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("surveyId", answer.surveyId);
+      formData.append("guestId", "");
+      formData.append("answers", JSON.stringify(answer.answers));
+      files.map((f) => {
+        formData.append("files", f.file);
+      });
+      const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
+      // console.log(newAnswer);
+      setSuccess(true);
+      setError("");
+    } catch (error) {
+      catchErrors(error, setError);
+    } finally {
+      setLoading(false);
+    }
   }
 
   const handleAnswer = () => {
-    const newList = [...response.answers];
-    setResponse({ ...response, answers: newList });
+    const newList = [...answer.answers];
+    setResponse({ ...answer, answers: newList });
   };
 
   return (
     <>
-      {console.log(response)}
+      {console.log(answer)}
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col place-items-center">
           <div className="flex flex-col container place-items-center mt-4">
@@ -78,7 +102,8 @@ export const SurveyForm = () => {
               return (
                 <AQuestion
                   question={question}
-                  response={response}
+                  response={answer}
+                  addFiles={addFiles}
                   handleAnswer={handleAnswer}
                 ></AQuestion>
               );

@@ -5,13 +5,20 @@ import { ACheckboxForm } from "./ACheckbox";
 import { ADropdownForm } from "./ADropdown";
 import { AEssayForm } from "./AEssayForm";
 import { ARadioForm } from "./ARadioForm";
+import { AFileForm } from "./AFileForm";
 
 type Props = {
   question: BasicQuestionType;
   response: AnswerType;
   handleAnswer: () => void;
+  addFiles: (oneFile: { questionId: string; file: File }) => void;
 };
-export const AQuestion = ({ question, handleAnswer, response }: Props) => {
+export const AQuestion = ({
+  question,
+  handleAnswer,
+  response,
+  addFiles,
+}: Props) => {
   function getContent(question: BasicQuestionType) {
     switch (question.type) {
       case "essay":
@@ -46,8 +53,15 @@ export const AQuestion = ({ question, handleAnswer, response }: Props) => {
             handleAnswer={handleAnswer}
           />
         );
-      // case "file":
-      //   return <AFileForm element={element} currentId={currentId} />;
+      case "file":
+        return (
+          <AFileForm
+            element={question}
+            response={response}
+            handleAnswer={handleAnswer}
+            addFiles={addFiles}
+          />
+        );
       // case "rating":
       //   return (
       //     <ARatingForm
