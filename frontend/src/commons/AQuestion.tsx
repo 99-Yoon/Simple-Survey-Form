@@ -6,7 +6,6 @@ import { ADateForm } from "./ADateForm";
 import { ADropdownForm } from "./ADropdownForm";
 import { AEssayForm } from "./AEssayForm";
 import { AFileForm } from "./AFileForm";
-// import { AMatrixForm } from "./AMatrixForm";
 import { ARadioForm } from "./ARadioForm";
 import { ARatingForm } from "./ARatingForm";
 
@@ -31,8 +30,6 @@ export const AQuestion = ({ question }: PropsType) => {
         return <ARatingForm element={question} />;
       case "date":
         return <ADateForm />;
-      // case "matrix":
-      //   return <AMatrixForm />;
       default:
         return <></>;
     }
