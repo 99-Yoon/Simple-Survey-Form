@@ -11,14 +11,9 @@ export const getSurvey = async (surveyId: string) => {
   const { data } = await axios.get(`${baseUrl}/surveys/${surveyId}/edit`);
   return data;
 };
-<<<<<<< HEAD
-export const getASurvey = async (surveyId: string) => {
-  const { data } = await axios.get(`${baseUrl}/surveys/${surveyId}/edit`);
-=======
 
 export const ansSurvey = async (surveyId: string) => {
   const { data } = await axios.get(`${baseUrl}/surveys/${surveyId}`);
->>>>>>> develop0718
   return data;
 };
 
