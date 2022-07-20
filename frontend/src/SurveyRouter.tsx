@@ -17,9 +17,9 @@ export const SurveyRouter = () => {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="surveys/edit/" element={<EditResultButton />}>
-            <Route path=":surveyId" element={<EditSurvey />} />
-            <Route path=":surveyId/result" element />
+          <Route path="surveys/:surveyId/" element={<EditResultButton />}>
+            <Route path="edit" element={<EditSurvey />} />
+            <Route path="result" element />
           </Route>
           <Route path="survey" element={<SurveyForm />} />
           <Route

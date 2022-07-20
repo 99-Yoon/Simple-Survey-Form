@@ -8,11 +8,11 @@ export const createSurvey = async (survey: SurveyType) => {
 };
 
 export const getSurvey = async (surveyId: string) => {
-  const { data } = await axios.get(`${baseUrl}/surveys/edit/${surveyId}`);
+  const { data } = await axios.get(`${baseUrl}/surveys/${surveyId}/edit`);
   return data;
 };
 export const getASurvey = async (surveyId: string) => {
-  const { data } = await axios.get(`${baseUrl}/surveys/edit/${surveyId}`);
+  const { data } = await axios.get(`${baseUrl}/surveys/${surveyId}/edit`);
   return data;
 };
 //동혁
@@ -23,13 +23,13 @@ export const getSurveys = async () => {
 
 export const editSurvey = async (survey: SurveyType) => {
   const { data } = await axios.put(
-    `${baseUrl}/surveys/edit/${survey._id}`,
+    `${baseUrl}/surveys/${survey._id}/edit`,
     survey
   );
   return data;
 };
 
 export const deleteSurvey = async (surveyId: string) => {
-  const { data } = await axios.delete(`${baseUrl}/surveys/delete/${surveyId}`);
+  const { data } = await axios.delete(`${baseUrl}/surveys/${surveyId}/delete`);
   return data;
 };

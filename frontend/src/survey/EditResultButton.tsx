@@ -6,7 +6,7 @@ export const EditResultButton = () => {
   const navigate = useNavigate();
 
   function editButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
-    navigate(`/surveys/edit/${surveyId}`);
+    navigate(`/surveys/${surveyId}/edit`);
   }
   return (
     <div>
