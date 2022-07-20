@@ -1,10 +1,11 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/auth.context";
 
 export const Header = () => {
   const { user, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   return (
     <div className="bg-white border-b-2 border-b-themeColor px-2 sm:px-4 py-2.5">
@@ -16,7 +17,7 @@ export const Header = () => {
           {user.isLoggedIn ? (
             <div>
               <button
-                onClick={() => logout()}
+                onClick={() => logout(() => navigate("/"))}
                 className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md"
               >
                 로그아웃
