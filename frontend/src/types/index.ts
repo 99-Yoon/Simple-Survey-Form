@@ -80,3 +80,9 @@ export interface RatingType extends BasicQuestionType {
     maxRateDescription: string;
   };
 }
+
+export interface AnswerType {
+  surveyId?: string;
+  guestId: string;
+  answers: { questionId: string; answer: any }[];
+}
