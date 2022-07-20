@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 
-export const EditResponseButton = () => {
+export const EditResultButton = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
   const navigate = useNavigate();
 

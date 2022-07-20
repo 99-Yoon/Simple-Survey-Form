@@ -45,39 +45,39 @@ export const MySurveyCard = ({ data }: Props) => {
   }
 
   return (
-    <div className="w-52 h-60 rounded border-2">
-      <div className="h-32 p-5">
-        <p className="text-gray-700">
-          {data.comment ? data.comment : "설명없는 설문조사"}
-        </p>
-      </div>
-      <div className="flex flex-col px-5 py-3">
-        <div className="h-12">
-          <button type="button" onClick={goSurvey}>
-            <p className="font-bold">
-              {data.title ? data.title : "제목없는 설문조사"}
-            </p>
-          </button>
+    <div className="w-52 h-60 rounded border-2 hover:border-2 hover:border-themeColor">
+      <button className="w-full" onClick={editSurvey}>
+        <div className="h-36 p-5">
+          <p className="text-gray-700">
+            {data.comment ? data.comment : "설명없는 설문조사"}
+          </p>
+        </div>
+
+        <div className="flex flex-col h-12 place-items-center">
+          <p className="font-bold">
+            {data.title ? data.title : "제목없는 설문조사"}
+          </p>
+
           <p className="text-gray-500 text-sm">
             {data.updatedAt?.substring(0, 10)}
           </p>
         </div>
-        <div className="flex justify-end pt-1">
-          <button
+      </button>
+      <div className="flex justify-end pt-1">
+        {/*<button
             type="button"
             className="bg-themeColor rounded text-white py-1 px-1.5 mr-1"
             onClick={editSurvey}
           >
             수정
-          </button>
-          <button
-            type="button"
-            className="bg-themeColor rounded text-white py-1 px-1.5 ml-1"
-            onClick={deleteSurvey}
-          >
-            삭제
-          </button>
-        </div>
+          </button>*/}
+        <button
+          type="button"
+          className="bg-themeColor rounded text-white py-1 px-1.5 ml-1"
+          onClick={deleteSurvey}
+        >
+          삭제
+        </button>
       </div>
     </div>
   );
