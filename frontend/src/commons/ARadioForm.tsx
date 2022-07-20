@@ -7,11 +7,11 @@ type Props = {
 
 export const ARadioForm = ({ element }: Props) => {
   return (
-    <div className="flex w-full gap-4 justify-around my-3">
+    <div className="flex w-full gap-2 justify-around my-3">
       {element.content.choices.map((choice) => (
         <div>
-          <input className="mr-2" type="radio"></input>
-          <label className="text-lg">{choice.value}</label>
+          <input className="mr-2 w-4 h-4" type="radio"></input>
+          <label className="text-lg">{choice.text}</label>
         </div>
       ))}
     </div>

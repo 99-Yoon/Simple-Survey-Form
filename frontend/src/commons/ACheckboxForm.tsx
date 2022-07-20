@@ -7,10 +7,10 @@ type Props = {
 
 export const ACheckboxForm = ({ element }: Props) => {
   return (
-    <div className="flex w-full gap-4 justify-around my-3">
+    <div className="flex w-full gap-2 justify-around my-3">
       {element.content.choices.map((choice) => (
         <div>
-          <input className="mr-2" type="checkbox" />
+          <input className="mr-2 w-4 h-4" type="checkbox" />
           <label className="text-lg">{choice.text}</label>
         </div>
       ))}
