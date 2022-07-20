@@ -36,3 +36,12 @@ export const deleteSurvey = async (surveyId: string) => {
   const survey = await Survey.findOneAndDelete({ _id: surveyId });
   return survey;
 };
+
+// export const isSurvey = async (surveyId: string) =>{
+//   const survey = await Survey.findOne({surveyId});
+//   if (survey) {
+//     return true;    
+//   } else {
+//     return false;
+//   }
+// }
