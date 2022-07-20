@@ -7,13 +7,8 @@ type Props = {
 
 export const AFileForm = ({ element }: Props) => {
   return (
-    <div className="flex w-full gap-4 justify-around my-3">
-      {/* {element.content.choices.map((choice) => (
-        <div>
-          <input className="mr-2"></input>
-          <label className="text-lg">{choice.text}</label>
-        </div>
-      ))} */}
+    <div id="content" className="flex mt-4 w-full justify-center">
+      <input type="file" className=" w-11/12 h-16"></input>
     </div>
   );
 };
