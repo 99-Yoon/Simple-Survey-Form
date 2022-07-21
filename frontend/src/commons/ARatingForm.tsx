@@ -1,15 +1,27 @@
 import React, { useState } from "react";
-import { RatingType } from "../types";
+import { RatingType, AnswerType } from "../types";
 
 type Props = {
   element: RatingType;
+  response: AnswerType;
+  handleAnswer: () => void;
 };
 
-export const ARatingForm = ({ element }: Props) => {
+export const ARatingForm = ({ element, response, handleAnswer }: Props) => {
   const [selectedchoice, setSelectedchoice] = useState("");
+  const [answer, setAnswer] = useState("");
+
   function buttonClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
+    const { name } = event.currentTarget;
+    response.answers.map((a) => {
+      if (a.questionId === element._id) {
+        a.answer = name;
+      }
+    });
+    setAnswer(name);
     setSelectedchoice(event.currentTarget.name);
+    handleAnswer();
   }
   return (
     <div className="flex w-full justify-center space-x-12 my-3">

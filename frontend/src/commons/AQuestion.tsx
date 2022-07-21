@@ -64,18 +64,22 @@ export const AQuestion = ({
             addFiles={addFiles}
           />
         );
-      // case "rating":
-      //   return (
-      //     <ARatingForm
-      //       handleQuestion={handleQuestion}
-      //       element={element}
-      //       currentId={currentId}
-      //     />
-      //   );
       case "rating":
-        return <ARatingForm element={question} />;
+        return (
+          <ARatingForm
+            element={question}
+            response={response}
+            handleAnswer={handleAnswer}
+          />
+        );
       case "date":
-        return <ADateForm />;
+        return (
+          <ADateForm
+            element={question}
+            response={response}
+            handleAnswer={handleAnswer}
+          />
+        );
       default:
         return <></>;
     }

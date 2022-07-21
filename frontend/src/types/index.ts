@@ -31,6 +31,7 @@ export interface BasicQuestionType {
 }
 
 export interface EssayType extends BasicQuestionType {}
+export interface DateType extends BasicQuestionType {}
 
 export interface RadioType extends BasicQuestionType {
   content: {
