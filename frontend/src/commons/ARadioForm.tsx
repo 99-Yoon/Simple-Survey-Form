@@ -31,6 +31,7 @@ export const ARadioForm = ({ element, response, handleAnswer }: Props) => {
             name={element._id}
             onChange={handleChange}
             value={choice.text}
+            required={element.isRequired}
           ></input>
           <label className="text-lg" id={choice.text}>
             {choice.text}

@@ -25,6 +25,7 @@ export const ADropdownForm = ({ element, handleAnswer, response }: Props) => {
       <select
         className="py-2 hover:bg-themeColor bg-gray-200 rounded"
         onChange={handleChange}
+        required={element.isRequired}
       >
         {element.content.choices.map((choice) => (
           <option value={choice.text}>{choice.text}</option>

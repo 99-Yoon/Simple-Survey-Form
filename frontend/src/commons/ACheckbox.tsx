@@ -29,6 +29,7 @@ export const ACheckboxForm = ({ element, response, handleAnswer }: Props) => {
             type="checkbox"
             value={choice.text}
             onChange={handleChange}
+            required={element.isRequired}
           />
           <label className="text-lg">{choice.text}</label>
         </div>

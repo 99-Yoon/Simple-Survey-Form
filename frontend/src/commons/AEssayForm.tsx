@@ -28,6 +28,7 @@ export const AEssayForm = ({ element, handleAnswer, response }: Props) => {
         id={element._id}
         onChange={handleChange}
         value={answer}
+        required={element.isRequired}
       ></input>
     </div>
   );

@@ -33,6 +33,7 @@ export const AFileForm = ({
         name="file"
         className=" w-11/12 h-16"
         onChange={handleChange}
+        required={element.isRequired}
       ></input>
     </div>
   );
