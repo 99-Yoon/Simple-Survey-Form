@@ -17,7 +17,6 @@ export const ansSurvey = async (surveyId: string) => {
   return data;
 };
 
-//동혁
 export const getSurveys = async () => {
   const { data } = await axios.get(`${baseUrl}/surveys/`);
   return data;

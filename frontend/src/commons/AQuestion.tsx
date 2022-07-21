@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BasicQuestionType, AnswerType, SurveyType } from "../types";
-import { ACheckboxForm } from "./ACheckbox";
-import { ADropdownForm } from "./ADropdown";
+import { ACheckboxForm } from "./ACheckboxForm";
+import { ADateForm } from "./ADateForm";
+import { ADropdownForm } from "./ADropdownForm";
 import { AEssayForm } from "./AEssayForm";
-import { ARadioForm } from "./ARadioForm";
 import { AFileForm } from "./AFileForm";
+import { ARadioForm } from "./ARadioForm";
+import { ARatingForm } from "./ARatingForm";
 
 type Props = {
   question: BasicQuestionType;
@@ -70,6 +72,10 @@ export const AQuestion = ({
       //       currentId={currentId}
       //     />
       //   );
+      case "rating":
+        return <ARatingForm element={question} />;
+      case "date":
+        return <ADateForm />;
       default:
         return <></>;
     }

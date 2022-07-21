@@ -21,7 +21,7 @@ export const ARadioForm = ({ element, response, handleAnswer }: Props) => {
     handleAnswer();
   };
   return (
-    <div className="flex w-full gap-4 justify-around my-3">
+    <div className="flex w-full gap-2 justify-around my-3">
       {element.content.choices.map((choice) => (
         <div>
           <input
