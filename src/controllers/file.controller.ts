@@ -4,7 +4,7 @@ import { TypedRequest } from "../types";
 
 export const uploadFile = asyncWrap(async (reqExp, res, next) => {
   const req = reqExp as TypedRequest;
-  const form = formidable({ multiples: false, uploadDir: "uploads" });
+  const form = formidable({ multiples: true, uploadDir: "uploads" });
 
   await new Promise((resolve, reject) => {
     form.parse(req, (err, fields, files) => {

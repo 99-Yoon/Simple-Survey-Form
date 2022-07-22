@@ -70,7 +70,7 @@ export const SurveyForm = () => {
       formData.append("guestId", "");
       formData.append("answers", JSON.stringify(answer.answers));
       files.map((f) => {
-        formData.append("files", f.file);
+        formData.append("uploadFiles", f.file);
       });
       const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
       // console.log(newAnswer);
