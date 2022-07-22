@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { surveyDb } from "../db";
 import { asyncWrap } from "../helpers/asyncWrap";
-// import jwt, { JwtPayload } from "jsonwebtoken";
-// import { cookieConfig, envConfig, jwtCofig } from "../config";
 
 export interface TypedRequestAuth<T> extends Request {
   auth: T;
@@ -70,29 +68,3 @@ export const userBySurveyId = async (
       );
   }
 };
-
-// export const checksurvey = asyncWrap(async(req, res)=> {
-//   const {_id} = req.body
-//   const surveyExist = await surveyDb.isSurvey(_id);
-//   if (surveyExist) {
-//     return res.status(422).send("이미 제출된 설문조사입니다")
-//   }
-// });
-
-// export const surveynotexist = asyncWrap(async (req, res) => {
-//   const { _id } = req.body;
-//   console.log(`surveyId: ${_id}`);
-//   const checksurveyId = await surveyDb.findUserBySurveyId(_id);
-//   const surveytoken = jwt.sign({existsurveyId: checksurveyId?.id}, jwtCofig.secret, {
-//     expiresIn:jwtCofig.expires,
-//   });
-//   res.cookie(cookieConfig.name, surveytoken, {
-//     maxAge:cookieConfig.maxAge,
-//     path:"/",
-//     httpOnly: envConfig.mode === "production",
-//     secure: envConfig.mode === "production",
-//   })
-//   res.json({
-//     surveyId: checksurveyId?._id
-//   })
-// });
