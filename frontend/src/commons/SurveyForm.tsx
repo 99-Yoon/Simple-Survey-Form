@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { surveyApi, answerApi } from "../apis";
 import { catchErrors } from "../helpers";
@@ -11,6 +12,7 @@ export const SurveyForm = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
   const [survey, setSurvey] = useState<SurveyType>({
     _id: surveyId,
     user: {},
@@ -24,6 +26,13 @@ export const SurveyForm = () => {
     guestId: "",
     answers: [],
   });
+
+  const isSurvey = localStorage.getItem(`survey_${surveyId}`);
+  if (isSurvey) {
+    console.log("object", isSurvey);
+    alert("제출한 설문조사입니다");
+    navigate("/");
+  }
 
   const addFiles = (oneFile: { questionId: string; file: File }) => {
     if (!files.find((a) => a.questionId === oneFile.questionId)) {
@@ -79,6 +88,9 @@ export const SurveyForm = () => {
         formData.append("files", f.file);
       });
       const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
+      localStorage.setItem(`survey_${surveyId}`, surveyId ?? "");
+      alert("제출되었습니다");
+      navigate(`/`);
       // console.log(newAnswer);
       setSuccess(true);
       setError("");
