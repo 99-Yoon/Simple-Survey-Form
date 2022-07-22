@@ -5,7 +5,8 @@ export const ResultSurvey = () => {
   const data = [
     {
       title: "1번질문",
-      content: "1번 답변들",
+      content:
+        "1번 답변들asdfadsgsjadhfasld;nvaldkfnbljgnahgvlajnbl janl;nvja; sabv;jnsvjl;asjvh asjfagkfnjf;nvasgn va;sdn va sglanksvl ds af adb adf afg dgafbg dfh jbvlkna lkslbk kjv nbkkdlfn akdl nvjbnkdjf nlkbakdn bkjnakjn n knk",
     },
     {
       title: "2번질문",
@@ -27,7 +28,7 @@ export const ResultSurvey = () => {
         </div>
       </div>
 
-      <div className="container mx-auto">
+      <div className="container w-11/12 place-self-center">
         {data.map((item) => (
           <Accordion title={item.title} content={item.content} />
         ))}

@@ -14,17 +14,19 @@ const Accordion = ({ title, content }: AccordionProps) => {
     setHeight(!isOpened ? `${contentElement.current?.scrollHeight}px` : "0px");
   };
   return (
-    <div onClick={HandleOpening} className="border border-indigo-400">
-      <div className={"bg-themeColor p-4 flex justify-between text-white"}>
-        <h4 className="font-semibold">{title}</h4>
-        {isOpened ? "△" : "▽"}
-      </div>
-      <div
-        ref={contentElement}
-        style={{ height: height }}
-        className="bg-gray-100 overflow-hidden transition-all duration-200"
-      >
-        <p className="p-4">{content}</p>
+    <div className="p-1">
+      <div onClick={HandleOpening}>
+        <div className={"bg-themeColor p-4 flex justify-between text-white"}>
+          <h4 className="font-semibold">{title}</h4>
+          {isOpened ? "△" : "▽"}
+        </div>
+        <div
+          ref={contentElement}
+          style={{ height: height }}
+          className="bg-gray-100 overflow-hidden transition-all duration-700"
+        >
+          <p className="p-4">{content}</p>
+        </div>
       </div>
     </div>
   );
