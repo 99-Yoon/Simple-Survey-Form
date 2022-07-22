@@ -3,15 +3,11 @@ import { EssayType, AnswersType } from "../types";
 
 type Props = {
   element: EssayType;
-  answers: AnswersType;
+  answers: AnswersType | undefined;
   handleAnswer: () => void;
 };
 
-export const AEssayForm = ({
-  element,
-  handleAnswer,
-  answers: answers,
-}: Props) => {
+export const AEssayForm = ({ element, handleAnswer, answers }: Props) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +17,7 @@ export const AEssayForm = ({
     //     a.answer = value;
     //   }
     // });
-    answers[element._id] = value;
+    answers && (answers.answer = value);
     setAnswer(value);
     handleAnswer();
   };

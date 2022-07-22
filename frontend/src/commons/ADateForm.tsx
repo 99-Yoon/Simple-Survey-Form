@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DateType, AnswersType } from "../types";
 type Props = {
   element: DateType;
-  answers: AnswersType;
+  answers: AnswersType | undefined;
   handleAnswer: () => void;
 };
 export const ADateForm = ({ element, answers, handleAnswer }: Props) => {
@@ -14,7 +14,7 @@ export const ADateForm = ({ element, answers, handleAnswer }: Props) => {
     //     a.answer = value;
     //   }
     // });
-    answers[element._id] = value;
+    answers && (answers.answer = value);
     setAnswer(value);
     handleAnswer();
   };

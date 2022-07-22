@@ -22,25 +22,22 @@ export const SurveyForm = () => {
   const answer = useRef<AnswerType>({
     surveyId: "surveyId",
     guestId: "",
-    answers: {},
+    answers: [],
   });
-
-  useEffect(() => {
-    ansSurvey();
-  }, [surveyId]);
 
   const addFiles = (oneFile: { questionId: string; file: File }) => {
     if (!files.find((a) => a.questionId === oneFile.questionId)) {
       setFiles([...files, oneFile]);
     }
   };
+
   async function ansSurvey() {
     try {
       if (surveyId) {
         const answersurvey: any = await surveyApi.ansSurvey(surveyId);
         console.log(answersurvey);
         const questionIds = answersurvey.questions.map((el: any) => {
-          return { questionId: el._id, answer: "" };
+          return { questionId: el._id, type: el.type, answer: "" };
         });
         console.log(questionIds);
         if (answersurvey) {
@@ -49,6 +46,10 @@ export const SurveyForm = () => {
           //   surveyId: answersurvey._id,
           //   answers: questionIds,
           // });
+          answer.current.surveyId = answersurvey._id;
+          answer.current.guestId = answersurvey.guestId;
+          answer.current.answers = questionIds;
+
           setSurvey(answersurvey);
           setSuccess(true);
           setError("");
@@ -62,6 +63,10 @@ export const SurveyForm = () => {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    ansSurvey();
+  }, [surveyId]);
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -104,7 +109,9 @@ export const SurveyForm = () => {
               return (
                 <AQuestion
                   question={question}
-                  answers={answer.current.answers}
+                  answer={answer.current.answers.find(
+                    (ans) => ans.questionId === question._id
+                  )}
                   addFiles={addFiles}
                   handleAnswer={handleAnswer}
                 ></AQuestion>

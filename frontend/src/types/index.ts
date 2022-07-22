@@ -83,11 +83,13 @@ export interface RatingType extends BasicQuestionType {
 }
 
 export interface AnswersType {
-  [questionId: string]: any;
+  questionId: string;
+  type: string;
+  answer: any;
 }
 
 export interface AnswerType {
   surveyId: string;
   guestId: string;
-  answers: AnswersType;
+  answers: AnswersType[];
 }

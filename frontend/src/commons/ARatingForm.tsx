@@ -3,7 +3,7 @@ import { RatingType, AnswersType } from "../types";
 
 type Props = {
   element: RatingType;
-  answers: AnswersType;
+  answers: AnswersType | undefined;
   handleAnswer: () => void;
 };
 
@@ -19,7 +19,7 @@ export const ARatingForm = ({ element, answers, handleAnswer }: Props) => {
     //     a.answer = name;
     //   }
     // });
-    answers[element._id] = name;
+    answers && (answers.answer = name);
     setAnswer(name);
     setSelectedchoice(event.currentTarget.name);
     handleAnswer();

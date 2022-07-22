@@ -3,7 +3,7 @@ import { FileType, AnswersType } from "../types";
 
 type Props = {
   element: FileType;
-  answers: AnswersType;
+  answers: AnswersType | undefined;
   handleAnswer: () => void;
   addFiles: (oneFile: { questionId: string; file: File }) => void;
 };
@@ -23,7 +23,7 @@ export const AFileForm = ({
       //     a.answer = uploadFile.name;
       //   }
       // });
-      answers[element._id] = uploadFile.name;
+      answers && (answers.answer = uploadFile.name);
       handleAnswer();
     }
   };

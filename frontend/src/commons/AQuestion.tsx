@@ -10,14 +10,14 @@ import { ARatingForm } from "./ARatingForm";
 
 type Props = {
   question: BasicQuestionType;
-  answers: AnswersType;
+  answer: AnswersType | undefined;
   handleAnswer: () => void;
   addFiles: (oneFile: { questionId: string; file: File }) => void;
 };
 export const AQuestion = ({
   question,
   handleAnswer,
-  answers: answers,
+  answer,
   addFiles,
 }: Props) => {
   function getContent(question: BasicQuestionType) {
@@ -26,7 +26,7 @@ export const AQuestion = ({
         return (
           <AEssayForm
             element={question}
-            answers={answers}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );
@@ -34,7 +34,7 @@ export const AQuestion = ({
         return (
           <ARadioForm
             element={question}
-            answers={answers}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );
@@ -42,7 +42,7 @@ export const AQuestion = ({
         return (
           <ACheckboxForm
             element={question}
-            answers={answers}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );
@@ -50,7 +50,7 @@ export const AQuestion = ({
         return (
           <ADropdownForm
             element={question}
-            answers={answers}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );
@@ -58,7 +58,7 @@ export const AQuestion = ({
         return (
           <AFileForm
             element={question}
-            answers={answers}
+            answers={answer}
             handleAnswer={handleAnswer}
             addFiles={addFiles}
           />
@@ -67,7 +67,7 @@ export const AQuestion = ({
         return (
           <ARatingForm
             element={question}
-            answers={answers}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );
@@ -75,7 +75,7 @@ export const AQuestion = ({
         return (
           <ADateForm
             element={question}
-            answers={answers}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );

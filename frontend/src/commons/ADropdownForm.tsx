@@ -3,7 +3,7 @@ import { DropdownType, AnswersType } from "../types";
 
 type Props = {
   element: DropdownType;
-  answers: AnswersType;
+  answers: AnswersType | undefined;
   handleAnswer: () => void;
 };
 
@@ -17,7 +17,7 @@ export const ADropdownForm = ({ element, handleAnswer, answers }: Props) => {
     //     a.answer = value;
     //   }
     // });
-    answers[element._id] = value;
+    answers && (answers.answer = value);
     setAnswer(value);
     handleAnswer();
   };
