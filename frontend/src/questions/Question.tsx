@@ -1,5 +1,5 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
-import { BasicQuestionType, EssayType } from "../types";
+import React, { useState } from "react";
+import { BasicQuestionType } from "../types";
 import { questionApi } from "../apis";
 import { EssayForm } from "./EssayForm";
 import { CheckboxForm } from "./CheckboxForm";
@@ -8,23 +8,13 @@ import { DropdownForm } from "./DropdownForm";
 import { FileForm } from "./FileForm";
 import { RatingForm } from "./RatingForm";
 import { DateForm } from "./DateForm";
+import { QUESTION_TYPES } from "../commons";
 
 type Props = {
   element: BasicQuestionType;
   handleQuestion: (id: string) => void;
   deleteQuestion: (id: string) => void;
 };
-
-const typeDropDown = new Map([
-  ["essay", "주관식"],
-  ["radio", "객관식"],
-  ["dropdown", "드롭다운"],
-  ["checkbox", "체크박스"],
-  ["file", "파일"],
-  ["rating", "선형"],
-  ["grid", "그리드"],
-  ["date", "날짜"],
-]);
 
 export const Question = ({
   element,
@@ -165,7 +155,7 @@ export const Question = ({
           disabled={save}
           className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
         >
-          {Array.from(typeDropDown.entries()).map(([key, value]) => (
+          {Array.from(QUESTION_TYPES.entries()).map(([key, value]) => (
             <option
               key={key}
               id={element._id}
