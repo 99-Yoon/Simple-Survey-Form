@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import { RadioType, AnswersType } from "../types";
+import { RadioType, AnswersType, AnswerProps } from "../types";
 
-type Props = {
+interface Props extends AnswerProps {
   element: RadioType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
-};
+}
 
 export const ARadioForm = ({ element, answers, handleAnswer }: Props) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    // response.answers.map((a) => {
-    //   if (a.questionId === element._id) {
-    //     a.answer = value;
-    //   }
-    // });
     answers && (answers.answer = value);
     setAnswer(value);
     handleAnswer();
@@ -24,7 +17,7 @@ export const ARadioForm = ({ element, answers, handleAnswer }: Props) => {
   return (
     <div className="flex w-full gap-2 justify-around my-3">
       {element.content.choices.map((choice) => (
-        <div>
+        <div key={choice.text}>
           <input
             className="mr-2"
             type="radio"

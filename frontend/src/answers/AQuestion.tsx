@@ -1,5 +1,5 @@
 import React from "react";
-import { BasicQuestionType, AnswersType } from "../types";
+import { BasicQuestionType, AnswersType, AnswerProps } from "../types";
 import { ACheckboxForm } from "./ACheckboxForm";
 import { ADateForm } from "./ADateForm";
 import { ADropdownForm } from "./ADropdownForm";
@@ -8,16 +8,14 @@ import { AFileForm } from "./AFileForm";
 import { ARadioForm } from "./ARadioForm";
 import { ARatingForm } from "./ARatingForm";
 
-type Props = {
-  question: BasicQuestionType;
-  answer: AnswersType | undefined;
-  handleAnswer: () => void;
+interface Props extends AnswerProps {
   addFiles: (oneFile: { questionId: string; file: File }) => void;
-};
+}
+
 export const AQuestion = ({
-  question,
+  element,
   handleAnswer,
-  answer,
+  answers,
   addFiles,
 }: Props) => {
   function getContent(question: BasicQuestionType) {
@@ -26,7 +24,7 @@ export const AQuestion = ({
         return (
           <AEssayForm
             element={question}
-            answers={answer}
+            answers={answers}
             handleAnswer={handleAnswer}
           />
         );
@@ -34,7 +32,7 @@ export const AQuestion = ({
         return (
           <ARadioForm
             element={question}
-            answers={answer}
+            answers={answers}
             handleAnswer={handleAnswer}
           />
         );
@@ -42,7 +40,7 @@ export const AQuestion = ({
         return (
           <ACheckboxForm
             element={question}
-            answers={answer}
+            answers={answers}
             handleAnswer={handleAnswer}
           />
         );
@@ -50,7 +48,7 @@ export const AQuestion = ({
         return (
           <ADropdownForm
             element={question}
-            answers={answer}
+            answers={answers}
             handleAnswer={handleAnswer}
           />
         );
@@ -58,7 +56,7 @@ export const AQuestion = ({
         return (
           <AFileForm
             element={question}
-            answers={answer}
+            answers={answers}
             handleAnswer={handleAnswer}
             addFiles={addFiles}
           />
@@ -67,7 +65,7 @@ export const AQuestion = ({
         return (
           <ARatingForm
             element={question}
-            answers={answer}
+            answers={answers}
             handleAnswer={handleAnswer}
           />
         );
@@ -75,7 +73,7 @@ export const AQuestion = ({
         return (
           <ADateForm
             element={question}
-            answers={answer}
+            answers={answers}
             handleAnswer={handleAnswer}
           />
         );
@@ -87,10 +85,10 @@ export const AQuestion = ({
   return (
     <div className="flex flex-col container w-4/5 h-auto border-2 border-themeColor items-center m-3 py-4">
       <div className="flex flexgi-row my-1 w-11/12 place-content-between items-center">
-        <div className="text-xl font-bold">{question.title}</div>
+        <div className="text-xl font-bold">{element.title}</div>
       </div>
-      <div className="w-11/12 text-slate-500">{question.comment}</div>
-      {getContent(question)}
+      <div className="w-11/12 text-slate-500">{element.comment}</div>
+      {getContent(element)}
     </div>
   );
 };

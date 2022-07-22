@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import { CheckboxType, AnswersType } from "../types";
+import { CheckboxType, AnswersType, AnswerProps } from "../types";
 
-type Props = {
+interface Props extends AnswerProps {
   element: CheckboxType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
-};
+}
 
 export const ACheckboxForm = ({ element, answers, handleAnswer }: Props) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    // response.answers.map((a) => {
-    //   if (a.questionId === element._id) {
-    //     a.answer = value;
-    //   }
-    // });
     answers && (answers.answer = value);
     setAnswer(value);
     handleAnswer();

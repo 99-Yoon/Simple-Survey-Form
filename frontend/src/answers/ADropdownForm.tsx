@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import { DropdownType, AnswersType } from "../types";
+import { DropdownType, AnswerProps } from "../types";
 
-type Props = {
+interface Props extends AnswerProps {
   element: DropdownType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
-};
+}
 
 export const ADropdownForm = ({ element, handleAnswer, answers }: Props) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.currentTarget;
-    // response.answers.map((a) => {
-    //   if (a.questionId === element._id) {
-    //     a.answer = value;
-    //   }
-    // });
     answers && (answers.answer = value);
     setAnswer(value);
     handleAnswer();

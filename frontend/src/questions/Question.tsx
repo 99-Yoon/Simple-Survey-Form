@@ -167,6 +167,7 @@ export const Question = ({
         >
           {Array.from(typeDropDown.entries()).map(([key, value]) => (
             <option
+              key={key}
               id={element._id}
               value={key}
               selected={key === element.type}

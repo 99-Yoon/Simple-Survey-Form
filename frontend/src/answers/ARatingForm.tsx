@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { RatingType, AnswersType } from "../types";
+import { RatingType, AnswersType, AnswerProps } from "../types";
 
-type Props = {
+interface Props extends AnswerProps {
   element: RatingType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
-};
+}
 
 export const ARatingForm = ({ element, answers, handleAnswer }: Props) => {
   const [selectedchoice, setSelectedchoice] = useState("");
@@ -14,11 +12,6 @@ export const ARatingForm = ({ element, answers, handleAnswer }: Props) => {
   function buttonClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     const { name } = event.currentTarget;
-    // response.answers.map((a) => {
-    //   if (a.questionId === element._id) {
-    //     a.answer = name;
-    //   }
-    // });
     answers && (answers.answer = name);
     setAnswer(name);
     setSelectedchoice(event.currentTarget.name);

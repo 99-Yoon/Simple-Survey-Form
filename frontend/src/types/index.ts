@@ -44,22 +44,21 @@ export interface RadioType extends BasicQuestionType {
   };
 }
 
+interface IChoices {
+  value: number;
+  text: string;
+}
+
 export interface CheckboxType extends BasicQuestionType {
   content: {
-    choices: {
-      value: number;
-      text: string;
-    }[];
+    choices: IChoices[];
     maxCount: number;
   };
 }
 
 export interface DropdownType extends BasicQuestionType {
   content: {
-    choices: {
-      value: number;
-      text: string;
-    }[];
+    choices: IChoices[];
     hasNone: boolean;
   };
 }
@@ -92,4 +91,10 @@ export interface AnswerType {
   surveyId: string;
   guestId: string;
   answers: AnswersType[];
+}
+
+export interface AnswerProps {
+  element: BasicQuestionType;
+  answers: AnswersType | undefined;
+  handleAnswer: () => void;
 }

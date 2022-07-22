@@ -5,7 +5,7 @@ import { catchErrors } from "../helpers";
 import { AnswerType, SurveyType } from "../types";
 import { AQuestion } from "./AQuestion";
 
-export const SurveyForm = () => {
+export const AnswerSurveyForm = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
   const [files, setFiles] = useState<{ questionId: string; file: File }[]>([]);
   const [error, setError] = useState("");
@@ -41,11 +41,6 @@ export const SurveyForm = () => {
         });
         console.log(questionIds);
         if (answersurvey) {
-          // setResponse({
-          //   ...answer,
-          //   surveyId: answersurvey._id,
-          //   answers: questionIds,
-          // });
           answer.current.surveyId = answersurvey._id;
           answer.current.guestId = answersurvey.guestId;
           answer.current.answers = questionIds;
@@ -108,8 +103,9 @@ export const SurveyForm = () => {
             {survey.questions.map((question) => {
               return (
                 <AQuestion
-                  question={question}
-                  answer={answer.current.answers.find(
+                  key={question._id}
+                  element={question}
+                  answers={answer.current.answers.find(
                     (ans) => ans.questionId === question._id
                   )}
                   addFiles={addFiles}
