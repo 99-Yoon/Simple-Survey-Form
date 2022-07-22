@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { questionApi, surveyApi } from "../apis";
 import { SpinnerIcon } from "../icons";
 import { Question } from "../questions";
@@ -14,6 +14,7 @@ export const EditSurvey = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
   const [survey, setSurvey] = useState<SurveyType>({
     _id: surveyId,
     user: {},
@@ -54,6 +55,8 @@ export const EditSurvey = () => {
       const newSurvey: SurveyType = await surveyApi.editSurvey(survey);
       console.log(newSurvey);
       setSuccess(true);
+      alert("저장되었습니다");
+      navigate("/profile");
       setError("");
     } catch (error) {
       catchErrors(error, setError);
