@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { surveyApi } from "../apis";
 import { SurveyType } from "../types";
 import { catchErrors } from "../helpers";
+import CopyImg from "../icons/copy.png";
 
 type Props = {
   data: SurveyType;
@@ -17,6 +18,7 @@ export const MySurveyCard = ({ data }: Props) => {
   const editSurvey = () => {
     navigate(`/surveys/edit/${data._id}`, {
       replace: true,
+      state: { save: true },
     });
   };
 
@@ -24,6 +26,11 @@ export const MySurveyCard = ({ data }: Props) => {
     navigate(`/surveys/${data._id}`, {
       replace: true,
     });
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(`http://localhost:8080/surveys/${data._id}`);
+    alert("설문조사의 링크가 클립보드에 저장되었습니다.");
   };
 
   async function deleteSurvey() {
@@ -53,7 +60,7 @@ export const MySurveyCard = ({ data }: Props) => {
       </div>
       <div className="flex flex-col px-5 py-3">
         <div className="h-12">
-          <button type="button" onClick={goSurvey}>
+          <button type="button" onClick={editSurvey}>
             <p className="font-bold">
               {data.title ? data.title : "제목없는 설문조사"}
             </p>
@@ -63,12 +70,9 @@ export const MySurveyCard = ({ data }: Props) => {
           </p>
         </div>
         <div className="flex justify-end pt-1">
-          <button
-            type="button"
-            className="bg-themeColor rounded text-white py-1 px-1.5 mr-1"
-            onClick={editSurvey}
-          >
-            수정
+          <label className="pt-1">링크복사</label>
+          <button className="" onClick={copyLink}>
+            <img src={CopyImg} alt="copy"></img>
           </button>
           <button
             type="button"

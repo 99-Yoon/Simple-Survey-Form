@@ -75,13 +75,13 @@ export const SurveyForm = () => {
       try {
         const formData = new FormData();
         formData.append("surveyId", answerSurvey.current._id);
-        formData.append("guestId", "");
+        formData.append("guestId", "quest1");
         formData.append("answers", JSON.stringify(answers));
         files.map((f) => {
           formData.append("uploadFiles", f.file);
         });
         const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
-        // console.log(newAnswer);
+        console.log(newAnswer);
         setSuccess(true);
         setError("");
       } catch (error) {

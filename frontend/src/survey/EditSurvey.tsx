@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { questionApi, surveyApi } from "../apis";
 import { SpinnerIcon } from "../icons";
 import { Question } from "../questions";
@@ -8,6 +8,12 @@ import { catchErrors } from "../helpers";
 
 export const EditSurvey = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
+  interface CustomizedState {
+    save: boolean;
+  }
+  const location = useLocation();
+  const state = location.state as CustomizedState;
+
   useEffect(() => {
     getSurvey();
   }, [surveyId]);
@@ -100,6 +106,7 @@ export const EditSurvey = () => {
 
   const questions = survey.questions;
   console.log(questions);
+  console.log(state);
   return (
     <>
       {error ? alert(error) : <></>}
@@ -130,6 +137,7 @@ export const EditSurvey = () => {
           {questions.map((question) => (
             <Question
               element={question}
+              isSave={state ? true : false}
               handleQuestion={handleQuestion}
               deleteQuestion={deleteQuestion}
             />

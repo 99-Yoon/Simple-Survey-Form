@@ -13,6 +13,7 @@ type Props = {
   element: BasicQuestionType;
   handleQuestion: (id: string) => void;
   deleteQuestion: (id: string) => void;
+  isSave: boolean;
 };
 
 const typeDropDown = new Map([
@@ -30,8 +31,9 @@ export const Question = ({
   element,
   handleQuestion,
   deleteQuestion,
+  isSave,
 }: Props) => {
-  const [save, setSave] = useState(true);
+  const [save, setSave] = useState(isSave);
   async function handleEditComplete() {
     try {
       const newQuestion: BasicQuestionType = await questionApi.updateQuestion(

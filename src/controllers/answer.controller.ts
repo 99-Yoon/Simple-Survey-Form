@@ -34,6 +34,7 @@ export const createAnswers = asyncWrap(async (reqExp, res) => {
       }
     }
     // 3) Answer DB 만들기(map을 돌려서 하나씩 추가시켜야 함)
+    console.log("원래 answer", answer);
     for (let index = 0; index < answer.answers.length; index++) {
       const element = answer.answers[index];
       const newAnswer = await answerDb.createAnswer({
@@ -44,15 +45,14 @@ export const createAnswers = asyncWrap(async (reqExp, res) => {
       });
       console.log("DB에 넣은 answer", newAnswer);
     }
-    // 주의: ref는 반드시 save를 해야 디비에 생성이 됩니다.
     return res.json();
   } catch (error: any) {
-    console.log("error in create user:", error);
+    console.log("error in create answer:", error);
     // 오류 발생시 저장된 파일 제거
     if (files) {
       //   uploadFiles && (await fileDb.deleteFileById(uploadFiles._id.toString()));
       // await fs.unlink(files.filepath);
     }
-    res.status(422).send(error.message || "사용자 생성 오류");
+    res.status(422).send(error.message || "설문조사 응답 생성 오류");
   }
 });
