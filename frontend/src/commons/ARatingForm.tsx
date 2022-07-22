@@ -1,24 +1,25 @@
 import React, { useState } from "react";
-import { RatingType, AnswerType } from "../types";
+import { RatingType, AnswersType } from "../types";
 
 type Props = {
   element: RatingType;
-  response: AnswerType;
+  answers: AnswersType;
   handleAnswer: () => void;
 };
 
-export const ARatingForm = ({ element, response, handleAnswer }: Props) => {
+export const ARatingForm = ({ element, answers, handleAnswer }: Props) => {
   const [selectedchoice, setSelectedchoice] = useState("");
   const [answer, setAnswer] = useState("");
 
   function buttonClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     const { name } = event.currentTarget;
-    response.answers.map((a) => {
-      if (a.questionId === element._id) {
-        a.answer = name;
-      }
-    });
+    // response.answers.map((a) => {
+    //   if (a.questionId === element._id) {
+    //     a.answer = name;
+    //   }
+    // });
+    answers[element._id] = name;
     setAnswer(name);
     setSelectedchoice(event.currentTarget.name);
     handleAnswer();

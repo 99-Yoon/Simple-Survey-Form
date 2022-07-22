@@ -1,22 +1,23 @@
 import React, { useState } from "react";
-import { DropdownType, AnswerType } from "../types";
+import { DropdownType, AnswersType } from "../types";
 
 type Props = {
   element: DropdownType;
-  response: AnswerType;
+  answers: AnswersType;
   handleAnswer: () => void;
 };
 
-export const ADropdownForm = ({ element, handleAnswer, response }: Props) => {
+export const ADropdownForm = ({ element, handleAnswer, answers }: Props) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.currentTarget;
-    response.answers.map((a) => {
-      if (a.questionId === element._id) {
-        a.answer = value;
-      }
-    });
+    // response.answers.map((a) => {
+    //   if (a.questionId === element._id) {
+    //     a.answer = value;
+    //   }
+    // });
+    answers[element._id] = value;
     setAnswer(value);
     handleAnswer();
   };

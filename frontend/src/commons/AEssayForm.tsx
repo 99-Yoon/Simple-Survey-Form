@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import { EssayType, AnswerType } from "../types";
+import { EssayType, AnswersType } from "../types";
 
 type Props = {
   element: EssayType;
-  response: AnswerType;
+  answers: AnswersType;
   handleAnswer: () => void;
 };
 
-export const AEssayForm = ({ element, handleAnswer, response }: Props) => {
+export const AEssayForm = ({
+  element,
+  handleAnswer,
+  answers: answers,
+}: Props) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    response.answers.map((a) => {
-      if (a.questionId === element._id) {
-        a.answer = value;
-      }
-    });
+    // response.answers.map((a) => {
+    //   if (a.questionId === element._id) {
+    //     a.answer = value;
+    //   }
+    // });
+    answers[element._id] = value;
     setAnswer(value);
     handleAnswer();
   };
