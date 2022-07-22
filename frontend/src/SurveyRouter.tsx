@@ -21,7 +21,7 @@ export const SurveyRouter = () => {
             <Route path=":surveyId" element={<EditSurvey />} />
             <Route path=":surveyId/response" element />
           </Route>
-          <Route path="survey/:surveyId" element={<SurveyForm />} />
+          <Route path="surveys/:surveyId" element={<SurveyForm />} />
           <Route
             path="profile"
             element={
