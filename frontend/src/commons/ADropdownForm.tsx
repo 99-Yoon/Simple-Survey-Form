@@ -22,9 +22,9 @@ export const ADropdownForm = ({ element, handleAnswer, answers }: Props) => {
     handleAnswer();
   };
   return (
-    <div className="flex flex-col container w-4/5 h-auto items-center m-3 py-3">
+    <div className="flex flex-col container w-11/12 h-auto m-3 py-3">
       <select
-        className="py-2 hover:bg-themeColor bg-gray-200 rounded"
+        className="py-2 w-48 hover:bg-gray-200 border border-black rounded"
         onChange={handleChange}
         required={element.isRequired}
       >
