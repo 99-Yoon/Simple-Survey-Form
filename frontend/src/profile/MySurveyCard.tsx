@@ -64,13 +64,6 @@ export const MySurveyCard = ({ data }: Props) => {
         </div>
       </button>
       <div className="flex justify-end pt-1">
-        {/*<button
-            type="button"
-            className="bg-themeColor rounded text-white py-1 px-1.5 mr-1"
-            onClick={editSurvey}
-          >
-            수정
-          </button>*/}
         <button
           type="button"
           className="bg-themeColor rounded text-white py-1 px-1.5 ml-1"

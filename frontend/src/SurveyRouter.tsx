@@ -8,6 +8,7 @@ import { Home } from "./home";
 import { Profile } from "./profile";
 import { EditResultButton } from "./survey";
 import { EditSurvey } from "./survey/EditSurvey";
+import { ResultSurvey } from "./survey/ResultSurvey";
 
 export const SurveyRouter = () => {
   return (
@@ -19,7 +20,7 @@ export const SurveyRouter = () => {
           <Route path="signup" element={<SignUp />} />
           <Route path="surveys/:surveyId/" element={<EditResultButton />}>
             <Route path="edit" element={<EditSurvey />} />
-            <Route path="result" element />
+            <Route path="result" element={<ResultSurvey />} />
           </Route>
           <Route path="survey" element={<SurveyForm />} />
           <Route

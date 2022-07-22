@@ -14,7 +14,7 @@ router
   .route("/:surveyId")
   .get(surveyCtrl.getSurveyById);
 router
-  .route("/edit/:surveyId")
+  .route("/:surveyId/edit")
   .get(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.getSurveyById)
   .put(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.updateSurvey);
 router

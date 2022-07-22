@@ -30,6 +30,13 @@ export const editSurvey = async (survey: SurveyType) => {
   );
   return data;
 };
+export const resultSurvey = async (survey: SurveyType) => {
+  const { data } = await axios.put(
+    `${baseUrl}/surveys/${survey._id}/result`,
+    survey
+  );
+  return data;
+};
 
 export const deleteSurvey = async (surveyId: string) => {
   const { data } = await axios.delete(`${baseUrl}/surveys/${surveyId}/delete`);
