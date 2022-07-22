@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { BasicQuestionType, AnswerType, SurveyType } from "../types";
+import React from "react";
+import { BasicQuestionType, AnswersType } from "../types";
 import { ACheckboxForm } from "./ACheckboxForm";
 import { ADateForm } from "./ADateForm";
 import { ADropdownForm } from "./ADropdownForm";
@@ -11,14 +10,14 @@ import { ARatingForm } from "./ARatingForm";
 
 type Props = {
   question: BasicQuestionType;
-  response: AnswerType;
+  answer: AnswersType | undefined;
   handleAnswer: () => void;
   addFiles: (oneFile: { questionId: string; file: File }) => void;
 };
 export const AQuestion = ({
   question,
   handleAnswer,
-  response,
+  answer,
   addFiles,
 }: Props) => {
   function getContent(question: BasicQuestionType) {
@@ -27,7 +26,7 @@ export const AQuestion = ({
         return (
           <AEssayForm
             element={question}
-            response={response}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );
@@ -35,7 +34,7 @@ export const AQuestion = ({
         return (
           <ARadioForm
             element={question}
-            response={response}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );
@@ -43,7 +42,7 @@ export const AQuestion = ({
         return (
           <ACheckboxForm
             element={question}
-            response={response}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );
@@ -51,7 +50,7 @@ export const AQuestion = ({
         return (
           <ADropdownForm
             element={question}
-            response={response}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );
@@ -59,7 +58,7 @@ export const AQuestion = ({
         return (
           <AFileForm
             element={question}
-            response={response}
+            answers={answer}
             handleAnswer={handleAnswer}
             addFiles={addFiles}
           />
@@ -68,7 +67,7 @@ export const AQuestion = ({
         return (
           <ARatingForm
             element={question}
-            response={response}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );
@@ -76,7 +75,7 @@ export const AQuestion = ({
         return (
           <ADateForm
             element={question}
-            response={response}
+            answers={answer}
             handleAnswer={handleAnswer}
           />
         );

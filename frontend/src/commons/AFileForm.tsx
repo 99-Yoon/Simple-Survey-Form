@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { FileType, AnswerType } from "../types";
+import { FileType, AnswersType } from "../types";
 
 type Props = {
   element: FileType;
-  response: AnswerType;
+  answers: AnswersType | undefined;
   handleAnswer: () => void;
   addFiles: (oneFile: { questionId: string; file: File }) => void;
 };
 
 export const AFileForm = ({
   element,
-  response,
+  answers,
   handleAnswer,
   addFiles,
 }: Props) => {
@@ -18,11 +18,12 @@ export const AFileForm = ({
     if (event.currentTarget.files) {
       const uploadFile = event.currentTarget.files[0];
       addFiles({ questionId: element._id, file: uploadFile });
-      response.answers.map((a) => {
-        if (a.questionId === element._id) {
-          a.answer = uploadFile.name;
-        }
-      });
+      // response.answers.map((a) => {
+      //   if (a.questionId === element._id) {
+      //     a.answer = uploadFile.name;
+      //   }
+      // });
+      answers && (answers.answer = uploadFile.name);
       handleAnswer();
     }
   };
