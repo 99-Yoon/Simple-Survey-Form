@@ -3,32 +3,31 @@ import { RatingType, AnswersType } from "../types";
 
 type Props = {
   element: RatingType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
+  answerQuestion: any | undefined;
 };
 
-export const ARatingForm = ({ element, answers, handleAnswer }: Props) => {
+export const ARatingForm = ({ element, answerQuestion }: Props) => {
   const [selectedchoice, setSelectedchoice] = useState("");
   const [answer, setAnswer] = useState("");
 
   function buttonClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     const { name } = event.currentTarget;
-    // response.answers.map((a) => {
-    //   if (a.questionId === element._id) {
-    //     a.answer = name;
-    //   }
-    // });
-    answers && (answers.answer = name);
+    answerQuestion.answer = name;
     setAnswer(name);
     setSelectedchoice(event.currentTarget.name);
-    handleAnswer();
+    if (answerQuestion.answer) {
+      answerQuestion.requiredCheck = true;
+    } else {
+      answerQuestion.requiredCheck = false;
+    }
+    console.log(answerQuestion);
   }
   return (
-    <div className="flex w-full justify-center space-x-12 my-3">
+    <div className="flex w-full justify-center my-3">
       <label className="mt-3">{element.content.minRateDescription}</label>
       {element.content.choices.map((choice) => (
-        <div className="flex gap-4">
+        <div className="flex gap-4 mx-1">
           <button
             type="button"
             className="border border-themeColor rounded-full w-12 h-12 text-center hover:bg-slate-300"

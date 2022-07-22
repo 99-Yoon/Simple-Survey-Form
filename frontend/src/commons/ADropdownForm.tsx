@@ -3,30 +3,28 @@ import { DropdownType, AnswersType } from "../types";
 
 type Props = {
   element: DropdownType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
+  answerQuestion: any | undefined;
 };
 
-export const ADropdownForm = ({ element, handleAnswer, answers }: Props) => {
+export const ADropdownForm = ({ element, answerQuestion }: Props) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = event.currentTarget;
-    // response.answers.map((a) => {
-    //   if (a.questionId === element._id) {
-    //     a.answer = value;
-    //   }
-    // });
-    answers && (answers.answer = value);
+    answerQuestion.answer = value;
     setAnswer(value);
-    handleAnswer();
+    if (answerQuestion.answer) {
+      answerQuestion.requiredCheck = true;
+    } else {
+      answerQuestion.requiredCheck = false;
+    }
+    console.log(answerQuestion);
   };
   return (
     <div className="flex flex-col container w-4/5 h-auto items-center m-3 py-3">
       <select
         className="py-2 hover:bg-themeColor bg-gray-200 rounded"
         onChange={handleChange}
-        required={element.isRequired}
       >
         {element.content.choices.map((choice) => (
           <option value={choice.text}>{choice.text}</option>

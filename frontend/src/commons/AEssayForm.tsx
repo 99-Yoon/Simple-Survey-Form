@@ -3,23 +3,22 @@ import { EssayType, AnswersType } from "../types";
 
 type Props = {
   element: EssayType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
+  answerQuestion: any | undefined;
 };
 
-export const AEssayForm = ({ element, handleAnswer, answers }: Props) => {
+export const AEssayForm = ({ element, answerQuestion }: Props) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    // response.answers.map((a) => {
-    //   if (a.questionId === element._id) {
-    //     a.answer = value;
-    //   }
-    // });
-    answers && (answers.answer = value);
+    answerQuestion.answer = value;
     setAnswer(value);
-    handleAnswer();
+    if (answerQuestion.answer) {
+      answerQuestion.requiredCheck = true;
+    } else {
+      answerQuestion.requiredCheck = false;
+    }
+    console.log(answerQuestion);
   };
   return (
     <div className="flex mt-3 w-full justify-center">
@@ -29,7 +28,6 @@ export const AEssayForm = ({ element, handleAnswer, answers }: Props) => {
         id={element._id}
         onChange={handleChange}
         value={answer}
-        required={element.isRequired}
       ></input>
     </div>
   );

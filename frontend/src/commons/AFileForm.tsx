@@ -3,28 +3,24 @@ import { FileType, AnswersType } from "../types";
 
 type Props = {
   element: FileType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
+  answerQuestion: any | undefined;
   addFiles: (oneFile: { questionId: string; file: File }) => void;
 };
 
-export const AFileForm = ({
-  element,
-  answers,
-  handleAnswer,
-  addFiles,
-}: Props) => {
+export const AFileForm = ({ element, answerQuestion, addFiles }: Props) => {
+  const [answer, setAnswer] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.currentTarget.files) {
       const uploadFile = event.currentTarget.files[0];
       addFiles({ questionId: element._id, file: uploadFile });
-      // response.answers.map((a) => {
-      //   if (a.questionId === element._id) {
-      //     a.answer = uploadFile.name;
-      //   }
-      // });
-      answers && (answers.answer = uploadFile.name);
-      handleAnswer();
+      answerQuestion.answer = uploadFile.name;
+      if (answerQuestion.answer) {
+        answerQuestion.requiredCheck = true;
+      } else {
+        answerQuestion.requiredCheck = false;
+      }
+      setAnswer(uploadFile.name);
+      console.log(answerQuestion);
     }
   };
   return (
@@ -34,7 +30,6 @@ export const AFileForm = ({
         name="file"
         className=" w-11/12 h-16"
         onChange={handleChange}
-        required={element.isRequired}
       ></input>
     </div>
   );

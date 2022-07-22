@@ -1,5 +1,5 @@
 import React from "react";
-import { BasicQuestionType, AnswersType } from "../types";
+import { BasicQuestionType, AnswersType, SurveyType } from "../types";
 import { ACheckboxForm } from "./ACheckboxForm";
 import { ADateForm } from "./ADateForm";
 import { ADropdownForm } from "./ADropdownForm";
@@ -10,75 +10,42 @@ import { ARatingForm } from "./ARatingForm";
 
 type Props = {
   question: BasicQuestionType;
-  answer: AnswersType | undefined;
-  handleAnswer: () => void;
+  answerQuestion: any | undefined;
   addFiles: (oneFile: { questionId: string; file: File }) => void;
 };
-export const AQuestion = ({
-  question,
-  handleAnswer,
-  answer,
-  addFiles,
-}: Props) => {
+export const AQuestion = ({ question, answerQuestion, addFiles }: Props) => {
   function getContent(question: BasicQuestionType) {
     switch (question.type) {
       case "essay":
         return (
-          <AEssayForm
-            element={question}
-            answers={answer}
-            handleAnswer={handleAnswer}
-          />
+          <AEssayForm element={question} answerQuestion={answerQuestion} />
         );
       case "radio":
         return (
-          <ARadioForm
-            element={question}
-            answers={answer}
-            handleAnswer={handleAnswer}
-          />
+          <ARadioForm element={question} answerQuestion={answerQuestion} />
         );
       case "checkbox":
         return (
-          <ACheckboxForm
-            element={question}
-            answers={answer}
-            handleAnswer={handleAnswer}
-          />
+          <ACheckboxForm element={question} answerQuestion={answerQuestion} />
         );
       case "dropdown":
         return (
-          <ADropdownForm
-            element={question}
-            answers={answer}
-            handleAnswer={handleAnswer}
-          />
+          <ADropdownForm element={question} answerQuestion={answerQuestion} />
         );
       case "file":
         return (
           <AFileForm
             element={question}
-            answers={answer}
-            handleAnswer={handleAnswer}
+            answerQuestion={answerQuestion}
             addFiles={addFiles}
           />
         );
       case "rating":
         return (
-          <ARatingForm
-            element={question}
-            answers={answer}
-            handleAnswer={handleAnswer}
-          />
+          <ARatingForm element={question} answerQuestion={answerQuestion} />
         );
       case "date":
-        return (
-          <ADateForm
-            element={question}
-            answers={answer}
-            handleAnswer={handleAnswer}
-          />
-        );
+        return <ADateForm element={question} answerQuestion={answerQuestion} />;
       default:
         return <></>;
     }
@@ -88,6 +55,11 @@ export const AQuestion = ({
     <div className="flex flex-col container w-4/5 h-auto border-2 border-themeColor items-center m-3 py-4">
       <div className="flex flexgi-row my-1 w-11/12 place-content-between items-center">
         <div className="text-xl font-bold">{question.title}</div>
+        {question.isRequired ? (
+          <div className="text-xs text-red-600">* 필수질문</div>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="w-11/12 text-slate-500">{question.comment}</div>
       {getContent(question)}

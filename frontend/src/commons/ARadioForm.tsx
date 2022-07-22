@@ -3,23 +3,22 @@ import { RadioType, AnswersType } from "../types";
 
 type Props = {
   element: RadioType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
+  answerQuestion: any | undefined;
 };
 
-export const ARadioForm = ({ element, answers, handleAnswer }: Props) => {
+export const ARadioForm = ({ element, answerQuestion }: Props) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    // response.answers.map((a) => {
-    //   if (a.questionId === element._id) {
-    //     a.answer = value;
-    //   }
-    // });
-    answers && (answers.answer = value);
+    answerQuestion.answer = value;
     setAnswer(value);
-    handleAnswer();
+    if (answerQuestion.answer) {
+      answerQuestion.requiredCheck = true;
+    } else {
+      answerQuestion.requiredCheck = false;
+    }
+    console.log(answerQuestion);
   };
   return (
     <div className="flex w-full gap-2 justify-around my-3">
@@ -32,7 +31,6 @@ export const ARadioForm = ({ element, answers, handleAnswer }: Props) => {
             name={element._id}
             onChange={handleChange}
             value={choice.text}
-            required={element.isRequired}
           ></input>
           <label className="text-lg" id={choice.text}>
             {choice.text}

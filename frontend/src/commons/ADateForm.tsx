@@ -2,29 +2,24 @@ import React, { useState } from "react";
 import { DateType, AnswersType } from "../types";
 type Props = {
   element: DateType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
+  answerQuestion: any | undefined;
 };
-export const ADateForm = ({ element, answers, handleAnswer }: Props) => {
+export const ADateForm = ({ element, answerQuestion }: Props) => {
   const [answer, setAnswer] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    // response.answers.map((a) => {
-    //   if (a.questionId === element._id) {
-    //     a.answer = value;
-    //   }
-    // });
-    answers && (answers.answer = value);
+    answerQuestion.answer = value;
     setAnswer(value);
-    handleAnswer();
+    if (answerQuestion.answer) {
+      answerQuestion.requiredCheck = true;
+    } else {
+      answerQuestion.requiredCheck = false;
+    }
+    console.log(answerQuestion);
   };
   return (
     <div className="justify-start w-11/12 m-3 py-4">
-      <input
-        type="date"
-        onChange={handleChange}
-        required={element.isRequired}
-      ></input>
+      <input type="date" onChange={handleChange}></input>
     </div>
   );
 };

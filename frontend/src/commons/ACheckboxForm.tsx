@@ -3,23 +3,35 @@ import { CheckboxType, AnswersType } from "../types";
 
 type Props = {
   element: CheckboxType;
-  answers: AnswersType | undefined;
-  handleAnswer: () => void;
+  answerQuestion: any | undefined;
 };
 
-export const ACheckboxForm = ({ element, answers, handleAnswer }: Props) => {
+export const ACheckboxForm = ({ element, answerQuestion }: Props) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    // response.answers.map((a) => {
-    //   if (a.questionId === element._id) {
-    //     a.answer = value;
-    //   }
-    // });
-    answers && (answers.answer = value);
+    if (answerQuestion.answer) {
+      if (answerQuestion.answer.find((a: any) => a === value)) {
+        const newList = answerQuestion.answer.filter((a: any) => a !== value);
+        answerQuestion.answer = newList;
+        if (answerQuestion.answer.length) {
+          answerQuestion.requiredCheck = true;
+        } else {
+          answerQuestion.requiredCheck = false;
+        }
+      } else {
+        answerQuestion.answer.push(value);
+        answerQuestion.requiredCheck = true;
+      }
+    } else {
+      answerQuestion.answer = [];
+      answerQuestion.answer.push(value);
+      answerQuestion.requiredCheck = true;
+    }
     setAnswer(value);
-    handleAnswer();
+
+    console.log(answerQuestion);
   };
   return (
     <div className="flex w-full gap-2 justify-around my-3">
@@ -30,7 +42,6 @@ export const ACheckboxForm = ({ element, answers, handleAnswer }: Props) => {
             type="checkbox"
             value={choice.text}
             onChange={handleChange}
-            required={element.isRequired}
           />
           <label className="text-lg">{choice.text}</label>
         </div>

@@ -2,12 +2,14 @@ import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { surveyApi, answerApi } from "../apis";
 import { catchErrors } from "../helpers";
+import { Question } from "../questions";
 import { AnswerType, SurveyType } from "../types";
 import { AQuestion } from "./AQuestion";
 
 export const SurveyForm = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
   const [files, setFiles] = useState<{ questionId: string; file: File }[]>([]);
+  const [requiredErrorMessage, setRequiredErrorMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -19,11 +21,17 @@ export const SurveyForm = () => {
     questions: [],
   });
 
-  const answer = useRef<AnswerType>({
-    surveyId: "surveyId",
-    guestId: "",
-    answers: [],
+  const answerSurvey = useRef<any>({
+    _id: "surveyId",
+    user: {},
+    title: "",
+    comment: "",
+    questions: [],
   });
+
+  useEffect(() => {
+    ansSurvey();
+  }, [surveyId]);
 
   const addFiles = (oneFile: { questionId: string; file: File }) => {
     if (!files.find((a) => a.questionId === oneFile.questionId)) {
@@ -34,23 +42,12 @@ export const SurveyForm = () => {
   async function ansSurvey() {
     try {
       if (surveyId) {
-        const answersurvey: any = await surveyApi.ansSurvey(surveyId);
-        console.log(answersurvey);
-        const questionIds = answersurvey.questions.map((el: any) => {
-          return { questionId: el._id, type: el.type, answer: "" };
-        });
-        console.log(questionIds);
-        if (answersurvey) {
-          // setResponse({
-          //   ...answer,
-          //   surveyId: answersurvey._id,
-          //   answers: questionIds,
-          // });
-          answer.current.surveyId = answersurvey._id;
-          answer.current.guestId = answersurvey.guestId;
-          answer.current.answers = questionIds;
-
-          setSurvey(answersurvey);
+        const getSurvey: any = await surveyApi.ansSurvey(surveyId);
+        console.log("survey가져옴ㅎㅎ", getSurvey);
+        if (getSurvey) {
+          answerSurvey.current._id = getSurvey._id;
+          answerSurvey.current.questions = getSurvey.questions;
+          setSurvey(getSurvey);
           setSuccess(true);
           setError("");
         }
@@ -64,40 +61,40 @@ export const SurveyForm = () => {
     }
   }
 
-  useEffect(() => {
-    ansSurvey();
-  }, [surveyId]);
-
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append("surveyId", answer.current.surveyId);
-      formData.append("guestId", "");
-      formData.append("answers", JSON.stringify(answer.current.answers));
-      files.map((f) => {
-        formData.append("uploadFiles", f.file);
-      });
-      const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
-      // console.log(newAnswer);
-      setSuccess(true);
-      setError("");
-    } catch (error) {
-      catchErrors(error, setError);
-    } finally {
-      setLoading(false);
+    const answers = answerSurvey.current.questions.map((q: any) => {
+      return { questionId: q.questionId, answer: q.answer, type: q.type };
+    });
+    const requiredErrorQ = answerSurvey.current.questions.find(
+      (q: any) => q.isRequired && q.isRequired !== q.requiredCheck
+    );
+    if (requiredErrorQ) {
+      alert("필수질문에 응답하지 않으셨습니다.");
+    } else {
+      try {
+        const formData = new FormData();
+        formData.append("surveyId", answerSurvey.current._id);
+        formData.append("guestId", "");
+        formData.append("answers", JSON.stringify(answers));
+        files.map((f) => {
+          formData.append("uploadFiles", f.file);
+        });
+        const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
+        // console.log(newAnswer);
+        setSuccess(true);
+        setError("");
+      } catch (error) {
+        catchErrors(error, setError);
+      } finally {
+        setLoading(false);
+      }
     }
   }
 
-  const handleAnswer = () => {
-    console.log("handle answer:", answer.current);
-    // const newList = [...answer.answers];
-    // setResponse({ ...answer, answers: newList });
-  };
-
   return (
     <>
-      {console.log("rendering survey form", answer.current)}
+      {console.log("rendering survey form", answerSurvey.current)}
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col place-items-center">
           <div className="flex flex-col container place-items-center mt-4">
@@ -105,15 +102,12 @@ export const SurveyForm = () => {
             <p className="font-bold text-1xl text-center m-2">
               {survey.comment}
             </p>
-            {survey.questions.map((question) => {
+            {survey.questions.map((question, index) => {
               return (
                 <AQuestion
                   question={question}
-                  answer={answer.current.answers.find(
-                    (ans) => ans.questionId === question._id
-                  )}
+                  answerQuestion={answerSurvey.current.questions[index]}
                   addFiles={addFiles}
-                  handleAnswer={handleAnswer}
                 ></AQuestion>
               );
             })}
