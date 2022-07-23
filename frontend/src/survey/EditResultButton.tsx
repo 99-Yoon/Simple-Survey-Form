@@ -17,7 +17,7 @@ export const EditResultButton = () => {
     <div>
       <div className="flex place-content-center mt-6">
         <NavLink
-          to={`/surveys/${surveyId}/edit`}
+          to={`/surveys/edit/${surveyId}`}
           style={({ isActive }) =>
             isActive
               ? {
@@ -33,7 +33,7 @@ export const EditResultButton = () => {
           <div className="text-xl m-3 ">설문지 수정</div>
         </NavLink>
         <NavLink
-          to={`/surveys/${surveyId}/result`}
+          to={`/surveys/edit/${surveyId}/result`}
           style={({ isActive }) =>
             isActive
               ? {

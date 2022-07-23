@@ -16,7 +16,7 @@ export const MySurveyCard = ({ data }: Props) => {
   const [success, setSuccess] = useState(false);
 
   const editSurvey = () => {
-    navigate(`/surveys/${data._id}/edit`, {
+    navigate(`/surveys/edit/${data._id}`, {
       replace: true,
       state: { save: true },
     });
