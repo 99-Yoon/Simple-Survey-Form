@@ -1,2 +1,2 @@
 export { Header } from "./Header";
-export { SurveyForm } from "./SurveyForm";
+export { QUESTION_TYPES } from "./constants";

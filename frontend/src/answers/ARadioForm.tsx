@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { RadioType, AnswersType } from "../types";
+import { RadioType, AnswersType, AnswerProps } from "../types";
 
-type Props = {
+interface Props extends AnswerProps {
   element: RadioType;
   answerQuestion: any | undefined;
-};
+}
 
 export const ARadioForm = ({ element, answerQuestion }: Props) => {
   const [answer, setAnswer] = useState("");
@@ -23,7 +23,7 @@ export const ARadioForm = ({ element, answerQuestion }: Props) => {
   return (
     <div className="flex w-full gap-2 justify-around my-3">
       {element.content.choices.map((choice) => (
-        <div>
+        <div key={choice.text}>
           <input
             className="mr-2"
             type="radio"

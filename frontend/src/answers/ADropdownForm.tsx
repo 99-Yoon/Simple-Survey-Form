@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { DropdownType, AnswersType } from "../types";
+import { DropdownType, AnswerProps } from "../types";
 
-type Props = {
+interface Props extends AnswerProps {
   element: DropdownType;
   answerQuestion: any | undefined;
-};
+}
 
 export const ADropdownForm = ({ element, answerQuestion }: Props) => {
   const [answer, setAnswer] = useState("");

@@ -7,7 +7,7 @@ import { Question } from "../questions";
 import { AnswerType, SurveyType } from "../types";
 import { AQuestion } from "./AQuestion";
 
-export const SurveyForm = () => {
+export const AnswerSurveyForm = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
   const [files, setFiles] = useState<{ questionId: string; file: File }[]>([]);
   const [requiredErrorMessage, setRequiredErrorMessage] = useState("");

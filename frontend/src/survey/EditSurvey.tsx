@@ -139,6 +139,7 @@ export const EditSurvey = () => {
           </div>
           {questions.map((question) => (
             <Question
+              key={question._id}
               element={question}
               isSave={state ? true : false}
               handleQuestion={handleQuestion}

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { RatingType, AnswersType } from "../types";
+import { RatingType, AnswersType, AnswerProps } from "../types";
 
-type Props = {
+interface Props extends AnswerProps {
   element: RatingType;
   answerQuestion: any | undefined;
-};
+}
 
 export const ARatingForm = ({ element, answerQuestion }: Props) => {
   const [selectedchoice, setSelectedchoice] = useState("");

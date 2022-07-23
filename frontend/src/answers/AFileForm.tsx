@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { FileType, AnswersType } from "../types";
+import { FileType, AnswersType, AnswerProps } from "../types";
 
-type Props = {
+interface Props extends AnswerProps {
   element: FileType;
   answerQuestion: any | undefined;
   addFiles: (oneFile: { questionId: string; file: File }) => void;
-};
+}
 
 export const AFileForm = ({ element, answerQuestion, addFiles }: Props) => {
   const [answer, setAnswer] = useState("");

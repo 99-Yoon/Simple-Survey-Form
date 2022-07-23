@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { EssayType, AnswersType } from "../types";
+import { AnswerProps, EssayType } from "../types";
 
 type Props = {
   element: EssayType;

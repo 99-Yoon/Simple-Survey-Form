@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { CheckboxType, AnswersType } from "../types";
+import { CheckboxType, AnswersType, AnswerProps } from "../types";
 
-type Props = {
+interface Props extends AnswerProps {
   element: CheckboxType;
   answerQuestion: any | undefined;
-};
+}
 
 export const ACheckboxForm = ({ element, answerQuestion }: Props) => {
   const [answer, setAnswer] = useState("");
