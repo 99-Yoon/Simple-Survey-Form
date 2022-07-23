@@ -30,7 +30,11 @@ export const ResultSurvey = () => {
 
       <div className="container w-11/12 place-self-center">
         {data.map((item) => (
-          <Accordion title={item.title} content={item.content} />
+          <Accordion
+            key={item.title}
+            title={item.title}
+            content={item.content}
+          />
         ))}
       </div>
     </div>
