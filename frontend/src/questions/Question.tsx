@@ -153,6 +153,7 @@ export const Question = ({
           name="type"
           onChange={handleSelect}
           disabled={save}
+          value={element.type}
           className="w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
         >
           {Array.from(QUESTION_TYPES.entries()).map(([key, value]) => (
@@ -160,7 +161,7 @@ export const Question = ({
               key={key}
               id={element._id}
               value={key}
-              selected={key === element.type}
+              // selected={key === element.type}
             >
               {value}
             </option>

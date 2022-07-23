@@ -129,6 +129,7 @@ export const EditSurvey = () => {
           </div>
           {questions.map((question) => (
             <Question
+              key={question._id}
               element={question}
               handleQuestion={handleQuestion}
               deleteQuestion={deleteQuestion}
