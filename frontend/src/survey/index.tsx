@@ -1,1 +1,1 @@
-export { EditResponseButton } from "./EditResponseButton";
+export { EditResultButton } from "./EditResultButton";

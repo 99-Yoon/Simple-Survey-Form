@@ -6,8 +6,9 @@ import { RequireAuth } from "./auth/RequireAuth";
 import { SurveyForm } from "./commons";
 import { Home } from "./home";
 import { Profile } from "./profile";
-import { EditResponseButton } from "./survey";
+import { EditResultButton } from "./survey";
 import { EditSurvey } from "./survey/EditSurvey";
+import { ResultSurvey } from "./survey/ResultSurvey";
 
 export const SurveyRouter = () => {
   return (
@@ -17,9 +18,9 @@ export const SurveyRouter = () => {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="surveys/edit/" element={<EditResponseButton />}>
+          <Route path="surveys/edit/" element={<EditResultButton />}>
             <Route path=":surveyId" element={<EditSurvey />} />
-            <Route path=":surveyId/response" element />
+            <Route path=":surveyId/result" element={<ResultSurvey />} />
           </Route>
           <Route path="surveys/:surveyId" element={<SurveyForm />} />
           <Route
