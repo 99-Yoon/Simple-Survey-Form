@@ -116,6 +116,7 @@ export const AnswerSurveyForm = () => {
             {survey.questions.map((question, index) => {
               return (
                 <AQuestion
+                  key={question._id}
                   question={question}
                   answerQuestion={answerSurvey.current.questions[index]}
                   addFiles={addFiles}
