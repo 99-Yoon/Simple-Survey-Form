@@ -1,5 +1,5 @@
 import React from "react";
-import { BasicQuestionType, AnswersType, SurveyType } from "../types";
+import { BasicQuestionType, AnswerQuestionType } from "../types";
 import { ACheckboxForm } from "./ACheckboxForm";
 import { ADateForm } from "./ADateForm";
 import { ADropdownForm } from "./ADropdownForm";
@@ -10,7 +10,7 @@ import { ARatingForm } from "./ARatingForm";
 
 type Props = {
   question: BasicQuestionType;
-  answerQuestion: any | undefined;
+  answerQuestion: AnswerQuestionType;
   addFiles: (oneFile: { questionId: string; file: File }) => void;
 };
 export const AQuestion = ({ question, answerQuestion, addFiles }: Props) => {

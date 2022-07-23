@@ -11,7 +11,7 @@ export interface SignupUser {
 }
 
 export interface SurveyType {
-  _id?: string;
+  _id: string;
   user: any;
   title: string;
   comment: string;
@@ -30,9 +30,17 @@ export interface BasicQuestionType {
   [key: string]: string | number | boolean | any;
 }
 
+export interface AnswerQuestionType extends BasicQuestionType {
+  requiredCheck: boolean;
+  answer: any;
+}
+
+export interface AnswerSurveyType extends SurveyType {
+  questions: AnswerQuestionType[];
+}
+
 export interface EssayType extends BasicQuestionType {}
 export interface DateType extends BasicQuestionType {}
-
 export interface RadioType extends BasicQuestionType {
   content: {
     choices: {
@@ -95,6 +103,7 @@ export interface AnswerType {
 
 export interface AnswerProps {
   element: BasicQuestionType;
+  answerQuestion: AnswerQuestionType;
   // answers: AnswersType | undefined;
   // handleAnswer: () => void;
 }

@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import { AnswerProps, EssayType } from "../types";
+import { AnswerProps, AnswerQuestionType, EssayType } from "../types";
 
-type Props = {
-  element: EssayType;
-  answerQuestion: any | undefined;
-};
-
-export const AEssayForm = ({ element, answerQuestion }: Props) => {
+export const AEssayForm = ({ element, answerQuestion }: AnswerProps) => {
   const [answer, setAnswer] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

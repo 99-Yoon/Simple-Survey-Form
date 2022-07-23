@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-import { DateType, AnswersType } from "../types";
-type Props = {
-  element: DateType;
-  answerQuestion: any | undefined;
-};
-export const ADateForm = ({ element, answerQuestion }: Props) => {
+import { AnswerProps } from "../types";
+
+export const ADateForm = ({ element, answerQuestion }: AnswerProps) => {
   const [answer, setAnswer] = useState("");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;

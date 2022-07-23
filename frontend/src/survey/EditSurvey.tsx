@@ -22,7 +22,7 @@ export const EditSurvey = () => {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const [survey, setSurvey] = useState<SurveyType>({
-    _id: surveyId,
+    _id: surveyId || "",
     user: {},
     title: "",
     comment: "",

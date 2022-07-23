@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { surveyApi, answerApi } from "../apis";
 import { catchErrors } from "../helpers";
 import { Question } from "../questions";
-import { AnswerType, SurveyType } from "../types";
+import { AnswerSurveyType, AnswerType, SurveyType } from "../types";
 import { AQuestion } from "./AQuestion";
 
 export const AnswerSurveyForm = () => {
@@ -16,14 +16,14 @@ export const AnswerSurveyForm = () => {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const [survey, setSurvey] = useState<SurveyType>({
-    _id: surveyId,
+    _id: surveyId || "",
     user: {},
     title: "",
     comment: "",
     questions: [],
   });
 
-  const answerSurvey = useRef<any>({
+  const answerSurvey = useRef<AnswerSurveyType>({
     _id: "surveyId",
     user: {},
     title: "",
@@ -34,7 +34,9 @@ export const AnswerSurveyForm = () => {
   useEffect(() => {
     ansSurvey();
   }, [surveyId]);
+
   const isSurvey = localStorage.getItem(`survey_${surveyId}`);
+
   if (isSurvey) {
     console.log("object", isSurvey);
     alert("제출한 설문조사입니다");

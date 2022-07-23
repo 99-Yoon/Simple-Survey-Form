@@ -7,6 +7,7 @@ import { MySurveyCard } from "./MySurveyCard";
 export const Profile = () => {
   const navigate = useNavigate();
   const [survey, setSurvey] = useState<SurveyType>({
+    _id: "",
     user: {},
     title: "",
     comment: "",

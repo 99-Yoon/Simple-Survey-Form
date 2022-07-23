@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { RatingType, AnswersType, AnswerProps } from "../types";
+import { RatingType, AnswerProps } from "../types";
 
 interface Props extends AnswerProps {
   element: RatingType;
-  answerQuestion: any | undefined;
 }
 
 export const ARatingForm = ({ element, answerQuestion }: Props) => {

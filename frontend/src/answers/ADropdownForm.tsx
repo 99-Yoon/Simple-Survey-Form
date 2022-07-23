@@ -3,7 +3,6 @@ import { DropdownType, AnswerProps } from "../types";
 
 interface Props extends AnswerProps {
   element: DropdownType;
-  answerQuestion: any | undefined;
 }
 
 export const ADropdownForm = ({ element, answerQuestion }: Props) => {

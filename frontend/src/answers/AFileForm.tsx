@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { FileType, AnswersType, AnswerProps } from "../types";
+import { AnswerProps } from "../types";
 
 interface Props extends AnswerProps {
-  element: FileType;
-  answerQuestion: any | undefined;
   addFiles: (oneFile: { questionId: string; file: File }) => void;
 }
 
