@@ -1,3 +1,4 @@
+import { NextFunction, Request, Response } from "express";
 import { asyncWrap } from "../helpers";
 import { TypedRequest } from "../types";
 import formidable from "formidable";
@@ -11,7 +12,6 @@ export const createAnswers = asyncWrap(async (reqExp, res) => {
   const answers = JSON.parse(answer.answers);
   answer.answers = answers;
   const files = req.files.uploadFiles as formidable.File[];
-  // console.log("controller의 files", files);
   let uploadFile;
   try {
     if (files) {
@@ -33,18 +33,19 @@ export const createAnswers = asyncWrap(async (reqExp, res) => {
         targetObj.answer = retFile._id;
       }
     }
-    // 3) Answer DB 만들기(map을 돌려서 하나씩 추가시켜야 함)
+    // 3) Answer DB 만들기
     console.log("원래 answer", answer);
-    for (let index = 0; index < answer.answers.length; index++) {
-      const element = answer.answers[index];
-      const newAnswer = await answerDb.createAnswer({
-        surveyId: answer.surveyId,
-        guestId: answer.guestId,
-        questionId: element.questionId,
-        answer: element.answer,
-      });
-      console.log("DB에 넣은 answer", newAnswer);
-    }
+    console.log("원래 answer", answer.answers.length);
+    // for (let index = 0; index < answer.answers.length; index++) {
+    //   const element = answer.answers[index];
+    //   const newAnswer = await answerDb.createAnswer({
+    //     surveyId: answer.surveyId,
+    //     guestId: answer.guestId,
+    //     questionId: element.questionId,
+    //     answer: element.answer,
+    //   });
+    //   // console.log("DB에 넣은 answer", newAnswer);
+    // }
     return res.json();
   } catch (error: any) {
     console.log("error in create answer:", error);
@@ -54,5 +55,18 @@ export const createAnswers = asyncWrap(async (reqExp, res) => {
       // await fs.unlink(files.filepath);
     }
     res.status(422).send(error.message || "설문조사 응답 생성 오류");
+  }
+});
+
+export const getAnswers = asyncWrap(async (reqExp, res) => {
+  const req = reqExp as TypedRequest;
+  const { surveyId } = req.params;
+  console.log(surveyId);
+  try {
+    const answers = await answerDb.getAnswers(surveyId);
+    console.log("Db에서 가져온 answers= ", answers);
+    return res.json(answers);
+  } catch (error: any) {
+    res.status(422).send(error.message || "설문조사 결과 불러오기 오류");
   }
 });

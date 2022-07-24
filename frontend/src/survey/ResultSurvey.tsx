@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { answerApi } from "../apis";
+import { catchErrors } from "../helpers";
 import Accordion from "./Accordion";
+import { useParams } from "react-router-dom";
 
 export const ResultSurvey = () => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [answers, setAnswers] = useState([
+    { _id: "", answers: [], question: {} },
+  ]);
+  let { surveyId } = useParams<{ surveyId: string }>();
+  useEffect(() => {
+    getAnswers();
+  }, [surveyId]);
+
+  async function getAnswers() {
+    try {
+      if (surveyId) {
+        const answers = await answerApi.getAnswers(surveyId);
+        console.log(answers);
+        setAnswers(answers);
+      } else {
+        setLoading(true);
+      }
+    } catch (error) {
+      catchErrors(error, setError);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   const data = [
     {
       title: "1번질문",
@@ -17,6 +47,7 @@ export const ResultSurvey = () => {
       content: "3번답변들",
     },
   ];
+
   return (
     <div className="flex flex-col place-items-center">
       <div className="flex flex-col container place-items-center mt-4">
@@ -29,11 +60,11 @@ export const ResultSurvey = () => {
       </div>
 
       <div className="container w-11/12 place-self-center">
-        {data.map((item) => (
+        {answers.map((item) => (
           <Accordion
-            key={item.title}
-            title={item.title}
-            content={item.content}
+            key={item._id}
+            question={item.question}
+            answers={item.answers}
           />
         ))}
       </div>

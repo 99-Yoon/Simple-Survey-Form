@@ -35,13 +35,13 @@ export const AnswerSurveyForm = () => {
     ansSurvey();
   }, [surveyId]);
 
-  const isSurvey = localStorage.getItem(`survey_${surveyId}`);
+  // const isSurvey = localStorage.getItem(`survey_${surveyId}`);
 
-  if (isSurvey) {
-    console.log("object", isSurvey);
-    alert("제출한 설문조사입니다");
-    navigate("/");
-  }
+  // if (isSurvey) {
+  //   console.log("object", isSurvey);
+  //   alert("제출한 설문조사입니다");
+  //   navigate("/");
+  // }
 
   const addFiles = (oneFile: { questionId: string; file: File }) => {
     if (!files.find((a) => a.questionId === oneFile.questionId)) {
@@ -74,7 +74,7 @@ export const AnswerSurveyForm = () => {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     const answers = answerSurvey.current.questions.map((q: any) => {
-      return { questionId: q.questionId, answer: q.answer, type: q.type };
+      return { questionId: q._id, answer: q.answer, type: q.type };
     });
     const requiredErrorQ = answerSurvey.current.questions.find(
       (q: any) => q.isRequired && q.isRequired !== q.requiredCheck
@@ -85,7 +85,7 @@ export const AnswerSurveyForm = () => {
       try {
         const formData = new FormData();
         formData.append("surveyId", answerSurvey.current._id);
-        formData.append("guestId", "quest1");
+        formData.append("guestId", "guest1");
         formData.append("answers", JSON.stringify(answers));
         files.map((f) => {
           formData.append("uploadFiles", f.file);
@@ -93,7 +93,7 @@ export const AnswerSurveyForm = () => {
         const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
         console.log(newAnswer);
         localStorage.setItem(`survey_${surveyId}`, surveyId ?? "");
-        alert("제출되었습니다");
+        // alert("제출되었습니다");
 
         setSuccess(true);
         setError("");

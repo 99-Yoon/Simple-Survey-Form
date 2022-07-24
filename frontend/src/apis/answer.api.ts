@@ -6,3 +6,8 @@ export const saveAnswers = async (answer: FormData) => {
   const { data } = await axios.post(`${baseUrl}/answers`, answer);
   return data;
 };
+
+export const getAnswers = async (surveyId: string) => {
+  const { data } = await axios.get(`${baseUrl}/answers/${surveyId}`);
+  return data;
+};
