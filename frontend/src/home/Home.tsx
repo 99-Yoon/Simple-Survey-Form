@@ -16,7 +16,7 @@ export const Home = () => {
 
   return (
     <div className="flex flex-col place-items-center">
-      <div className="justify-end text-center text-3xl text-black h-16 mt-12">
+      <div className="justify-end text-center text-2xl md:text-3xl text-black h-16 mt-12">
         가장 쉽게 설문지를 만드세요!
       </div>
       <div className="flex flex-col place-items-center container">

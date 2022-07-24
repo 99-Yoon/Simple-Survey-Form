@@ -9,13 +9,13 @@ export const Header = () => {
 
   return (
     <div className="bg-white border-b-2 border-b-themeColor px-2 sm:px-4 py-2.5">
-      <div className="container flex flex-wrap justify-between items-center mx-auto">
+      <div className="container flex flex-col md:flex-row flex-wrap justify-between items-center mx-auto">
         <Link to="/" className="font-bold text-2xl text-themeColor">
           Simple Survey Form
         </Link>
         <div className="md:flex items-center justify-end md:flex-1 lg:w-0">
           {user.isLoggedIn ? (
-            <div>
+            <div className="pt-2">
               <button
                 onClick={() => logout(() => navigate("/"))}
                 className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md"
@@ -29,7 +29,7 @@ export const Header = () => {
               </Link>
             </div>
           ) : (
-            <div>
+            <div className="pt-2">
               <Link to="/login">
                 <button className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md">
                   로그인

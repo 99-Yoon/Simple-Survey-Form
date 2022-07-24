@@ -14,6 +14,7 @@ export const createSurvey = asyncWrap(
     let survey = req.body;
     survey.user = userId;
     console.log("survey body", survey);
+    delete survey._id;
     const newSurvey = await surveyDb.createSurvey(survey);
     return res.json(newSurvey);
   }

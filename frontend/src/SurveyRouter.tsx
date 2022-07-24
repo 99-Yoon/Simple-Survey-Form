@@ -18,11 +18,11 @@ export const SurveyRouter = () => {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="surveys/edit/" element={<EditResultButton />}>
-            <Route path=":surveyId" element={<EditSurvey />} />
-            <Route path=":surveyId/result" element={<ResultSurvey />} />
+          <Route path="surveys/:surveyId/" element={<EditResultButton />}>
+            <Route path="edit" element={<EditSurvey />} />
+            <Route path="result" element={<ResultSurvey />} />
           </Route>
-          <Route path="surveys/:surveyId" element={<AnswerSurveyForm />} />
+          <Route path="survey/:surveyId" element={<AnswerSurveyForm />} />
           <Route
             path="profile"
             element={
