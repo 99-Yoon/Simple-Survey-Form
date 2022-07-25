@@ -35,7 +35,7 @@ export const ACheckboxForm = ({ element, answerQuestion }: Props) => {
   return (
     <div className="flex w-full gap-2 justify-around my-3">
       {element.content.choices.map((choice) => (
-        <div>
+        <div key={choice.value}>
           <input
             className="mr-2"
             type="checkbox"

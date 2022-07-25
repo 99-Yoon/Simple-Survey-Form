@@ -22,11 +22,13 @@ export const ADropdownForm = ({ element, answerQuestion }: Props) => {
   return (
     <div className="flex flex-col container w-11/12 h-auto m-3 py-3">
       <select
-        className="py-2 w-48 hover:bg-gray-200 border border-black rounded"
+        className="place-self-center py-2 w-48 hover:bg-gray-200 border border-black rounded"
         onChange={handleChange}
       >
         {element.content.choices.map((choice) => (
-          <option value={choice.text}>{choice.text}</option>
+          <option key={choice.value} value={choice.text}>
+            {choice.text}
+          </option>
         ))}
       </select>
     </div>

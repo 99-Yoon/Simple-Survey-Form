@@ -1,9 +1,7 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { surveyApi, answerApi } from "../apis";
 import { catchErrors } from "../helpers";
-import { Question } from "../questions";
 import { AnswerSurveyType, AnswerType, SurveyType } from "../types";
 import { AQuestion } from "./AQuestion";
 

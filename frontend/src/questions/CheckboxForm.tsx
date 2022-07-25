@@ -32,7 +32,7 @@ export const CheckboxForm = ({ element, handleQuestion, save }: Props) => {
     <>
       <div id="content" className="mt-4 p-5">
         {choices.map((choice: any, index: number) => (
-          <div className="m-5">
+          <div className="m-5" key={choice.value}>
             <input type="checkbox" disabled></input>
             <input
               id={`${index}`}

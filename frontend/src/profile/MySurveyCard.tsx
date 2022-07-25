@@ -54,26 +54,22 @@ export const MySurveyCard = ({ data }: Props) => {
   return (
     <div className="w-40 h-48 md:w-52 md:h-60 rounded border-2 hover:border-2 hover:border-themeColor">
       <button className="w-full" onClick={editSurvey}>
-        <div className="h-24 md:h-36 p-3">
+        <p className="font-bold">
+          {data.title ? data.title : "제목없는 설문조사"}
+        </p>
+
+        <div className="h-24 md:h-36 p-3 text-ellipsis overflow-y-scroll">
           <p className="text-gray-700">
             {data.comment ? data.comment : "설명없는 설문조사"}
           </p>
         </div>
-
-        <div className="flex flex-col h-12 place-items-center">
-          <p className="font-bold">
-            {data.title ? data.title : "제목없는 설문조사"}
-          </p>
-
-          <p className="text-gray-500 text-sm">
-            {data.updatedAt?.substring(0, 10)}
-          </p>
-        </div>
+        <p className="text-gray-500 text-sm">
+          {data.updatedAt?.substring(0, 10)}
+        </p>
       </button>
       <div className="flex justify-end pt-1 pr-1">
-        <label className="pt-1">링크복사</label>
-        <button className="" onClick={copyLink}>
-          <img src={CopyImg} alt="copy"></img>
+        <button className="flex place-self-center" onClick={copyLink}>
+          링크복사 <img src={CopyImg} alt="copy"></img>
         </button>
         <button
           type="button"

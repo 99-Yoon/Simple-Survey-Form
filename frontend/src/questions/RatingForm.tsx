@@ -50,6 +50,7 @@ export const RatingForm = ({ element, handleQuestion, save }: Props) => {
         ></input>
         {choices.map((choice: any, index: number) => (
           <input
+            key={choice.value}
             name="text"
             id={`${index}`}
             type="text"
