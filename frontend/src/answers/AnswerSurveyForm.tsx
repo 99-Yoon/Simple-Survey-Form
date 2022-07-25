@@ -39,8 +39,7 @@ export const AnswerSurveyForm = () => {
 
   if (isSurvey) {
     console.log("object", isSurvey);
-    alert("제출한 설문조사입니다");
-    navigate("/");
+    navigate("/survey/same");
   }
 
   const addFiles = (oneFile: { questionId: string; file: File }) => {
@@ -93,7 +92,7 @@ export const AnswerSurveyForm = () => {
         const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
         console.log(newAnswer);
         localStorage.setItem(`survey_${surveyId}`, surveyId ?? "");
-        alert("제출되었습니다");
+        navigate("/survey/complete");
 
         setSuccess(true);
         setError("");

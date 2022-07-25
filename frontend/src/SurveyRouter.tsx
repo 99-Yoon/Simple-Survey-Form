@@ -9,6 +9,8 @@ import { Profile } from "./profile";
 import { EditResultButton } from "./survey";
 import { EditSurvey } from "./survey/EditSurvey";
 import { ResultSurvey } from "./survey/ResultSurvey";
+import { CompleteSurvey } from "./survey/CompleteSurvey";
+import { SameSurvey } from "./survey/SameSurvey";
 
 export const SurveyRouter = () => {
   return (
@@ -18,11 +20,13 @@ export const SurveyRouter = () => {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="surveys/edit/" element={<EditResultButton />}>
-            <Route path=":surveyId" element={<EditSurvey />} />
-            <Route path=":surveyId/result" element={<ResultSurvey />} />
+          <Route path="surveys/:surveyId/" element={<EditResultButton />}>
+            <Route path="edit" element={<EditSurvey />} />
+            <Route path="result" element={<ResultSurvey />} />
           </Route>
-          <Route path="surveys/:surveyId" element={<AnswerSurveyForm />} />
+          <Route path="survey/:surveyId" element={<AnswerSurveyForm />} />
+          <Route path="survey/complete" element={<CompleteSurvey />} />
+          <Route path="survey/same" element={<SameSurvey />} />
           <Route
             path="profile"
             element={
