@@ -8,7 +8,6 @@ import { AQuestion } from "./AQuestion";
 export const AnswerSurveyForm = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
   const [files, setFiles] = useState<{ questionId: string; file: File }[]>([]);
-  const [requiredErrorMessage, setRequiredErrorMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -33,13 +32,12 @@ export const AnswerSurveyForm = () => {
     ansSurvey();
   }, [surveyId]);
 
-  // const isSurvey = localStorage.getItem(`survey_${surveyId}`);
+  const isSurvey = localStorage.getItem(`survey_${surveyId}`);
 
-  // if (isSurvey) {
-  //   console.log("object", isSurvey);
-  //   alert("제출한 설문조사입니다");
-  //   navigate("/");
-  // }
+  if (isSurvey) {
+    console.log("object", isSurvey);
+    navigate("/survey/same");
+  }
 
   const addFiles = (oneFile: { questionId: string; file: File }) => {
     if (!files.find((a) => a.questionId === oneFile.questionId)) {
@@ -91,7 +89,7 @@ export const AnswerSurveyForm = () => {
         const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
         console.log(newAnswer);
         localStorage.setItem(`survey_${surveyId}`, surveyId ?? "");
-        // alert("제출되었습니다");
+        navigate("/survey/complete");
 
         setSuccess(true);
         setError("");

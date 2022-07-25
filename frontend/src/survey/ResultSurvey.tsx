@@ -36,7 +36,6 @@ export const ResultSurvey = () => {
       setLoading(false);
     }
   }
-
   return (
     <div className="flex flex-col place-items-center">
       <div className="flex flex-col container place-items-center mt-4">
