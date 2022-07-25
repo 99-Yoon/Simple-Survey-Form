@@ -10,19 +10,17 @@ export const getAnswers = async (surveyId: string) => {
   const answers = await Answer.aggregate([
     { $match: { surveyId: new Types.ObjectId(surveyId) } },
     {
-      $lookup: {
-        from: "questions",
-        localField: "questionId",
-        foreignField: "_id",
-        as: "question",
-      },
-    },
-    { $unwind: "$question" },
-    {
       $group: {
         _id: "$questionId",
-        answers: { $push: { guestId: "$guestId", answer: "$answer" } },
-        question: { $mergeObjects: "$question" },
+        answers: { $push: "$answer" },
+      },
+    },
+    {
+      $lookup: {
+        from: "fileinfos",
+        localField: "answers",
+        foreignField: "_id",
+        as: "file",
       },
     },
   ]);

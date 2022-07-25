@@ -6,18 +6,11 @@ export const EditResultButton = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
   const navigate = useNavigate();
 
-  /*function editButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
-    navigate(`/surveys/${surveyId}/edit`);
-  }
-  function resultButtonClick(e: React.MouseEvent<HTMLButtonElement>) {
-    navigate(`/surveys/${surveyId}/result`);
-  }*/
-
   return (
     <div>
       <div className="flex place-content-center mt-6">
         <NavLink
-          to={`/surveys/edit/${surveyId}`}
+          to={`/surveys/${surveyId}/edit`}
           style={({ isActive }) =>
             isActive
               ? {
@@ -33,7 +26,7 @@ export const EditResultButton = () => {
           <div className="text-xl m-3 ">설문지 수정</div>
         </NavLink>
         <NavLink
-          to={`/surveys/edit/${surveyId}/result`}
+          to={`/surveys/${surveyId}/result`}
           style={({ isActive }) =>
             isActive
               ? {

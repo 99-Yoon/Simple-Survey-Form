@@ -27,6 +27,7 @@ export interface BasicQuestionType {
   isRequired: boolean;
   comment: string;
   content: any;
+  answers?: any;
   [key: string]: string | number | boolean | any;
 }
 
