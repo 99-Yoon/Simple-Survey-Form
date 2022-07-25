@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { asyncWrap } from "../helpers";
+import { asyncWrap, isEmpty } from "../helpers";
 import { TypedRequest } from "../types";
 import formidable from "formidable";
 import { FileInfo } from "../models";
@@ -15,11 +15,14 @@ export const createAnswers = asyncWrap(async (reqExp, res) => {
   if (Array.isArray(req.files.uploadFiles)) {
     files = req.files.uploadFiles as formidable.File[];
   } else {
-    files.push(req.files.uploadFiles);
+    if (!isEmpty(req.files)) {
+      files.push(req.files.uploadFiles);
+    }
   }
   let uploadFile;
   try {
-    if (files) {
+    if (files.length > 0) {
+      console.log("files in answer controller:", files);
       // 1) 파일을 DB에 저장 후 다시 retFile가져와서
       // *근데 파일이 여러 개일 수 있기 때문에 순회해야 됨
       const f = files.map(async (file) => {
