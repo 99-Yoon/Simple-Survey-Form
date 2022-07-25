@@ -16,7 +16,7 @@ export const MySurveyCard = ({ data }: Props) => {
   const [success, setSuccess] = useState(false);
 
   const editSurvey = () => {
-    navigate(`/surveys/edit/${data._id}`, {
+    navigate(`/surveys/${data._id}/edit`, {
       replace: true,
       state: { save: true },
     });
@@ -29,7 +29,7 @@ export const MySurveyCard = ({ data }: Props) => {
   };
 
   const copyLink = () => {
-    navigator.clipboard.writeText(`http://localhost:8080/surveys/${data._id}`);
+    navigator.clipboard.writeText(`http://localhost:8080/survey/${data._id}`);
     alert("설문조사의 링크가 클립보드에 저장되었습니다.");
   };
 
