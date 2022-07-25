@@ -29,7 +29,7 @@ export const MySurveyCard = ({ data }: Props) => {
   };
 
   const copyLink = () => {
-    navigator.clipboard.writeText(`http://localhost:8080/surveys/${data._id}`);
+    navigator.clipboard.writeText(`http://localhost:8080/survey/${data._id}`);
     alert("설문조사의 링크가 클립보드에 저장되었습니다.");
   };
 
@@ -52,9 +52,9 @@ export const MySurveyCard = ({ data }: Props) => {
   }
 
   return (
-    <div className="w-52 h-60 rounded border-2 hover:border-2 hover:border-themeColor">
+    <div className="w-40 h-48 md:w-52 md:h-60 rounded border-2 hover:border-2 hover:border-themeColor">
       <button className="w-full" onClick={editSurvey}>
-        <div className="h-36 p-5">
+        <div className="h-24 md:h-36 p-3">
           <p className="text-gray-700">
             {data.comment ? data.comment : "설명없는 설문조사"}
           </p>
@@ -70,14 +70,14 @@ export const MySurveyCard = ({ data }: Props) => {
           </p>
         </div>
       </button>
-      <div className="flex justify-end pt-1">
+      <div className="flex justify-end pt-1 pr-1">
         <label className="pt-1">링크복사</label>
         <button className="" onClick={copyLink}>
           <img src={CopyImg} alt="copy"></img>
         </button>
         <button
           type="button"
-          className="bg-themeColor rounded text-white py-1 px-1.5 ml-1"
+          className="bg-themeColor rounded text-white py-1 px-1.5 ml-1 "
           onClick={deleteSurvey}
         >
           삭제

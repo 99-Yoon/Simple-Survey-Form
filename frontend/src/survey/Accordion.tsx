@@ -16,7 +16,11 @@ const Accordion = ({ title, content }: AccordionProps) => {
   return (
     <div className="p-1">
       <div onClick={HandleOpening}>
-        <div className={"bg-themeColor p-4 flex justify-between text-white"}>
+        <div
+          className={
+            "bg-themeColor rounded-r-lg p-4 flex justify-between text-white"
+          }
+        >
           <h4 className="font-semibold">{title}</h4>
           {isOpened ? "△" : "▽"}
         </div>

@@ -38,11 +38,11 @@ export const RatingForm = ({ element, handleQuestion, save }: Props) => {
 
   return (
     <>
-      <div className="flex place-content-between items-center p-5">
+      <div className="flex place-content-between items-center w-full p-5 overflow-x-scroll">
         <input
           name="minRateDescription"
           className="border-b-2 text-center"
-          size={10}
+          size={3}
           placeholder="비동의"
           value={element.content.minRateDescription}
           onChange={handleContent}
@@ -64,7 +64,7 @@ export const RatingForm = ({ element, handleQuestion, save }: Props) => {
         <input
           name="maxRateDescription"
           className="border-b-2 text-center"
-          size={10}
+          size={3}
           placeholder="동의"
           value={element.content.maxRateDescription}
           onChange={handleContent}
