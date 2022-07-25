@@ -30,14 +30,14 @@ export const DropdownForm = ({ element, handleQuestion, save }: Props) => {
   }
   return (
     <>
-      <div id="content" className="flex-row mt-4 p-5">
+      <div id="content" className="mt-4 p-5">
         <select className="mr-3">
           {choices.map((choice: any, index: number) => (
-            <option>{choice.text}</option>
+            <option key={choice.value}>{choice.text}</option>
           ))}
         </select>
         {choices.map((choice: any, index: number) => (
-          <div className="my-5">
+          <div key={choice.value} className="my-5">
             <input
               id={`${index}`}
               type="text"

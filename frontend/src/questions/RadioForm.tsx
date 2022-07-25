@@ -33,7 +33,7 @@ export const RadioForm = ({ element, handleQuestion, save }: Props) => {
     <>
       <div id="content" className="mt-4 p-5">
         {choices.map((choice: any, index: number) => (
-          <div key={index} className="m-5">
+          <div key={choice.value} className="m-5">
             <input type="radio" disabled></input>
             <input
               id={`${index}`}

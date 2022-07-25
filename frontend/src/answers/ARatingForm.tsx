@@ -23,10 +23,10 @@ export const ARatingForm = ({ element, answerQuestion }: Props) => {
     console.log(answerQuestion);
   }
   return (
-    <div className="flex w-full justify-center my-3">
+    <div className="flex w-full justify-items-center my-3 overflow-x-scroll">
       <label className="mt-3">{element.content.minRateDescription}</label>
       {element.content.choices.map((choice) => (
-        <div className="flex gap-4 mx-1">
+        <div className="flex gap-4 mx-1" key={choice.value}>
           <button
             type="button"
             className="border border-themeColor rounded-full w-12 h-12 text-center hover:bg-slate-300"

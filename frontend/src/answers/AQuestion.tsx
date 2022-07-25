@@ -53,7 +53,7 @@ export const AQuestion = ({ question, answerQuestion, addFiles }: Props) => {
 
   return (
     <div className="flex flex-col container w-4/5 h-auto border-2 border-themeColor items-center m-3 py-4">
-      <div className="flex flexgi-row my-1 w-11/12 place-content-between items-center">
+      <div className="flex my-1 w-11/12 place-content-between items-center">
         <div className="text-xl font-bold">{question.title}</div>
         {question.isRequired ? (
           <div className="text-xs text-red-600">* 필수질문</div>

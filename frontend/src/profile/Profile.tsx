@@ -36,12 +36,12 @@ export const Profile = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="mt-10 text-xl font-bold">나의 설문조사</div>
-      <div className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-4 mt-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
         <button
           onClick={createSurvey}
-          className="flex h-60 w-52 items-center border-2 border-themeColor font-bold bg-gray-200 hover:bg-themeColor rounded-lg "
+          className="flex w-40 h-48 md:h-60 md:w-52 items-center border-2 border-themeColor font-bold bg-gray-200 hover:bg-themeColor rounded-lg "
         >
-          <div className="text-center px-6 py-6 font-bold text-gray-500 place-items-center hover:text-white">
+          <div className="text-center md:px-6 md:py-6 font-xs md:font-bold text-gray-500 place-items-center hover:text-white">
             CREATE NEW SURVEY!
           </div>
         </button>
