@@ -1,5 +1,6 @@
 import React, { FormEvent } from "react";
 import { useAuth } from "../auth/auth.context";
+import SurveyImg from "../icons/surveyimg.png";
 
 export const Home = () => {
   const { user } = useAuth();
@@ -20,10 +21,10 @@ export const Home = () => {
         가장 쉽게 설문지를 만드세요!
       </div>
       <div className="flex flex-col place-items-center container">
-        <div className="flex h-14 w-28 items-center border-2 border-themeColor font-bold text-black bg-gray-200 hover:bg-themeColor rounded-lg ">
+        <div className="flex h-14 w-28 items-center border-2 font-bold text-black bg-gray-200 hover:bg-themeColor rounded-lg ">
           <button
             type="button"
-            className="text-center h-full w-28 font-bold text-black place-items-center"
+            className="text-center text-xl h-full w-28 font-bold hover:text-white place-items-center"
             onClick={clickHome}
           >
             +
@@ -32,10 +33,7 @@ export const Home = () => {
         <p className="text-center text-xl text-black mt-3">Create now!</p>
       </div>
       <div className="flex justify-center">
-        <img
-          src="https://3hbgf23vu0wr11wkpae5igwe-wpengine.netdna-ssl.com/wp-content/uploads/2021/04/SurveyExample_v3.jpg"
-          className="object-scale-down justify-center"
-        />
+        <img src={SurveyImg} className="object-scale-down justify-center" />
       </div>
     </div>
   );
