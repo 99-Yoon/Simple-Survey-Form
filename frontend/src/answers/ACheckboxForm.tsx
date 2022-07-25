@@ -37,7 +37,7 @@ export const ACheckboxForm = ({ element, answerQuestion }: Props) => {
       {element.content.choices.map((choice) => (
         <div>
           <input
-            className="mr-2"
+            className="mr-2 w-4 h-4"
             type="checkbox"
             value={choice.text}
             onChange={handleChange}
