@@ -21,7 +21,7 @@ export const Profile = () => {
 
   async function createSurvey() {
     const newSurvey: SurveyType = await surveyApi.createSurvey(survey);
-    navigate(`/surveys/edit/${newSurvey._id}`, {
+    navigate(`/surveys/${newSurvey._id}/edit`, {
       replace: true,
     });
   }
@@ -36,11 +36,10 @@ export const Profile = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="mt-10 text-xl font-bold">나의 설문조사</div>
-      <img src={`${baseImageUrl}/9e24ad36a2947b08c89913b01`} />
       <div className="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-4 mt-6">
         <button
           onClick={createSurvey}
-          className="flex h-60 w-52 items-center border-2 border-themeColor font-bold bg-gray-200 hover:bg-themeColor rounded-lg "
+          className="flex h-60 w-52 items-center font-bold bg-gray-200 hover:bg-themeColor rounded-lg "
         >
           <div className="text-center px-6 py-6 font-bold text-gray-500 place-items-center hover:text-white">
             CREATE NEW SURVEY!
