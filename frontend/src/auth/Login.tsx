@@ -37,7 +37,7 @@ export const Login = () => {
 
   return (
     <div className="flex flex-col items-center mt-5">
-      <div className="text-2xl mt-5">로그인</div>
+      <div className="text-2xl mt-20">로그인</div>
       <form onSubmit={handleSubmit} className="flex flex-col mt-3 w-80">
         <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
           이메일
