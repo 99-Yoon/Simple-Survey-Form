@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/auth.context";
-import { UserIcon } from "../icons/UserIcon";
+import { UserIcon } from "../icons";
 
 export const Header = () => {
   const { user, logout } = useAuth();
