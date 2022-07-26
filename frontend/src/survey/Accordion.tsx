@@ -3,28 +3,18 @@ import { baseImageUrl } from "../apis";
 import { BasicQuestionType } from "../types";
 
 type AccordionProps = {
-  question: any;
+  question: BasicQuestionType;
 };
 const Accordion = ({ question }: AccordionProps) => {
   const [isOpened, setOpened] = useState<boolean>(false);
   const [height, setHeight] = useState<string>("0px");
   const contentElement = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   if (question.type === "file") {
-  //     getFiles();
-  //   }
-  // }, []);
-
-  // async function getFiles() {
-  //   try {
-  //   } catch (error) {}
-  // }
-
   const HandleOpening = () => {
     setOpened(!isOpened);
     setHeight(!isOpened ? `${contentElement.current?.scrollHeight}px` : "0px");
   };
+
   return (
     <div className="p-1">
       <div onClick={HandleOpening}>
@@ -39,19 +29,22 @@ const Accordion = ({ question }: AccordionProps) => {
         <div
           ref={contentElement}
           style={{ height: height }}
-          className="bg-gray-100 overflow-hidden transition-all duration-700"
+          className="bg-gray-100 overflow-hidden transition-all duration-300"
         >
-          {question.type === "file"
-            ? question.answers.map((answer: any) => (
-                <img
-                  key={answer.url}
-                  alt="file"
-                  src={`${baseImageUrl}/${answer.url}`}
-                />
-              ))
-            : question.answers.map((answer: any) => (
-                <p className="p-4">{answer}</p>
-              ))}
+          {question.answers &&
+            (question.type === "file"
+              ? question.answers.map((answer: any) => (
+                  <img
+                    key={answer.url}
+                    alt="file"
+                    src={`${baseImageUrl}/${answer.url}`}
+                  />
+                ))
+              : question.answers.map((answer: any, index: number) => (
+                  <p key={index} className="p-4">
+                    {answer}
+                  </p>
+                )))}
         </div>
       </div>
     </div>

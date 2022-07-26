@@ -17,6 +17,7 @@ export const ResultSurvey = () => {
     comment: "",
     questions: [],
   });
+
   useEffect(() => {
     getAnswers();
   }, [surveyId]);
