@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { surveyApi } from "../apis";
 import { SurveyType } from "../types";
 import { catchErrors } from "../helpers";
-import CopyImg from "../icons/copy.png";
+import { DuplicateIcon } from "../icons";
 
 type Props = {
   data: SurveyType;
@@ -63,7 +63,8 @@ export const MySurveyCard = ({ data }: Props) => {
       </button>
       <div className="flex justify-end pt-1 pr-1">
         <button className="flex place-self-center" onClick={copyLink}>
-          링크복사 <img src={CopyImg} alt="copy"></img>
+          링크복사
+          <DuplicateIcon className="w-7 h-7" />
         </button>
         <button
           type="button"
