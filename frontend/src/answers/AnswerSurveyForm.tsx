@@ -32,7 +32,7 @@ export const AnswerSurveyForm = () => {
     ansSurvey();
   }, [surveyId]);
 
-  const isSurvey = localStorage.getItem(`survey_${surveyId}`);
+  const isSurvey = sessionStorage.getItem(`survey_${surveyId}`);
 
   if (isSurvey) {
     console.log("object", isSurvey);
@@ -88,7 +88,7 @@ export const AnswerSurveyForm = () => {
         });
         const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
         console.log(newAnswer);
-        localStorage.setItem(`survey_${surveyId}`, surveyId ?? "");
+        sessionStorage.setItem(`survey_${surveyId}`, surveyId ?? "");
         navigate("/survey/complete");
 
         setSuccess(true);
