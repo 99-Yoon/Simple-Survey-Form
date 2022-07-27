@@ -1,6 +1,6 @@
 import React, { FormEvent } from "react";
 import { useAuth } from "../auth/auth.context";
-import SurveyImg from "../icons/surveyimg.png";
+import homeImg from "../icons/homeImg.png";
 
 export const Home = () => {
   const { user } = useAuth();
@@ -30,10 +30,10 @@ export const Home = () => {
             +
           </button>
         </div>
-        <p className="text-center text-xl text-black mt-3">Create now!</p>
+        <p className="text-center text-xl text-black my-3">Create now!</p>
       </div>
-      <div className="flex justify-center mt-3">
-        <img src={SurveyImg} className="object-scale-down justify-center" />
+      <div className="flex mt-5 md:px-48 bg-themeColor">
+        <img src={homeImg} className="m-3" />
       </div>
     </div>
   );

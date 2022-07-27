@@ -79,17 +79,22 @@ export const EditSurvey = () => {
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    try {
-      const newSurvey: SurveyType = await surveyApi.editSurvey(survey);
-      console.log(newSurvey);
-      setSuccess(true);
-      alert("저장되었습니다");
-      navigate("/profile");
-      setError("");
-    } catch (error) {
-      catchErrors(error, setError);
-    } finally {
-      setLoading(false);
+    const notEditComplete = isEditing?.find((el) => el.isEditing);
+    if (notEditComplete) {
+      alert("아직 수정이 완료되지 않은 질문이 존재합니다.");
+    } else {
+      try {
+        const newSurvey: SurveyType = await surveyApi.editSurvey(survey);
+        console.log(newSurvey);
+        setSuccess(true);
+        alert("저장되었습니다");
+        navigate("/profile");
+        setError("");
+      } catch (error) {
+        catchErrors(error, setError);
+      } finally {
+        setLoading(false);
+      }
     }
   }
 
