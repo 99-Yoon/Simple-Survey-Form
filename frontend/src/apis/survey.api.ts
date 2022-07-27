@@ -12,6 +12,19 @@ export const getSurvey = async (surveyId: string) => {
   return data;
 };
 
+export const surveycreate = async (surveyId: string) => {
+  const { data } = await axios.get(`${baseUrl}/surveys/${surveyId}/create`);
+  return data;
+};
+
+export const surveyscreate = async (survey: SurveyType) => {
+  const { data } = await axios.put(
+    `${baseUrl}/surveys/${survey._id}/create`,
+    survey
+  );
+  return data;
+};
+
 export const ansSurvey = async (surveyId: string) => {
   const { data } = await axios.get(`${baseUrl}/surveys/${surveyId}`);
   return data;

@@ -21,7 +21,7 @@ export const Profile = () => {
 
   async function createSurvey() {
     const newSurvey: SurveyType = await surveyApi.createSurvey(survey);
-    navigate(`/surveys/${newSurvey._id}/edit`, {
+    navigate(`/surveys/${newSurvey._id}/create`, {
       replace: true,
     });
   }
