@@ -4,10 +4,10 @@ import { RatingType } from "../types";
 type Props = {
   element: RatingType;
   handleQuestion: (id: string) => void;
-  save: boolean;
+  isEditing: boolean;
 };
 
-export const RatingForm = ({ element, handleQuestion, save }: Props) => {
+export const RatingForm = ({ element, handleQuestion, isEditing }: Props) => {
   const [choices, setChoices] = useState([...element.content.choices]);
 
   function handleContent(event: React.ChangeEvent<HTMLInputElement>) {
@@ -46,7 +46,7 @@ export const RatingForm = ({ element, handleQuestion, save }: Props) => {
           placeholder="비동의"
           value={element.content.minRateDescription}
           onChange={handleContent}
-          disabled={save}
+          disabled={!isEditing}
         ></input>
         {choices.map((choice: any, index: number) => (
           <input
@@ -59,7 +59,7 @@ export const RatingForm = ({ element, handleQuestion, save }: Props) => {
             placeholder="0"
             value={choice.text}
             onChange={handleContent}
-            disabled={save}
+            disabled={!isEditing}
           ></input>
         ))}
         <input
@@ -69,7 +69,7 @@ export const RatingForm = ({ element, handleQuestion, save }: Props) => {
           placeholder="동의"
           value={element.content.maxRateDescription}
           onChange={handleContent}
-          disabled={save}
+          disabled={!isEditing}
         ></input>
       </div>
       <div>
@@ -78,7 +78,7 @@ export const RatingForm = ({ element, handleQuestion, save }: Props) => {
           name="rateValues"
           className="border border-red-500 rounded mx-2 px-2"
           onClick={deleteValue}
-          disabled={save}
+          disabled={!isEditing}
         >
           삭제
         </button>
@@ -87,7 +87,7 @@ export const RatingForm = ({ element, handleQuestion, save }: Props) => {
           name="rateValues"
           className="border border-blue-500 rounded mx-2 px-2"
           onClick={addValue}
-          disabled={save}
+          disabled={!isEditing}
         >
           추가
         </button>
