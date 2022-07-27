@@ -8,36 +8,22 @@ export const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-  });
-
   const [isClicked, setIsClicked] = useState(false);
 
   const handleHeaderClick = () => {
     setIsClicked(!isClicked);
   };
 
-  const handleResize = () => {
-    setWindowSize({
-      width: window.innerWidth,
-    });
-  };
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
     <div className="bg-white border-b-2 border-b-themeColor px-2 sm:px-4 py-3.5">
       <div className="container flex flex-wrap place-content-center mx-auto">
-        <Link to="/" className="font-bold text-2xl text-themeColor">
+        <Link
+          to="/"
+          className="font-bold text-2xl text-themeColor justify-center"
+        >
           Simple Survey Form
         </Link>
-
-        <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+        <div className="absolute right-4 top-2 hidden md:flex items-center justify-end md:flex-1">
           {user.isLoggedIn ? (
             <div className="pt-2">
               <button
@@ -75,35 +61,43 @@ export const Header = () => {
           <UserIcon />
           {isClicked ? (
             user.isLoggedIn ? (
-              <div className="fixed top-14 right-1 w-20 bg-white flex flex-col border-2 border-themeColor">
-                <Link to="/login">
-                  <button
-                    className="text-gray-600 hover:text-themeColor"
-                    onClick={() => logout(() => navigate("/"))}
-                  >
-                    로그아웃
-                  </button>
-                </Link>
-                <Link to="/profile">
-                  <button className="text-gray-600 hover:text-themeColor">
-                    프로필
-                  </button>
-                </Link>
+              <div className="fixed top-14 justify-center right-1 w-48 h-40 bg-themeColor3 flex flex-col rounded-lg place-content-between">
+                <div className="p-1 place-self-center">안녕하세요.</div>
+                <div className="p-1 place-self-center">
+                  만들어진 설문을 확인하시려면 프로필을 눌러주세요.
+                </div>
+                <div className="flex border-themeColor border-t-2">
+                  <Link to="/login">
+                    <div
+                      className="p-1 w-24 border-r-2 border-themeColor text-center text-l text-gray-600 hover:text-themeColor"
+                      onClick={() => logout(() => navigate("/"))}
+                    >
+                      로그아웃
+                    </div>
+                  </Link>
+                  <Link to="/profile">
+                    <div className="p-1 w-24 text-center text-l text-gray-600 hover:text-themeColor">
+                      프로필
+                    </div>
+                  </Link>
+                </div>
               </div>
             ) : (
-              <div className="fixed top-14 right-1 w-20 bg-white flex flex-col border-2 border-themeColor">
-                <Link to="/login">
-                  <button>
-                    <div className="text-gray-600 hover:text-themeColor">
+              <div className="fixed top-14 right-1 w-48 h-40 bg-themeColor3 flex flex-col  place-content-between">
+                <div className="p-1">로그아웃 상태입니다.</div>
+                <div className="p-1">설문지를 만드시려면 로그인해주세요.</div>
+                <div className="flex ">
+                  <Link to="/login">
+                    <div className="p-1 w-24 justify-center text-l text-gray-600 hover:text-themeColor">
                       로그인
                     </div>
-                  </button>
-                </Link>
-                <Link to="/signup">
-                  <button className="text-gray-600 hover:text-themeColor">
-                    회원가입
-                  </button>
-                </Link>
+                  </Link>
+                  <Link to="/signup">
+                    <div className="p-1 w-24 justify-center text-l text-gray-600 hover:text-themeColor">
+                      회원가입
+                    </div>
+                  </Link>
+                </div>
               </div>
             )
           ) : (

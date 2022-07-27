@@ -146,7 +146,7 @@ export const EditSurvey = () => {
               deleteQuestion={deleteQuestion}
             />
           ))}
-          <div className="flex w-4/5 content-center justify-center border-2 border-addQuestionColor h-8 mt-3 rounded-lg ">
+          <div className="flex w-4/5 content-center justify-center border-2 border-themeColor2 border-addQuestionColor h-8 mt-3 rounded-lg ">
             <button type="button" onClick={addQuestion}>
               질문 추가
             </button>

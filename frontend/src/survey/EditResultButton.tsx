@@ -16,7 +16,7 @@ export const EditResultButton = () => {
               ? {
                   width: "140px",
                   color: "white",
-                  backgroundColor: "#58ACFA",
+                  backgroundColor: "#008080",
                   borderTopLeftRadius: "25px",
                   borderBottomLeftRadius: "25px",
                   textAlign: "center",
@@ -26,7 +26,7 @@ export const EditResultButton = () => {
               : {
                   width: "140px",
                   borderWidth: "1px",
-                  borderColor: "#58ACFA",
+                  borderColor: "#008080",
                   borderTopLeftRadius: "25px",
                   borderBottomLeftRadius: "25px",
                   textAlign: "center",
@@ -43,7 +43,7 @@ export const EditResultButton = () => {
               ? {
                   width: "140px",
                   color: "white",
-                  backgroundColor: "#58ACFA",
+                  backgroundColor: "#008080",
                   borderTopRightRadius: "25px",
                   borderBottomRightRadius: "25px",
                   textAlign: "center",
@@ -53,7 +53,7 @@ export const EditResultButton = () => {
               : {
                   width: "140px",
                   borderWidth: "1px",
-                  borderColor: "#58ACFA",
+                  borderColor: "#008080",
                   borderTopRightRadius: "25px",
                   borderBottomRightRadius: "25px",
                   textAlign: "center",
