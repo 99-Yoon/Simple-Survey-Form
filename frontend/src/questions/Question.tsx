@@ -50,11 +50,7 @@ export const Question = ({
       selectedType === "checkbox"
     ) {
       element.content = {
-        choices: [
-          { text: "", value: 0 },
-          { text: "", value: 1 },
-          { text: "", value: 2 },
-        ],
+        choices: [{ text: "", value: 0 }],
       };
     } else if (selectedType === "essay") {
       element.content = { choices: [] };
