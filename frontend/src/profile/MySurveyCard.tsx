@@ -28,20 +28,25 @@ export const MySurveyCard = ({ data }: Props) => {
   };
 
   async function deleteSurvey() {
-    try {
-      if (data._id) {
-        const survey = await surveyApi.deleteSurvey(data._id);
-        setSuccess(true);
-        setError("");
-        location.reload();
-      } else {
-        setLoading(true);
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      try {
+        if (data._id) {
+          const survey = await surveyApi.deleteSurvey(data._id);
+          setSuccess(true);
+          setError("");
+          alert("삭제되었습니다.");
+          location.reload();
+        } else {
+          setLoading(true);
+        }
+      } catch (error) {
+        console.log("에러발생");
+        catchErrors(error, setError);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log("에러발생");
-      catchErrors(error, setError);
-    } finally {
-      setLoading(false);
+    } else {
+      alert("삭제를 취소합니다.");
     }
   }
 
