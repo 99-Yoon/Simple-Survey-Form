@@ -28,7 +28,7 @@ export const MySurveyCard = ({ data }: Props) => {
   };
 
   async function deleteSurvey() {
-    if (window.confirm("정말 삭제하시겠습니까?")) {
+    if (window.confirm("해당 설문조사를 삭제하시겠습니까?")) {
       try {
         if (data._id) {
           const survey = await surveyApi.deleteSurvey(data._id);

@@ -50,11 +50,7 @@ export const Question = ({
       selectedType === "checkbox"
     ) {
       element.content = {
-        choices: [
-          { text: "", value: 0 },
-          { text: "", value: 1 },
-          { text: "", value: 2 },
-        ],
+        choices: [{ text: "", value: 0 }],
       };
     } else if (selectedType === "essay") {
       element.content = { choices: [] };
@@ -62,11 +58,7 @@ export const Question = ({
       element.content = {
         minRateDescription: "",
         maxRateDescription: "",
-        choices: [
-          { text: "", value: 0 },
-          { text: "", value: 1 },
-          { text: "", value: 2 },
-        ],
+        choices: [{ text: "", value: 0 }],
       };
     }
     element.type = selectedType;
@@ -129,8 +121,14 @@ export const Question = ({
     handleQuestion(element._id);
   };
   const handleDelete = () => {
-    deleteQuestion(element._id);
+    if (window.confirm("질문을 삭제하시겠습니까?")) {
+      deleteQuestion(element._id);
+      alert("삭제되었습니다.");
+    } else {
+      alert("질문 삭제를 취소합니다.");
+    }
   };
+
   const handleEditClick = () => {
     setSave(false);
   };
