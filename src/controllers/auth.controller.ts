@@ -72,7 +72,7 @@ export const login = asyncWrap(async (req, res) => {
   const user = await userDb.findUserByEmail(email, true);
   console.log("user =", user);
   if (!user) {
-    return res.status(422).send(`${email} 사용자가 존재하지 않습니다`);
+    return res.status(422).send(`${email} 사용자가 존재하지않습니다 회원가입을 해주세요`);
   }
   // 2) 비밀번호 확인
   const passwordMatch = await bcrypt.compare(password, user.password);

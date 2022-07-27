@@ -30,7 +30,7 @@ Props) => {
     try {
       console.log(question);
       const newQuestion: BasicQuestionType = await questionApi.updateQuestion(
-        element
+        question
       );
       // console.log(newQuestion);
       handleQuestion(question);
@@ -184,7 +184,7 @@ Props) => {
               key={key}
               id={question._id}
               value={key}
-              // selected={key === element.type}
+              selected={key === element.type}
             >
               {value}
             </option>

@@ -6,7 +6,7 @@ import { Question } from "../questions";
 import { BasicQuestionType, SurveyType } from "../types";
 import { catchErrors } from "../helpers";
 
-export const EditSurvey = () => {
+export const CreateSurvey = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
   interface CustomizedState {
     save: boolean;
@@ -28,7 +28,6 @@ export const EditSurvey = () => {
     comment: "",
     questions: [],
   });
-
   async function getSurvey() {
     try {
       if (surveyId) {
@@ -116,6 +115,7 @@ export const EditSurvey = () => {
 
   const questions = survey.questions;
   console.log(questions);
+  console.log(state);
   return (
     <>
       {error ? alert(error) : <></>}
@@ -147,6 +147,7 @@ export const EditSurvey = () => {
             <Question
               key={question._id}
               element={question}
+              // isSave={state ? true : false}
               handleQuestion={handleQuestion}
               deleteQuestion={deleteQuestion}
             />

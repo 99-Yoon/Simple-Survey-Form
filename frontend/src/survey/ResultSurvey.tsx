@@ -43,7 +43,7 @@ export const ResultSurvey = () => {
         <div className="font-bold text-4xl text-center m-2 border-b-2">
           {survey.title}
         </div>
-        <div className="font-bold text-1xl text-center m-2 resize-none">
+        <div className="font-bold text-xl text-center m-2 resize-none">
           {survey.comment}
         </div>
       </div>

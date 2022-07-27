@@ -21,7 +21,7 @@ export const Profile = () => {
 
   async function createSurvey() {
     const newSurvey: SurveyType = await surveyApi.createSurvey(survey);
-    navigate(`/surveys/${newSurvey._id}/edit`, {
+    navigate(`/surveys/${newSurvey._id}/create`, {
       replace: true,
     });
   }
@@ -39,7 +39,7 @@ export const Profile = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
         <button
           onClick={createSurvey}
-          className="flex w-40 h-48 md:h-60 md:w-52 items-center border-2 border-themeColor font-bold bg-gray-200 hover:bg-themeColor rounded-lg "
+          className="flex w-40 h-48 md:h-60 md:w-52 items-center font-bold bg-gray-200 hover:bg-themeColor rounded-lg "
         >
           <div className="text-center md:px-6 md:py-6 font-xs md:font-bold text-gray-500 place-items-center hover:text-white">
             CREATE NEW SURVEY!
