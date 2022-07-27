@@ -89,7 +89,7 @@ export const AnswerSurveyForm = () => {
         const newAnswer: AnswerType = await answerApi.saveAnswers(formData);
         console.log(newAnswer);
         sessionStorage.setItem(`survey_${surveyId}`, surveyId ?? "");
-        navigate("/survey/complete");
+        navigate("/survey/complete", { replace: false });
 
         setSuccess(true);
         setError("");

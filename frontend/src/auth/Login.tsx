@@ -36,7 +36,7 @@ export const Login = () => {
   }
 
   return (
-    <div className="flex flex-col items-center mt-5">
+    <div className="flex flex-col items-center">
       <div className="text-2xl mt-20">로그인</div>
       <form onSubmit={handleSubmit} className="flex flex-col mt-3 w-80">
         <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
@@ -65,11 +65,11 @@ export const Login = () => {
           value={loginData.password}
         />
         {error && (
-          <div className="text-red-500 text-sm mb-6">
+          <div className="text-red-500 text-sm mt-3">
             <p>{error}</p>
           </div>
         )}
-        <div className="text-center">
+        <div className="text-center mt-3">
           <button
             type="submit"
             disabled={loading ? true : false}

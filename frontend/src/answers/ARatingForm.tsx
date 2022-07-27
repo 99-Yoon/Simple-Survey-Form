@@ -23,7 +23,7 @@ export const ARatingForm = ({ element, answerQuestion }: Props) => {
     console.log(answerQuestion);
   }
   return (
-    <div className="flex w-full justify-items-center my-3 overflow-x-scroll">
+    <div className="flex w-full justify-center my-3 overflow-x-auto">
       <label className="mt-3">{element.content.minRateDescription}</label>
       {element.content.choices.map((choice) => (
         <div className="flex gap-4 mx-1" key={choice.value}>

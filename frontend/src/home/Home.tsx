@@ -32,7 +32,7 @@ export const Home = () => {
         </div>
         <p className="text-center text-xl text-black mt-3">Create now!</p>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-3">
         <img src={SurveyImg} className="object-scale-down justify-center" />
       </div>
     </div>

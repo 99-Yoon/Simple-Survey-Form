@@ -67,8 +67,8 @@ export const SignUp = () => {
   }
 
   return (
-    <div className="flex flex-col items-center mt-5">
-      <div className="text-2xl mt-20">회원가입</div>
+    <div className="flex flex-col items-center">
+      <div className="text-2xl mt-10">회원가입</div>
       <form onSubmit={handleSubmit} className="flex flex-col mt-3 w-80">
         <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
           이름
@@ -125,7 +125,7 @@ export const SignUp = () => {
           onChange={handleChange}
         />
         {error && (
-          <div className="text-red-500 text-sm">
+          <div className="text-red-500 text-sm mt-3">
             <p>{error}</p>
           </div>
         )}
