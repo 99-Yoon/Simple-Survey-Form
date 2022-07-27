@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AnswerProps, AnswerQuestionType, EssayType } from "../types";
+import { AnswerProps } from "../types";
 
 export const AEssayForm = ({ element, answerQuestion }: AnswerProps) => {
   const [answer, setAnswer] = useState("");

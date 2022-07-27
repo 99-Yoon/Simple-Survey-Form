@@ -160,31 +160,17 @@ Props) => {
       style={{ borderColor: isSaved ? "#0A8A8A" : "red" }}
       className="flex flex-col container w-4/5 h-auto border-2 items-center m-3 py-2 rounded-lg"
     >
-      <div className="flex h-16 w-full place-content-between items-center">
+      <div className="flex h-16 w-full place-content-center items-center">
         <input
           type="text"
           name="title"
           id={question._id}
-          className="text-xl font-bold ml-6 border-b-2 w-1/2"
+          className="text-xl font-bold border-b-2 w-11/12"
           placeholder={"Question Title"}
           value={question.title}
           onChange={handleQuestionInfo}
           disabled={isSaved}
         ></input>
-        <select
-          id={question._id}
-          name="type"
-          onChange={handleSelect}
-          disabled={isSaved}
-          value={question.type}
-          className="w-32 md:w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
-        >
-          {Array.from(QUESTION_TYPES.entries()).map(([key, value]) => (
-            <option key={key} id={question._id} value={key}>
-              {value}
-            </option>
-          ))}
-        </select>
       </div>
       <div className="flex w-full justify-center">
         <input
@@ -200,38 +186,58 @@ Props) => {
       </div>
       {getContent(question)}
 
-      <div className="place-self-end py-2">
-        <input
-          type="checkbox"
-          id="isRequired"
-          value="isRequired"
-          onChange={handleRequired}
+      <div className="flex flex-row place-content-between w-11/12 py-2">
+        <select
+          id={question._id}
+          name="type"
+          onChange={handleSelect}
           disabled={isSaved}
-          checked={question.isRequired}
-        />
-        <label htmlFor="isRequired" className="px-1">
-          필수
-        </label>
-        {isSaved ? (
-          <>
-            <button type="button" className="px-1" onClick={handleDelete}>
-              삭제
-            </button>
-            <button type="button" className="px-1" onClick={handleEditClick}>
-              수정
-            </button>
-          </>
-        ) : (
-          <>
-            <button type="button" className="px-1" onClick={onCancel}>
-              취소
-            </button>
+          value={question.type}
+          className="w-32 h-10 md:w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor"
+        >
+          {Array.from(QUESTION_TYPES.entries()).map(([key, value]) => (
+            <option key={key} id={question._id} value={key}>
+              {value}
+            </option>
+          ))}
+        </select>
+        <div className="place-self-center">
+          <input
+            type="checkbox"
+            id="isRequired"
+            value="isRequired"
+            onChange={handleRequired}
+            disabled={isSaved}
+            checked={question.isRequired}
+          />
+          <label htmlFor="isRequired" className="px-1">
+            필수
+          </label>
+          {isSaved ? (
+            <>
+              <button type="button" className="px-1" onClick={handleDelete}>
+                삭제
+              </button>
+              <button type="button" className="px-1" onClick={handleEditClick}>
+                수정
+              </button>
+            </>
+          ) : (
+            <>
+              <button type="button" className="px-1" onClick={onCancel}>
+                취소
+              </button>
 
-            <button type="button" className="px-1" onClick={handleEditComplete}>
-              확인
-            </button>
-          </>
-        )}
+              <button
+                type="button"
+                className="px-1"
+                onClick={handleEditComplete}
+              >
+                확인
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
