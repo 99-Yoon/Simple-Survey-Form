@@ -65,11 +65,11 @@ export const Login = () => {
           value={loginData.password}
         />
         {error && (
-          <div className="text-red-500 text-sm mb-6">
+          <div className="text-red-500 text-sm mt-3">
             <p>{error}</p>
           </div>
         )}
-        <div className="text-center">
+        <div className="text-center mt-3">
           <button
             type="submit"
             disabled={loading ? true : false}
