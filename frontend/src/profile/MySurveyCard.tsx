@@ -52,7 +52,7 @@ export const MySurveyCard = ({ data }: Props) => {
           {data.title ? data.title : "제목없는 설문조사"}
         </p>
 
-        <div className="h-24 md:h-36 p-3 text-ellipsis overflow-y-scroll">
+        <div className="h-24 md:h-36 p-3 text-ellipsis overflow-y-hidden hover:overflow-y-auto">
           <p className="text-gray-700">
             {data.comment ? data.comment : "설명없는 설문조사"}
           </p>
