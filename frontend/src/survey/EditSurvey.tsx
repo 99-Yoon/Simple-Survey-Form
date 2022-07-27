@@ -45,8 +45,14 @@ export const EditSurvey = () => {
     }
   }
 
-  const handleQuestion = (id: string) => {
-    const newList: BasicQuestionType[] = [...survey.questions];
+  const handleQuestion = (element: BasicQuestionType) => {
+    const index = survey.questions.findIndex(
+      (question) => question._id === element._id
+    );
+    survey.questions[index] = element;
+    const newList = [...survey.questions];
+    // const newList: BasicQuestionType[] = [...survey.questions];
+    console.log("new list in handle question", newList);
     setSurvey({ ...survey, questions: newList });
   };
 
@@ -141,7 +147,7 @@ export const EditSurvey = () => {
             <Question
               key={question._id}
               element={question}
-              isSave={state ? true : false}
+              // isSave={state ? true : false}
               handleQuestion={handleQuestion}
               deleteQuestion={deleteQuestion}
             />

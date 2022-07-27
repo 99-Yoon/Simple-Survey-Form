@@ -12,25 +12,29 @@ import { QUESTION_TYPES } from "../commons";
 
 type Props = {
   element: BasicQuestionType;
-  handleQuestion: (id: string) => void;
+  handleQuestion: (element: BasicQuestionType) => void;
   deleteQuestion: (id: string) => void;
-  isSave: boolean;
+  // isSave: boolean;
 };
 
 export const Question = ({
   element,
   handleQuestion,
   deleteQuestion,
-  isSave,
-}: Props) => {
-  const [save, setSave] = useState(isSave);
+}: // isSave,
+Props) => {
+  const [question, setQuestion] = useState({ ...element });
+  const [isSaved, setIsSaved] = useState(false);
+
   async function handleEditComplete() {
     try {
+      console.log(question);
       const newQuestion: BasicQuestionType = await questionApi.updateQuestion(
         element
       );
-      console.log(newQuestion);
-      setSave(true);
+      // console.log(newQuestion);
+      handleQuestion(question);
+      setIsSaved(true);
       // setSuccess(true);
       // setError("");
     } catch (error) {
@@ -44,12 +48,13 @@ export const Question = ({
   function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     const selectedType = event.currentTarget.value;
     console.log(selectedType);
+    let content;
     if (
       selectedType === "radio" ||
       selectedType === "dropdown" ||
       selectedType === "checkbox"
     ) {
-      element.content = {
+      content = {
         choices: [
           { text: "", value: 0 },
           { text: "", value: 1 },
@@ -57,9 +62,9 @@ export const Question = ({
         ],
       };
     } else if (selectedType === "essay") {
-      element.content = { choices: [] };
+      content = { choices: [] };
     } else if (selectedType === "rating") {
-      element.content = {
+      content = {
         minRateDescription: "",
         maxRateDescription: "",
         choices: [
@@ -69,52 +74,59 @@ export const Question = ({
         ],
       };
     }
-    element.type = selectedType;
-    handleQuestion(element._id);
+    // question.type = selectedType;
+    setQuestion({ ...question, type: selectedType, content: content });
+    // handleQuestion(question._id);
   }
+
+  const handleElement = () => {
+    console.log("handle element");
+    setQuestion({ ...question });
+  };
 
   function handleQuestionInfo(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.currentTarget;
-    element[name] = value;
-    handleQuestion(element._id);
+    // question[name] = value;
+    setQuestion({ ...question, [name]: value });
+    // handleQuestion(question._id);
   }
 
   function getContent(element: BasicQuestionType) {
     switch (element.type) {
       case "essay":
-        return <EssayForm element={element} save={save} />;
+        return <EssayForm element={element} save={isSaved} />;
       case "radio":
         return (
           <RadioForm
-            handleQuestion={handleQuestion}
+            handleQuestion={handleElement}
             element={element}
-            save={save}
+            save={isSaved}
           />
         );
       case "checkbox":
         return (
           <CheckboxForm
-            handleQuestion={handleQuestion}
+            handleQuestion={handleElement}
             element={element}
-            save={save}
+            save={isSaved}
           />
         );
       case "dropdown":
         return (
           <DropdownForm
-            handleQuestion={handleQuestion}
+            handleQuestion={handleElement}
             element={element}
-            save={save}
+            save={isSaved}
           />
         );
       case "file":
-        return <FileForm element={element} save={save} />;
+        return <FileForm element={element} save={isSaved} />;
       case "rating":
         return (
           <RatingForm
-            handleQuestion={handleQuestion}
+            handleQuestion={handleElement}
             element={element}
-            save={save}
+            save={isSaved}
           />
         );
       case "date":
@@ -123,45 +135,57 @@ export const Question = ({
         return <></>;
     }
   }
+
   const handleRequired = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.currentTarget;
-    element[value] = checked;
-    handleQuestion(element._id);
+    question[value] = checked;
+    setQuestion({ ...question, [value]: checked });
+    // handleQuestion(question._id);
   };
+
+  const onCancel = () => {
+    console.log("element canceled button clicked", element);
+    console.log("question canceled button clicked", question);
+    setQuestion(element);
+    setIsSaved(true);
+  };
+
   const handleDelete = () => {
-    deleteQuestion(element._id);
+    deleteQuestion(question._id);
   };
+
   const handleEditClick = () => {
-    setSave(false);
+    setIsSaved(false);
   };
+
   return (
     <div
-      style={{ borderColor: save ? "#58ACFA" : "red" }}
+      style={{ borderColor: isSaved ? "#58ACFA" : "red" }}
       className="flex flex-col container w-4/5 h-auto border-2 items-center m-3 py-2"
     >
       <div className="flex h-16 w-full place-content-between items-center">
         <input
           type="text"
           name="title"
-          id={element._id}
+          id={question._id}
           className="text-xl font-bold ml-6 border-b-2 w-1/2"
           placeholder={"Question Title"}
-          value={element.title}
+          value={question.title}
           onChange={handleQuestionInfo}
-          disabled={save}
+          disabled={isSaved}
         ></input>
         <select
-          id={element._id}
+          id={question._id}
           name="type"
           onChange={handleSelect}
-          disabled={save}
-          value={element.type}
+          disabled={isSaved}
+          value={question.type}
           className="w-32 md:w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
         >
           {Array.from(QUESTION_TYPES.entries()).map(([key, value]) => (
             <option
               key={key}
-              id={element._id}
+              id={question._id}
               value={key}
               // selected={key === element.type}
             >
@@ -174,15 +198,15 @@ export const Question = ({
         <input
           type="text"
           name="comment"
-          id={element._id}
+          id={question._id}
           className="border w-11/12"
           placeholder="질문에 대한 설명을 입력해주세요"
-          value={element.comment}
+          value={question.comment}
           onChange={handleQuestionInfo}
-          disabled={save}
+          disabled={isSaved}
         ></input>
       </div>
-      {getContent(element)}
+      {getContent(question)}
 
       <div className="place-self-end py-2">
         <input
@@ -190,23 +214,31 @@ export const Question = ({
           id="isRequired"
           value="isRequired"
           onChange={handleRequired}
-          disabled={save}
-          checked={element.isRequired}
+          disabled={isSaved}
+          checked={question.isRequired}
         />
         <label htmlFor="isRequired" className="px-1">
           필수
         </label>
-        <button type="button" className="px-1" onClick={handleDelete}>
-          삭제
-        </button>
-        {save ? (
-          <button type="button" className="px-1" onClick={handleEditClick}>
-            수정하기
-          </button>
+        {isSaved ? (
+          <>
+            <button type="button" className="px-1" onClick={handleDelete}>
+              삭제
+            </button>
+            <button type="button" className="px-1" onClick={handleEditClick}>
+              수정
+            </button>
+          </>
         ) : (
-          <button type="button" className="px-1" onClick={handleEditComplete}>
-            수정완료
-          </button>
+          <>
+            <button type="button" className="px-1" onClick={onCancel}>
+              취소
+            </button>
+
+            <button type="button" className="px-1" onClick={handleEditComplete}>
+              확인
+            </button>
+          </>
         )}
       </div>
     </div>
