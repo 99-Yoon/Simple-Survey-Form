@@ -157,8 +157,8 @@ Props) => {
 
   return (
     <div
-      style={{ borderColor: isSaved ? "#58ACFA" : "red" }}
-      className="flex flex-col container w-4/5 h-auto border-2 items-center m-3 py-2"
+      style={{ borderColor: isSaved ? "#0A8A8A" : "red" }}
+      className="flex flex-col container w-4/5 h-auto border-2 items-center m-3 py-2 rounded-lg"
     >
       <div className="flex h-16 w-full place-content-between items-center">
         <input

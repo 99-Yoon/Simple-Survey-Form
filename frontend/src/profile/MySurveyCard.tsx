@@ -52,7 +52,7 @@ export const MySurveyCard = ({ data }: Props) => {
 
   return (
     <div className="w-40 h-48 md:w-52 md:h-60 rounded border-2 hover:border-2 hover:border-themeColor">
-      <button className="w-full mt-2" onClick={editSurvey}>
+      <button className="w-full pt-1" onClick={editSurvey}>
         <p className="font-bold">
           {data.title ? data.title : "제목없는 설문조사"}
         </p>
@@ -73,7 +73,7 @@ export const MySurveyCard = ({ data }: Props) => {
         </button>
         <button
           type="button"
-          className="bg-themeColor rounded text-white py-1 px-1.5 ml-1 "
+          className="bg-themeColor rounded text-white py-1 px-1.5 ml-1 mr-1.5"
           onClick={deleteSurvey}
         >
           삭제
