@@ -11,12 +11,8 @@ export const EditSurvey = () => {
   interface CustomizedState {
     save: boolean;
   }
-  const location = useLocation();
-  const state = location.state as CustomizedState;
-
-  useEffect(() => {
-    getSurvey();
-  }, [surveyId]);
+  const [isEditing, setIsEditing] =
+    useState<{ qid: string; isEditing: boolean }[]>();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -29,10 +25,21 @@ export const EditSurvey = () => {
     questions: [],
   });
 
+  useEffect(() => {
+    getSurvey();
+  }, [surveyId]);
+
   async function getSurvey() {
     try {
       if (surveyId) {
         const thisSurvey: SurveyType = await surveyApi.getSurvey(surveyId);
+
+        const initEditing = thisSurvey.questions.map((question) => {
+          return { qid: question._id, isEditing: false };
+        });
+        console.log("init editing", initEditing);
+        setIsEditing(initEditing);
+
         setSurvey(thisSurvey);
         setSuccess(true);
         setError("");
@@ -46,13 +53,21 @@ export const EditSurvey = () => {
     }
   }
 
+  const handleEditing = (qid: string, edited: boolean) => {
+    console.log("handle editing:", qid, edited);
+    if (isEditing) {
+      const index = isEditing.findIndex((q) => q.qid === qid);
+      isEditing[index].isEditing = edited;
+      setIsEditing([...isEditing]);
+    }
+  };
+
   const handleQuestion = (element: BasicQuestionType) => {
     const index = survey.questions.findIndex(
       (question) => question._id === element._id
     );
     survey.questions[index] = element;
     const newList = [...survey.questions];
-    // const newList: BasicQuestionType[] = [...survey.questions];
     console.log("new list in handle question", newList);
     setSurvey({ ...survey, questions: newList });
   };
@@ -85,6 +100,13 @@ export const EditSurvey = () => {
           surveyId
         );
         console.log(questions);
+
+        const addedEditing = questions.map((question) => {
+          return { qid: question._id, isEditing: false };
+        });
+        console.log("added editing", addedEditing);
+        setIsEditing([...addedEditing]);
+
         setSurvey({ ...survey, questions: questions });
         setSuccess(true);
         setError("");
@@ -116,6 +138,8 @@ export const EditSurvey = () => {
 
   const questions = survey.questions;
   console.log(questions);
+  console.log("isediting", isEditing);
+
   return (
     <>
       {error ? alert(error) : <></>}
@@ -147,6 +171,11 @@ export const EditSurvey = () => {
             <Question
               key={question._id}
               element={question}
+              isEditing={
+                isEditing?.filter((q) => q.qid === question._id)[0]
+                  ?.isEditing ?? false
+              }
+              handleEditing={handleEditing}
               handleQuestion={handleQuestion}
               deleteQuestion={deleteQuestion}
             />

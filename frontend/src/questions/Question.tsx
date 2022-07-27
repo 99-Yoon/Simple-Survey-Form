@@ -12,19 +12,23 @@ import { QUESTION_TYPES } from "../commons";
 
 type Props = {
   element: BasicQuestionType;
+  isEditing: boolean;
+  handleEditing: (qid: string, isEditing: boolean) => void;
   handleQuestion: (element: BasicQuestionType) => void;
   deleteQuestion: (id: string) => void;
-  // isSave: boolean;
 };
 
 export const Question = ({
   element,
+  isEditing,
+  handleEditing,
   handleQuestion,
   deleteQuestion,
-}: // isSave,
-Props) => {
+}: Props) => {
   const [question, setQuestion] = useState({ ...element });
-  const [isSaved, setIsSaved] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
+
+  console.log("is editing in question:", isEditing);
 
   async function handleEditComplete() {
     try {
@@ -34,7 +38,8 @@ Props) => {
       );
       // console.log(newQuestion);
       handleQuestion(question);
-      setIsSaved(true);
+      // setIsEditing(true);
+      handleEditing(question._id, false);
       // setSuccess(true);
       // setError("");
     } catch (error) {
@@ -66,9 +71,7 @@ Props) => {
         choices: [{ text: "", value: 0 }],
       };
     }
-    // question.type = selectedType;
     setQuestion({ ...question, type: selectedType, content: content });
-    // handleQuestion(question._id);
   }
 
   const handleElement = () => {
@@ -78,21 +81,19 @@ Props) => {
 
   function handleQuestionInfo(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.currentTarget;
-    // question[name] = value;
     setQuestion({ ...question, [name]: value });
-    // handleQuestion(question._id);
   }
 
   function getContent(element: BasicQuestionType) {
     switch (element.type) {
       case "essay":
-        return <EssayForm element={element} save={isSaved} />;
+        return <EssayForm element={element} isEditing={isEditing} />;
       case "radio":
         return (
           <RadioForm
             handleQuestion={handleElement}
             element={element}
-            save={isSaved}
+            isEditing={isEditing}
           />
         );
       case "checkbox":
@@ -100,7 +101,7 @@ Props) => {
           <CheckboxForm
             handleQuestion={handleElement}
             element={element}
-            save={isSaved}
+            isEditing={isEditing}
           />
         );
       case "dropdown":
@@ -108,17 +109,17 @@ Props) => {
           <DropdownForm
             handleQuestion={handleElement}
             element={element}
-            save={isSaved}
+            isEditing={isEditing}
           />
         );
       case "file":
-        return <FileForm element={element} save={isSaved} />;
+        return <FileForm element={element} isEditing={isEditing} />;
       case "rating":
         return (
           <RatingForm
             handleQuestion={handleElement}
             element={element}
-            save={isSaved}
+            isEditing={isEditing}
           />
         );
       case "date":
@@ -132,14 +133,14 @@ Props) => {
     const { checked, value } = event.currentTarget;
     question[value] = checked;
     setQuestion({ ...question, [value]: checked });
-    // handleQuestion(question._id);
   };
 
   const onCancel = () => {
     console.log("element canceled button clicked", element);
     console.log("question canceled button clicked", question);
     setQuestion(element);
-    setIsSaved(true);
+    // setIsEditing(true);
+    handleEditing(question._id, false);
   };
 
   const handleDelete = () => {
@@ -152,12 +153,13 @@ Props) => {
   };
 
   const handleEditClick = () => {
-    setIsSaved(false);
+    // setIsEditing(false);
+    handleEditing(question._id, true);
   };
 
   return (
     <div
-      style={{ borderColor: isSaved ? "#0A8A8A" : "red" }}
+      style={{ borderColor: isEditing ? "red" : "#0A8A8A" }}
       className="flex flex-col container w-4/5 h-auto border-2 items-center m-3 py-2 rounded-lg"
     >
       <div className="flex h-16 w-full place-content-between items-center">
@@ -169,13 +171,13 @@ Props) => {
           placeholder={"Question Title"}
           value={question.title}
           onChange={handleQuestionInfo}
-          disabled={isSaved}
+          disabled={!isEditing}
         ></input>
         <select
           id={question._id}
           name="type"
           onChange={handleSelect}
-          disabled={isSaved}
+          disabled={!isEditing}
           value={question.type}
           className="w-32 md:w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
         >
@@ -200,7 +202,7 @@ Props) => {
           placeholder="질문에 대한 설명을 입력해주세요"
           value={question.comment}
           onChange={handleQuestionInfo}
-          disabled={isSaved}
+          disabled={!isEditing}
         ></input>
       </div>
       {getContent(question)}
@@ -211,22 +213,13 @@ Props) => {
           id="isRequired"
           value="isRequired"
           onChange={handleRequired}
-          disabled={isSaved}
+          disabled={!isEditing}
           checked={question.isRequired}
         />
         <label htmlFor="isRequired" className="px-1">
           필수
         </label>
-        {isSaved ? (
-          <>
-            <button type="button" className="px-1" onClick={handleDelete}>
-              삭제
-            </button>
-            <button type="button" className="px-1" onClick={handleEditClick}>
-              수정
-            </button>
-          </>
-        ) : (
+        {isEditing ? (
           <>
             <button type="button" className="px-1" onClick={onCancel}>
               취소
@@ -234,6 +227,15 @@ Props) => {
 
             <button type="button" className="px-1" onClick={handleEditComplete}>
               확인
+            </button>
+          </>
+        ) : (
+          <>
+            <button type="button" className="px-1" onClick={handleDelete}>
+              삭제
+            </button>
+            <button type="button" className="px-1" onClick={handleEditClick}>
+              수정
             </button>
           </>
         )}
