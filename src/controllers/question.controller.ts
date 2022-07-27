@@ -24,7 +24,8 @@ export const createQuestion = asyncWrap(
           surveyId
         );
         console.log(updatedSurvey);
-        return res.json(updatedSurvey?.questions);
+        // return res.json(updatedSurvey?.questions);
+        return res.json(newQuestion);
       }
     } catch (error: any) {
       return res

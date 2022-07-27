@@ -96,18 +96,24 @@ export const EditSurvey = () => {
   async function addQuestion() {
     try {
       if (surveyId) {
-        const questions: BasicQuestionType[] = await questionApi.createQuestion(
+        // const questions: BasicQuestionType[] = await questionApi.createQuestion(
+        //   surveyId
+        // );
+        // console.log(questions);
+        const question: BasicQuestionType = await questionApi.createQuestion(
           surveyId
         );
-        console.log(questions);
+        console.log(question);
 
-        const addedEditing = questions.map((question) => {
-          return { qid: question._id, isEditing: false };
-        });
-        console.log("added editing", addedEditing);
-        setIsEditing([...addedEditing]);
+        // const addedEditing = questions.map((question) => {
+        //   return { qid: question._id, isEditing: false };
+        // });
+        // console.log("added editing", addedEditing);
+        isEditing &&
+          setIsEditing([...isEditing, { qid: question._id, isEditing: true }]);
 
-        setSurvey({ ...survey, questions: questions });
+        // setSurvey({ ...survey, questions: questions });
+        setSurvey({ ...survey, questions: [...questions, question] });
         setSuccess(true);
         setError("");
       } else {

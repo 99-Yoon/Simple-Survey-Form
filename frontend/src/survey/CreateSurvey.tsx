@@ -94,17 +94,20 @@ export const CreateSurvey = () => {
   async function addQuestion() {
     try {
       if (surveyId) {
-        const questions: BasicQuestionType[] = await questionApi.createQuestion(
+        // const questions: BasicQuestionType[] = await questionApi.createQuestion(
+        //   surveyId
+        // );
+        // console.log(questions);
+        const question: BasicQuestionType = await questionApi.createQuestion(
           surveyId
         );
-        console.log(questions);
-        const addedEditing = questions.map((question) => {
-          return { qid: question._id, isEditing: false };
-        });
-        console.log("added editing", addedEditing);
-        setIsEditing([...addedEditing]);
+        console.log(question);
 
-        setSurvey({ ...survey, questions: questions });
+        isEditing &&
+          setIsEditing([...isEditing, { qid: question._id, isEditing: true }]);
+
+        // setSurvey({ ...survey, questions: questions });
+        setSurvey({ ...survey, questions: [...questions, question] });
         setSuccess(true);
         setError("");
       } else {

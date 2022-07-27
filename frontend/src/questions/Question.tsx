@@ -59,7 +59,7 @@ export const Question = ({
       selectedType === "dropdown" ||
       selectedType === "checkbox"
     ) {
-      element.content = {
+      content = {
         choices: [{ text: "", value: 0 }],
       };
     } else if (selectedType === "essay") {
