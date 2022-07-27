@@ -68,7 +68,7 @@ export const SignUp = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="text-2xl mt-14">회원가입</div>
+      <div className="text-2xl mt-10">회원가입</div>
       <form onSubmit={handleSubmit} className="flex flex-col mt-3 w-80">
         <label className="block text-gray-700 text-sm font-bold mb-2 mt-3">
           이름

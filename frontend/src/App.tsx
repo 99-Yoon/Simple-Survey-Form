@@ -1,12 +1,15 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { AuthProvider } from "./auth/auth.context";
-import { Header } from "./commons";
+import { Footer, Header } from "./commons";
 
 const App = () => (
   <AuthProvider>
     <Header />
-    <Outlet />
+    <div style={{ minHeight: "80vh" }}>
+      <Outlet />
+    </div>
+    <Footer />
   </AuthProvider>
 );
 
