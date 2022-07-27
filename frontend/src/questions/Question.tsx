@@ -54,7 +54,7 @@ Props) => {
       selectedType === "dropdown" ||
       selectedType === "checkbox"
     ) {
-      element.content = {
+      content = {
         choices: [{ text: "", value: 0 }],
       };
     } else if (selectedType === "essay") {
@@ -180,12 +180,7 @@ Props) => {
           className="w-32 md:w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
         >
           {Array.from(QUESTION_TYPES.entries()).map(([key, value]) => (
-            <option
-              key={key}
-              id={question._id}
-              value={key}
-              selected={key === element.type}
-            >
+            <option key={key} id={question._id} value={key}>
               {value}
             </option>
           ))}

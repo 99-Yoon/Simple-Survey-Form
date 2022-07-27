@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { answerApi, surveyApi } from "../apis";
 import { catchErrors } from "../helpers";
-import Accordion from "./Accordion";
+import { Accordion } from "../results";
 import { useParams } from "react-router-dom";
 import { SurveyType } from "../types";
 
