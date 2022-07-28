@@ -7,9 +7,11 @@ import { RDropdownForm } from "./RDropdownForm";
 import { RFileForm } from "./RFileForm";
 import { RRatingForm } from "./RRatingForm";
 import { RDateForm } from "./RDateForm";
+
 type AccordionProps = {
   question: BasicQuestionType;
 };
+
 export const Accordion = ({ question }: AccordionProps) => {
   const [isOpened, setOpened] = useState<boolean>(false);
   const [height, setHeight] = useState<string>("0px");
@@ -39,7 +41,9 @@ export const Accordion = ({ question }: AccordionProps) => {
         return <></>;
     }
   }
-  console.log(question);
+
+  // console.log(question);
+
   return (
     <div className="p-1">
       <div onClick={HandleOpening}>

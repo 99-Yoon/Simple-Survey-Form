@@ -26,7 +26,7 @@ export const ResultSurvey = () => {
     try {
       if (surveyId) {
         const survey = await answerApi.getAnswers(surveyId);
-        console.log(survey);
+        // console.log(survey);
         setSurvey(survey);
       } else {
         setLoading(true);
@@ -37,6 +37,7 @@ export const ResultSurvey = () => {
       setLoading(false);
     }
   }
+
   return (
     <div className="flex flex-col place-items-center">
       <div className="flex flex-col container place-items-center mt-4">

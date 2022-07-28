@@ -8,8 +8,10 @@ type Props = {
 export const REssayForm = ({ question }: Props) => {
   return (
     <div className="m-5">
-      {question.answers.map((answer: any) => (
-        <div className="font-bold">{answer}</div>
+      {question.answers.map((answer: any, index: number) => (
+        <div key={index} className="font-bold">
+          {answer}
+        </div>
       ))}
     </div>
   );
