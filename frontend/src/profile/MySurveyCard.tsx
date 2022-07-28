@@ -45,8 +45,6 @@ export const MySurveyCard = ({ data }: Props) => {
       } finally {
         setLoading(false);
       }
-    } else {
-      alert("삭제를 취소합니다.");
     }
   }
 
