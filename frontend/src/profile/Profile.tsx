@@ -28,7 +28,7 @@ export const Profile = () => {
 
   async function getSurveys() {
     const surveys: SurveyType[] = await surveyApi.getSurveys();
-    console.log(surveys);
+    // console.log(surveys);
     setCardDatas(surveys);
   }
   // let surveys = getSurvey(_id);

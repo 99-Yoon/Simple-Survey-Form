@@ -28,7 +28,7 @@ export const Question = ({
   const [question, setQuestion] = useState({ ...element });
   // const [isEditing, setIsEditing] = useState(false);
 
-  console.log("is editing in question:", isEditing);
+  // console.log("is editing in question:", isEditing);
 
   async function handleEditComplete() {
     try {
@@ -186,7 +186,7 @@ export const Question = ({
               key={key}
               id={question._id}
               value={key}
-              selected={key === element.type}
+              // selected={key === element.type}
             >
               {value}
             </option>

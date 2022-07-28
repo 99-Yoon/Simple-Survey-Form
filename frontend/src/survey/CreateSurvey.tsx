@@ -35,7 +35,7 @@ export const CreateSurvey = () => {
         const initEditing = thisSurvey.questions.map((question) => {
           return { qid: question._id, isEditing: false };
         });
-        console.log("init editing", initEditing);
+        // console.log("init editing", initEditing);
         setIsEditing(initEditing);
 
         setSurvey(thisSurvey);
@@ -137,7 +137,7 @@ export const CreateSurvey = () => {
   }
 
   const questions = survey.questions;
-  console.log(questions);
+  // console.log(questions);
 
   return (
     <>
