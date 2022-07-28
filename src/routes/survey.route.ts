@@ -8,6 +8,7 @@ router.route("/").get(authCtrl.requireLogin, surveyCtrl.getSurveys);
 router.route("/create").post(authCtrl.requireLogin, surveyCtrl.createSurvey);
 
 router.route("/:surveyId").get(surveyCtrl.getSurveyById);
+
 router
   .route("/:surveyId/edit")
   .get(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.getSurveyById)

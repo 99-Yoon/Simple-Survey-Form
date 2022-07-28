@@ -42,7 +42,7 @@ export const Header = () => {
                 </button>
               </Link>
               <Link to="/signup">
-                <button className="font-bold text-white hover:bg-blue-500 mx-1 py-2 px-3 bg-themeColor rounded-md ">
+                <button className="font-bold text-white hover:bg-themeColor2 mx-1 py-2 px-3 bg-themeColor rounded-md ">
                   회원가입
                 </button>
               </Link>
