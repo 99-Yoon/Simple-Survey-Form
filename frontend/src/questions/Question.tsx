@@ -173,25 +173,6 @@ export const Question = ({
           onChange={handleQuestionInfo}
           disabled={!isEditing}
         ></input>
-        <select
-          id={question._id}
-          name="type"
-          onChange={handleSelect}
-          disabled={!isEditing}
-          value={question.type}
-          className="w-32 md:w-36 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-themeColor w-full mr-3 p-2.5"
-        >
-          {Array.from(QUESTION_TYPES.entries()).map(([key, value]) => (
-            <option
-              key={key}
-              id={question._id}
-              value={key}
-              // selected={key === element.type}
-            >
-              {value}
-            </option>
-          ))}
-        </select>
       </div>
       <div className="flex w-full justify-center">
         <input
