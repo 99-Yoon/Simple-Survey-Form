@@ -3,7 +3,7 @@ import { SurveyType } from "../types";
 import baseUrl from "./baseUrl";
 
 export const createSurvey = async (survey: SurveyType) => {
-  const { data } = await axios.post(`${baseUrl}/surveys/create`, survey);
+  const { data } = await axios.post(`${baseUrl}/surveys`, survey);
   return data;
 };
 
