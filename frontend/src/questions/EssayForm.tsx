@@ -1,8 +1,8 @@
 import React from "react";
-import { EssayType } from "../types";
+import { IEssay } from "../types";
 
 type Props = {
-  element: EssayType;
+  element: IEssay;
   isEditing: boolean;
 };
 

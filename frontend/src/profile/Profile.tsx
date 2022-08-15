@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { baseImageUrl, surveyApi } from "../apis";
-import { SurveyType } from "../types";
+import { ISurvey } from "../types";
 import { MySurveyCard } from "./MySurveyCard";
 
 export const Profile = () => {
   const navigate = useNavigate();
-  const [survey, setSurvey] = useState<SurveyType>({
+  const [survey, setSurvey] = useState<ISurvey>({
     _id: "",
     user: {},
     title: "",
     comment: "",
     questions: [],
   });
-  const [cardDatas, setCardDatas] = useState<SurveyType[]>([]);
+  const [cardDatas, setCardDatas] = useState<ISurvey[]>([]);
 
   useEffect(() => {
     getSurveys();
   }, []);
 
   async function createSurvey() {
-    const newSurvey: SurveyType = await surveyApi.createSurvey(survey);
+    const newSurvey: ISurvey = await surveyApi.createSurvey(survey);
     navigate(`/surveys/${newSurvey._id}/create`, {
       replace: true,
     });
   }
 
   async function getSurveys() {
-    const surveys: SurveyType[] = await surveyApi.getSurveys();
+    const surveys: ISurvey[] = await surveyApi.getSurveys();
     // console.log(surveys);
     setCardDatas(surveys);
   }

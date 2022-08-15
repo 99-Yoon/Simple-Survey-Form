@@ -10,44 +10,51 @@ export interface SignupUser {
   password: string;
 }
 
-export interface SurveyType {
+export interface ISurvey {
   _id: string;
   user: any;
   title: string;
   comment: string;
-  questions: BasicQuestionType[];
+  questions: IQuestionData[];
   createdAt?: string;
   updatedAt?: string;
 }
 
-export interface BasicQuestionType {
+interface IChoice {
+  value: number;
+  text: string;
+}
+
+interface IBasicContent {
+  choices: IChoice[];
+  [key: string]: any;
+}
+
+export interface IQuestionData {
+  _id?: string;
+  order: number;
   type: string;
-  _id: string;
   title: string;
   isRequired: boolean;
   comment: string;
-  content: any;
-  answers?: any;
+  content: IBasicContent;
+  // answers?: any;
   [key: string]: string | number | boolean | any;
 }
 
-export interface AnswerQuestionType extends BasicQuestionType {
+export interface AnswerQuestionType extends IQuestionData {
   requiredCheck: boolean;
   answer: any;
 }
 
-export interface AnswerSurveyType extends SurveyType {
+export interface AnswerSurveyType extends ISurvey {
   questions: AnswerQuestionType[];
 }
 
-export interface EssayType extends BasicQuestionType {}
-export interface DateType extends BasicQuestionType {}
-export interface RadioType extends BasicQuestionType {
-  content: {
-    choices: {
-      value: number;
-      text: string;
-    }[];
+export interface IEssay extends IQuestionData {}
+export interface IDate extends IQuestionData {}
+export interface IRadio extends IQuestionData {
+  content: IBasicContent & {
     hasOther: boolean;
     otherText: string;
   };
@@ -58,33 +65,23 @@ interface IChoices {
   text: string;
 }
 
-export interface CheckboxType extends BasicQuestionType {
-  content: {
-    choices: IChoices[];
-    maxCount: number;
-  };
+export interface ICheckbox extends IQuestionData {
+  content: IBasicContent & { maxCount: number };
 }
 
-export interface DropdownType extends BasicQuestionType {
-  content: {
-    choices: IChoices[];
-    hasNone: boolean;
-  };
+export interface IDropdown extends IQuestionData {
+  content: IBasicContent & { hasNone: boolean };
 }
 
-export interface FileType extends BasicQuestionType {
-  content: {
+export interface IFile extends IQuestionData {
+  content: IBasicContent & {
     filename: string;
     value: string;
   };
 }
 
-export interface RatingType extends BasicQuestionType {
-  content: {
-    choices: {
-      value: number;
-      text: string;
-    }[];
+export interface IRating extends IQuestionData {
+  content: IBasicContent & {
     minRateDescription: string;
     maxRateDescription: string;
   };
@@ -103,7 +100,7 @@ export interface AnswerType {
 }
 
 export interface AnswerProps {
-  element: BasicQuestionType;
+  element: IQuestionData;
   answerQuestion: AnswerQuestionType;
   // answers: AnswersType | undefined;
   // handleAnswer: () => void;

@@ -1,5 +1,5 @@
 import React from "react";
-import { BasicQuestionType, AnswerQuestionType } from "../types";
+import { IQuestionData, AnswerQuestionType } from "../types";
 import { ACheckboxForm } from "./ACheckboxForm";
 import { ADateForm } from "./ADateForm";
 import { ADropdownForm } from "./ADropdownForm";
@@ -9,12 +9,12 @@ import { ARadioForm } from "./ARadioForm";
 import { ARatingForm } from "./ARatingForm";
 
 type Props = {
-  question: BasicQuestionType;
+  question: IQuestionData;
   answerQuestion: AnswerQuestionType;
   addFiles: (oneFile: { questionId: string; file: File }) => void;
 };
 export const AQuestion = ({ question, answerQuestion, addFiles }: Props) => {
-  function getContent(question: BasicQuestionType) {
+  function getContent(question: IQuestionData) {
     switch (question.type) {
       case "essay":
         return (

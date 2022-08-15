@@ -3,18 +3,15 @@ import { authCtrl, surveyCtrl, questionCtrl } from "../controllers";
 
 const router = express.Router();
 
-router.route("/").get(authCtrl.requireLogin, surveyCtrl.getSurveys);
-
-router.route("/create").post(authCtrl.requireLogin, surveyCtrl.createSurvey);
-
-router.route("/:surveyId").get(surveyCtrl.getSurveyById);
+router
+  .route("/")
+  .get(authCtrl.requireLogin, surveyCtrl.getSurveys)
+  .post(authCtrl.requireLogin, surveyCtrl.createSurvey);
 
 router
-  .route("/:surveyId/edit")
+  .route("/:surveyId")
   .get(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.getSurveyById)
-  .put(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.updateSurvey);
-router
-  .route("/:surveyId/delete")
+  .put(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.updateSurvey)
   .delete(
     authCtrl.requireLogin,
     authCtrl.authenticate,
@@ -23,7 +20,11 @@ router
 
 router
   .route("/:surveyId/questions")
-  .post(authCtrl.requireLogin, questionCtrl.createQuestion);
+  .post(
+    authCtrl.requireLogin,
+    authCtrl.authenticate,
+    questionCtrl.createQuestion
+  );
 
 router.param("surveyId", surveyCtrl.userBySurveyId);
 

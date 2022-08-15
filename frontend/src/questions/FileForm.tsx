@@ -1,8 +1,8 @@
 import React from "react";
-import { FileType } from "../types";
+import { IFile } from "../types";
 
 type Props = {
-  element: FileType;
+  element: IFile;
   isEditing: boolean;
 };
 

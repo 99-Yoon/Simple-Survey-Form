@@ -7,6 +7,7 @@ export const RequireAuth: FC<{ children: JSX.Element }> = ({ children }) => {
   const location = useLocation();
 
   if (!user.isLoggedIn) {
+    alert("로그인이 필요합니다.");
     return (
       <Navigate to={"/login"} state={{ from: location.pathname }} replace />
     );

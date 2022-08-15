@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { CheckboxType } from "../types";
+import { ICheckbox } from "../types";
 
 type Props = {
-  element: CheckboxType;
+  element: ICheckbox;
   handleQuestion: (id: string) => void;
   isEditing: boolean;
 };

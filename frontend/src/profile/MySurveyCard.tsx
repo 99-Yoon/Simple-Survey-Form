@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { surveyApi } from "../apis";
-import { SurveyType } from "../types";
+import { ISurvey } from "../types";
 import { catchErrors } from "../helpers";
 import { DuplicateIcon } from "../icons";
 
 type Props = {
-  data: SurveyType;
+  data: ISurvey;
 };
 
 export const MySurveyCard = ({ data }: Props) => {

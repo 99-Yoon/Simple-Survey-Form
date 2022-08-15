@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { surveyApi, answerApi } from "../apis";
 import { catchErrors } from "../helpers";
-import { AnswerSurveyType, AnswerType, SurveyType } from "../types";
+import { AnswerSurveyType, AnswerType, ISurvey } from "../types";
 import { AQuestion } from "./AQuestion";
 
 export const AnswerSurveyForm = () => {
@@ -12,7 +12,7 @@ export const AnswerSurveyForm = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
-  const [survey, setSurvey] = useState<SurveyType>({
+  const [survey, setSurvey] = useState<ISurvey>({
     _id: surveyId || "",
     user: {},
     title: "",
@@ -48,7 +48,7 @@ export const AnswerSurveyForm = () => {
   async function ansSurvey() {
     try {
       if (surveyId) {
-        const getSurvey: any = await surveyApi.ansSurvey(surveyId);
+        const getSurvey: any = await surveyApi.getSurveyById(surveyId);
         console.log("survey가져옴ㅎㅎ", getSurvey);
         if (getSurvey) {
           answerSurvey.current._id = getSurvey._id;

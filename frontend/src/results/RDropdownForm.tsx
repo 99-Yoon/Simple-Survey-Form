@@ -1,8 +1,8 @@
 import React from "react";
-import { BasicQuestionType } from "../types";
+import { IQuestionData } from "../types";
 
 type Props = {
-  question: BasicQuestionType;
+  question: IQuestionData;
 };
 
 export const RDropdownForm = ({ question }: Props) => {

@@ -3,7 +3,7 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { questionApi, surveyApi } from "../apis";
 import { SpinnerIcon } from "../icons";
 import { Question } from "../questions";
-import { BasicQuestionType, SurveyType } from "../types";
+import { IQuestionData, ISurvey } from "../types";
 import { catchErrors } from "../helpers";
 
 export const EditSurvey = () => {
@@ -17,7 +17,7 @@ export const EditSurvey = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
-  const [survey, setSurvey] = useState<SurveyType>({
+  const [survey, setSurvey] = useState<ISurvey>({
     _id: surveyId || "",
     user: {},
     title: "",
@@ -32,7 +32,7 @@ export const EditSurvey = () => {
   async function getSurvey() {
     try {
       if (surveyId) {
-        const thisSurvey: SurveyType = await surveyApi.getSurvey(surveyId);
+        const thisSurvey: ISurvey = await surveyApi.getSurvey(surveyId);
 
         const initEditing = thisSurvey.questions.map((question) => {
           return { qid: question._id, isEditing: false };
@@ -62,7 +62,7 @@ export const EditSurvey = () => {
     }
   };
 
-  const handleQuestion = (element: BasicQuestionType) => {
+  const handleQuestion = (element: IQuestionData) => {
     const index = survey.questions.findIndex(
       (question) => question._id === element._id
     );
@@ -84,7 +84,7 @@ export const EditSurvey = () => {
       alert("아직 수정이 완료되지 않은 질문이 존재합니다.");
     } else {
       try {
-        const newSurvey: SurveyType = await surveyApi.editSurvey(survey);
+        const newSurvey: ISurvey = await surveyApi.editSurvey(survey);
         console.log(newSurvey);
         setSuccess(true);
         alert("저장되었습니다");
@@ -105,7 +105,7 @@ export const EditSurvey = () => {
         //   surveyId
         // );
         // console.log(questions);
-        const question: BasicQuestionType = await questionApi.createQuestion(
+        const question: IQuestionData = await questionApi.createQuestion(
           surveyId
         );
         console.log(question);
@@ -132,11 +132,9 @@ export const EditSurvey = () => {
   }
 
   async function deleteQuestion(id: string) {
-    const newList: BasicQuestionType[] = [...survey.questions];
+    const newList: IQuestionData[] = [...survey.questions];
     try {
-      const newQuestion: BasicQuestionType = await questionApi.deleteQuestion(
-        id
-      );
+      const newQuestion: IQuestionData = await questionApi.deleteQuestion(id);
       setSurvey({ ...survey, questions: newList.filter((a) => a._id !== id) });
       setSuccess(true);
       setError("");

@@ -3,14 +3,14 @@ import { answerApi, surveyApi } from "../apis";
 import { catchErrors } from "../helpers";
 import { Accordion } from "../results";
 import { useParams } from "react-router-dom";
-import { SurveyType } from "../types";
+import { ISurvey } from "../types";
 
 export const ResultSurvey = () => {
   let { surveyId } = useParams<{ surveyId: string }>();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [survey, setSurvey] = useState<SurveyType>({
+  const [survey, setSurvey] = useState<ISurvey>({
     _id: surveyId || "",
     user: {},
     title: "",

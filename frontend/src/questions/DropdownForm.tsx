@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { DropdownType } from "../types";
+import { IDropdown } from "../types";
 
 type Props = {
-  element: DropdownType;
+  element: IDropdown;
   handleQuestion: (id: string) => void;
   isEditing: boolean;
 };

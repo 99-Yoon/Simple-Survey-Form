@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { CheckboxType, AnswerProps } from "../types";
+import { ICheckbox, AnswerProps } from "../types";
 
 interface Props extends AnswerProps {
-  element: CheckboxType;
+  element: ICheckbox;
 }
 
 export const ACheckboxForm = ({ element, answerQuestion }: Props) => {

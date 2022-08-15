@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
+import { Types } from "mongoose";
 import { surveyDb } from "../db";
 import { asyncWrap } from "../helpers/asyncWrap";
+import { ISurvey } from "../models";
 
 export interface TypedRequestAuth<T> extends Request {
   auth: T;
@@ -11,10 +13,9 @@ export const createSurvey = asyncWrap(
   async (reqExp: Request, res: Response) => {
     const req = reqExp as TypedRequestAuth<{ userId: string }>;
     const { userId } = req.auth;
-    let survey = req.body;
-    survey.user = userId;
+    let survey = req.body as ISurvey;
+    survey.user = new Types.ObjectId(userId);
     console.log("survey body", survey);
-    delete survey._id;
     const newSurvey = await surveyDb.createSurvey(survey);
     return res.json(newSurvey);
   }

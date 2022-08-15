@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { BasicQuestionType } from "../types";
+import { IQuestionData } from "../types";
 import { REssayForm } from "./REssayForm";
 import { RCheckboxForm } from "./RCheckboxForm";
 import { RRadioForm } from "./RRadioForm";
@@ -9,7 +9,7 @@ import { RRatingForm } from "./RRatingForm";
 import { RDateForm } from "./RDateForm";
 
 type AccordionProps = {
-  question: BasicQuestionType;
+  question: IQuestionData;
 };
 
 export const Accordion = ({ question }: AccordionProps) => {
@@ -21,7 +21,7 @@ export const Accordion = ({ question }: AccordionProps) => {
     setOpened(!isOpened);
     setHeight(!isOpened ? `${contentElement.current?.scrollHeight}px` : "0px");
   };
-  function getContent(question: BasicQuestionType) {
+  function getContent(question: IQuestionData) {
     switch (question.type) {
       case "essay":
         return <REssayForm question={question} />;

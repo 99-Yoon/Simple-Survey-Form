@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { RadioType, AnswerProps } from "../types";
+import { IRadio, AnswerProps } from "../types";
 
 interface Props extends AnswerProps {
-  element: RadioType;
+  element: IRadio;
 }
 
 export const ARadioForm = ({ element, answerQuestion }: Props) => {

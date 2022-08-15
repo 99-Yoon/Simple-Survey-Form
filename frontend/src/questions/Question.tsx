@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BasicQuestionType } from "../types";
+import { IQuestionData } from "../types";
 import { questionApi } from "../apis";
 import { EssayForm } from "./EssayForm";
 import { CheckboxForm } from "./CheckboxForm";
@@ -11,10 +11,10 @@ import { DateForm } from "./DateForm";
 import { QUESTION_TYPES } from "../commons";
 
 type Props = {
-  element: BasicQuestionType;
+  element: IQuestionData;
   isEditing: boolean;
   handleEditing: (qid: string, isEditing: boolean) => void;
-  handleQuestion: (element: BasicQuestionType) => void;
+  handleQuestion: (element: IQuestionData) => void;
   deleteQuestion: (id: string) => void;
 };
 
@@ -33,7 +33,7 @@ export const Question = ({
   async function handleEditComplete() {
     try {
       console.log(question);
-      const newQuestion: BasicQuestionType = await questionApi.updateQuestion(
+      const newQuestion: IQuestionData = await questionApi.updateQuestion(
         question
       );
       // console.log(newQuestion);
@@ -84,7 +84,7 @@ export const Question = ({
     setQuestion({ ...question, [name]: value });
   }
 
-  function getContent(element: BasicQuestionType) {
+  function getContent(element: IQuestionData) {
     switch (element.type) {
       case "essay":
         return <EssayForm element={element} isEditing={isEditing} />;

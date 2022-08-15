@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BasicQuestionType } from "../types";
+import { IQuestionData } from "../types";
 import baseUrl from "./baseUrl";
 
 export const createQuestion = async (surveyId: string) => {
@@ -16,7 +16,7 @@ export const createQuestion = async (surveyId: string) => {
   return data;
 };
 
-export const updateQuestion = async (question: BasicQuestionType) => {
+export const updateQuestion = async (question: IQuestionData) => {
   const { data } = await axios.put(
     `${baseUrl}/questions/update/${question._id}`,
     question

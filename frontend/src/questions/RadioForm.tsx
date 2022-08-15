@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { RadioType } from "../types";
+import { IRadio } from "../types";
 
 type Props = {
-  element: RadioType;
+  element: IRadio;
   handleQuestion: (id: string) => void;
   isEditing: boolean;
 };

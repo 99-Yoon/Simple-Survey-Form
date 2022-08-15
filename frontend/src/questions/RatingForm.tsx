@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { RatingType } from "../types";
+import { IRating } from "../types";
 
 type Props = {
-  element: RatingType;
+  element: IRating;
   handleQuestion: (id: string) => void;
   isEditing: boolean;
 };
