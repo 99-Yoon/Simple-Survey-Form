@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../auth/auth.context";
+import { useAuth } from "../auth";
 import { UserIcon } from "../icons";
 
 export const Header = () => {
@@ -17,7 +17,7 @@ export const Header = () => {
     <div className="bg-white border-b-2 border-b-themeColor px-2 sm:px-4 py-3.5">
       <div className="container flex flex-wrap md:justify-start place-content-center mx-auto">
         <Link to="/" className="font-bold text-2xl text-themeColor text-start">
-          Simple Survey Form
+          Simple Survey
         </Link>
         <div className="absolute right-4 top-2 hidden md:flex items-center justify-end md:flex-1">
           {user.isLoggedIn ? (
@@ -28,7 +28,7 @@ export const Header = () => {
               >
                 로그아웃
               </button>
-              <Link to="/profile">
+              <Link to="/surveys/profile">
                 <button className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md">
                   프로필
                 </button>

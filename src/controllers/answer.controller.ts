@@ -1,14 +1,15 @@
 import { NextFunction, Request, Response } from "express";
-import { asyncWrap, isEmpty } from "../helpers";
-import { TypedRequest } from "../types";
+import { asyncWrap, formidableFilesToArray, isEmpty } from "../helpers";
+import type { TypedRequest } from "../types";
 import formidable from "formidable";
-import { FileInfo } from "../models";
+import { FileInfo, IAnswer } from "../models";
 import { fileDb, userDb, answerDb, surveyDb } from "../db";
 import fs from "fs/promises";
 
 export const createAnswers = asyncWrap(async (reqExp, res) => {
   const req = reqExp as TypedRequest;
   const answer = req.body;
+  console.log("answer in create answers:", answer);
   const answers = JSON.parse(answer.answers);
   answer.answers = answers;
   let files: any[] = [];
@@ -47,7 +48,7 @@ export const createAnswers = asyncWrap(async (reqExp, res) => {
         surveyId: answer.surveyId,
         guestId: answer.guestId,
         questionId: element.questionId,
-        answer: element.answer,
+        content: element.answer,
       });
     });
     await Promise.all(c);
@@ -61,6 +62,45 @@ export const createAnswers = asyncWrap(async (reqExp, res) => {
     }
     res.status(422).send(error.message || "설문조사 응답 생성 오류");
   }
+});
+
+export const createAnswersWithoutFile = asyncWrap(async (req, res) => {
+  const answers = req.body as IAnswer[];
+  const newAnswers = await Promise.all(
+    answers.map(
+      async (answer) =>
+        await answerDb.createAnswer({
+          surveyId: answer.surveyId,
+          guestId: answer.guestId,
+          questionId: answer.questionId,
+          content: answer.content,
+        })
+    )
+  );
+
+  console.log("new answers:", newAnswers);
+  res.json(newAnswers);
+});
+
+export const createAnswerWithFile = asyncWrap(async (reqExp, res) => {
+  const req = reqExp as TypedRequest;
+
+  console.log("body:", req.body, "files:", req.files);
+  const answer = req.body;
+
+  let fileInfos;
+  const files = formidableFilesToArray(req.files.uploadFiles);
+  if (files) {
+    fileInfos = await Promise.all(
+      files.map(async (file) => await fileDb.createFile(file))
+    );
+  }
+
+  answer.content = fileInfos;
+  const newAnswer = await answerDb.createAnswer(answer);
+
+  console.log("new answer:", newAnswer);
+  res.json(newAnswer);
 });
 
 export const getAnswers = asyncWrap(async (reqExp, res) => {

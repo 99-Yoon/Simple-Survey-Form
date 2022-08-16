@@ -1,3 +1,6 @@
+import { QUESTION_TYPES } from "../commons";
+
+// 타입 지정
 export interface IUser {
   email?: string;
   isLoggedIn: boolean;
@@ -11,7 +14,7 @@ export interface SignupUser {
 }
 
 export interface ISurvey {
-  _id: string;
+  _id?: string;
   user: any;
   title: string;
   comment: string;
@@ -33,7 +36,7 @@ interface IBasicContent {
 export interface IQuestionData {
   _id?: string;
   order: number;
-  type: string;
+  type: IQuestionType;
   title: string;
   isRequired: boolean;
   comment: string;
@@ -42,13 +45,8 @@ export interface IQuestionData {
   [key: string]: string | number | boolean | any;
 }
 
-export interface AnswerQuestionType extends IQuestionData {
-  requiredCheck: boolean;
-  answer: any;
-}
-
-export interface AnswerSurveyType extends ISurvey {
-  questions: AnswerQuestionType[];
+export interface CreateQuestionData extends IQuestionData {
+  isEditing: boolean;
 }
 
 export interface IEssay extends IQuestionData {}
@@ -58,11 +56,6 @@ export interface IRadio extends IQuestionData {
     hasOther: boolean;
     otherText: string;
   };
-}
-
-interface IChoices {
-  value: number;
-  text: string;
 }
 
 export interface ICheckbox extends IQuestionData {
@@ -87,21 +80,55 @@ export interface IRating extends IQuestionData {
   };
 }
 
-export interface AnswersType {
-  questionId: string;
-  type: string;
-  answer: any;
-}
-
-export interface AnswerType {
+export interface IAnswer {
+  question: IQuestionData;
   surveyId: string;
-  guestId: string;
-  answers: AnswersType[];
+  guestId?: string;
+  requiredCheck: boolean;
+  content: any;
 }
 
-export interface AnswerProps {
+export interface IAnswerRequestData {
+  questionId: string;
+  surveyId: string;
+  guestId?: string;
+  content: any;
+}
+
+// export interface IAnswerSurvey extends ISurvey {
+//   questions: IAnswerQuestion[];
+// }
+
+// export interface IAnswers {
+//   questionId: string;
+//   type: string;
+//   content: any;
+// }
+
+// export interface IAnswer {
+//   surveyId: string;
+//   guestId: string;
+//   answers: IAnswers[];
+// }
+
+export interface IAnswerProps {
   element: IQuestionData;
-  answerQuestion: AnswerQuestionType;
+  answer: IAnswer;
   // answers: AnswersType | undefined;
   // handleAnswer: () => void;
 }
+
+export interface IQuestionProps {
+  element: CreateQuestionData;
+  // isEditing: boolean;
+  // handleEditing: Function;
+  handleQuestion: Function;
+  deleteQuestion: Function;
+}
+
+export type IQuestionFormProps = Pick<
+  IQuestionProps,
+  "element" | "handleQuestion"
+> & { isEditing: boolean };
+
+export type IQuestionType = keyof typeof QUESTION_TYPES;

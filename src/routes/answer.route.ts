@@ -3,7 +3,12 @@ import { answerCtrl, authCtrl, fileCtrl, surveyCtrl } from "../controllers";
 
 const router = express.Router();
 
-router.route("/").post(fileCtrl.uploadFile, answerCtrl.createAnswers);
+router.route("/").post(answerCtrl.createAnswersWithoutFile);
+
+router
+  .route("/upload")
+  .post(fileCtrl.uploadFile, answerCtrl.createAnswerWithFile);
+
 router
   .route("/:surveyId")
   .get(authCtrl.requireLogin, authCtrl.authenticate, answerCtrl.getAnswers);

@@ -11,7 +11,7 @@ export const Home = () => {
       console.log("버튼");
       location.href = "/login";
     } else {
-      location.href = "/profile";
+      location.href = "/surveys/profile";
     }
   }
 

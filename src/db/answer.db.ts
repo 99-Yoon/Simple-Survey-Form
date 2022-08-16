@@ -12,7 +12,7 @@ export const getAnswers = async (surveyId: string) => {
     {
       $group: {
         _id: "$questionId",
-        answers: { $push: "$answer" },
+        answers: { $push: "$content" },
       },
     },
     {

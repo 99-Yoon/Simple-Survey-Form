@@ -5,7 +5,7 @@ export interface IAnswer {
   surveyId?: Types.ObjectId;
   questionId?: Types.ObjectId;
   guestId?: string;
-  answer?: any;
+  content?: any;
 }
 
 const schema = new Schema<IAnswer>(
@@ -13,7 +13,7 @@ const schema = new Schema<IAnswer>(
     surveyId: { type: Schema.Types.ObjectId, ref: "Survey" },
     questionId: { type: Schema.Types.ObjectId, ref: "Question" },
     guestId: { type: String },
-    answer: { type: Object },
+    content: { type: Object },
   },
   { timestamps: true }
 );
