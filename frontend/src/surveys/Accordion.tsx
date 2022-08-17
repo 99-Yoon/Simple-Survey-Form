@@ -1,14 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { IQuestionData } from "../types";
-// import {
-//   REssay,
-//   RCheckbox,
-//   RRadio,
-//   RDropdown,
-//   RFile,
-//   RRating,
-//   RDate,
-// } from "../forms";
 import { getResultElementByType } from "../helpers/question.helper";
 
 type AccordionProps = {
@@ -20,36 +11,14 @@ export const Accordion = ({ question }: AccordionProps) => {
   const [height, setHeight] = useState<string>("0px");
   const contentElement = useRef<HTMLDivElement>(null);
 
-  const HandleOpening = () => {
+  const handleOpening = () => {
     setOpened(!isOpened);
     setHeight(!isOpened ? `${contentElement.current?.scrollHeight}px` : "0px");
   };
-  // function getContent(question: IQuestionData) {
-  //   switch (question.type) {
-  //     case "singletext":
-  //       return <REssay question={question} />;
-  //     case "radio":
-  //       return <RRadio question={question} />;
-  //     case "checkbox":
-  //       return <RCheckbox question={question} />;
-  //     case "dropdown":
-  //       return <RDropdown question={question} />;
-  //     case "file":
-  //       return <RFile question={question} />;
-  //     case "rating":
-  //       return <RRating question={question} />;
-  //     case "date":
-  //       return <RDate question={question} />;
-  //     default:
-  //       return <></>;
-  //   }
-  // }
-
-  // console.log(question);
 
   return (
     <div className="p-1">
-      <div onClick={HandleOpening}>
+      <div onClick={handleOpening}>
         <div
           className={
             "bg-themeColor rounded-r-lg p-4 flex justify-between text-white"
