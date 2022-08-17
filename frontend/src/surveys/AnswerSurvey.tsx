@@ -57,7 +57,7 @@ export const AnswerSurvey = () => {
         otherAnswers.map((answer) => ({
           questionId: answer.question._id!,
           surveyId: survey._id!,
-          questId: "guest",
+          guestId: "guest",
           content: answer.content,
         }))
       );
@@ -68,11 +68,6 @@ export const AnswerSurvey = () => {
       );
 
       console.log("result:", result);
-
-      // const newAnswer: IAnswer = await answerApi.saveAnswers(formData);
-      // console.log(newAnswer);
-      // sessionStorage.setItem(`survey_${surveyId}`, surveyId ?? "");
-      // navigate("/survey/complete", { replace: false });
     } catch (error) {
       catchErrors(error, setError);
     } finally {
