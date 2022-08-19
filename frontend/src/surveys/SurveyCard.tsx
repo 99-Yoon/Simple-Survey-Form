@@ -22,11 +22,7 @@ export const SurveyCard = ({ survey, handleDelete }: Props) => {
 
   return (
     <div className="w-40 h-48 md:w-52 md:h-60 rounded border-2 hover:border-2 hover:border-themeColor">
-      <Link
-        to={`/surveys/${survey._id}/edit`}
-        state={survey}
-        className="w-full pt-1"
-      >
+      <Link to={`${survey._id}`} state={survey} className="w-full pt-1">
         <p className="font-bold">
           {survey.title ? survey.title : "제목없는 설문조사"}
         </p>
