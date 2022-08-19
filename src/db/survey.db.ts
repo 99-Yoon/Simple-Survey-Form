@@ -46,7 +46,18 @@ export const getSurveys = async (userId: string) => {
 };
 
 export const updateSurvey = async (survey: HydratedDocument<ISurvey>) => {
-  const newSurvey = await Survey.findOneAndUpdate({ _id: survey._id }, survey);
+  console.log("update survey", survey);
+  await Promise.all(
+    survey.questions.map(
+      async (question) =>
+        await Question.findOneAndUpdate({ _id: question._id }, question, {
+          upsert: true,
+        })
+    )
+  );
+  const newSurvey = await Survey.findOneAndUpdate({ _id: survey._id }, survey, {
+    new: true,
+  }).populate("questions");
   return newSurvey;
 };
 
