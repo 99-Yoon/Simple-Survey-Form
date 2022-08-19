@@ -1,4 +1,5 @@
 export { AnswerLayout } from "./AnswerLayout";
 export { BaseLayout } from "./BaseLayout";
-export { ModifyLayout } from "./ModifyLayout";
+export { SurveyLayout, useSurvey } from "./SurveyLayout";
+export { SurveysLayout, useSurveys } from "./SurveysLayout";
 export { ResultLayout } from "./ResultLayout";

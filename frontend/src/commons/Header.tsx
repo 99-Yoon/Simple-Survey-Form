@@ -28,7 +28,7 @@ export const Header = () => {
               >
                 로그아웃
               </button>
-              <Link to="/surveys/profile">
+              <Link to="/surveys">
                 <button className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md">
                   프로필
                 </button>
@@ -71,7 +71,7 @@ export const Header = () => {
                       로그아웃
                     </div>
                   </Link>
-                  <Link to="/profile">
+                  <Link to="/surveys">
                     <div className="p-2 w-24 text-center text-l text-gray-600 hover:text-themeColor">
                       프로필
                     </div>
