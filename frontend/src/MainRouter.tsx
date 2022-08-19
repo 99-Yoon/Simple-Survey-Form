@@ -3,17 +3,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Login, SignUp, RequireAuth } from "./auth";
 import { NotFound } from "./commons";
 import {
-  Profile,
   CreateSurvey,
-  Preview,
   EditSurvey,
   AnswerSurvey,
   ResultSurvey,
+  SurveysList,
+  AnswerPreview,
 } from "./surveys";
 import {
   AnswerLayout,
   BaseLayout,
-  ModifyLayout,
+  SurveyLayout,
+  SurveysLayout,
   ResultLayout,
 } from "./layouts";
 import { Home } from "./home";
@@ -37,14 +38,17 @@ export const MainRouter = () => {
             path="/surveys"
             element={
               <RequireAuth>
-                <ModifyLayout />
+                <SurveysLayout />
               </RequireAuth>
             }
           >
+            <Route index element={<SurveysList />} />
             <Route path="create" element={<CreateSurvey />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path=":surveyId" element={<Preview />} />
-            <Route path=":surveyId/edit" element={<EditSurvey />} />
+            <Route path=":surveyId" element={<SurveyLayout />}>
+              <Route index element={<AnswerPreview />} />
+              <Route path="edit" element={<EditSurvey />} />
+              <Route path="result" element={<ResultSurvey />} />
+            </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
         </Route>
