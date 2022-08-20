@@ -20,7 +20,9 @@ export const AnswerSurvey = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log("answers:", answers);
-    const needAnswer = answers.some((answer) => !answer.requiredCheck);
+    const needAnswer = answers.some(
+      (answer) => answer.question.isRequired && !answer.requiredCheck
+    );
     if (needAnswer) {
       alert("필수질문에 응답하셔야 합니다.");
       return;
@@ -46,12 +48,14 @@ export const AnswerSurvey = () => {
         formData.append("guestId", "guest");
 
         const files: FileList = answer.content;
-        [...files].map((f) => {
-          formData.append("uploadFiles", f);
-        });
+        files &&
+          [...files].map((f) => {
+            console.log("파일 없음", f);
+            formData.append("uploadFiles", f);
+          });
         return formData;
       });
-
+      console.log("forms", forms);
       setError("");
       const results = await answerApi.save(
         otherAnswers.map((answer) => ({

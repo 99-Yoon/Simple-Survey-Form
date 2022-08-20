@@ -3,13 +3,14 @@ import { baseImageUrl } from "../apis";
 
 type Props = {
   question: any;
+  answers: any;
 };
 
-export const RFile = ({ question }: Props) => {
+export const RFile = ({ question, answers }: Props) => {
   console.log("question", question);
   return (
     <div className="m-5 flex justify-start items-center">
-      {question.answers.map((answer: any, index: number) => (
+      {answers.map((answer: any, index: number) => (
         <Fragment key={index}>
           <img
             className="h-14"

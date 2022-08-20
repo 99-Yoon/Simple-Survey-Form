@@ -13,6 +13,7 @@ export const save = async (answers: IAnswerRequestData[]) => {
 };
 
 export const saveForm = async (answerForm: FormData) => {
+  console.log("formdata", answerForm);
   const { data } = await axios.post(`${baseUrl}/answers/upload`, answerForm);
   return data;
 };

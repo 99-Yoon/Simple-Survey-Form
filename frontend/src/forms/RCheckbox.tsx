@@ -3,10 +3,11 @@ import { IQuestionData } from "../types";
 
 type Props = {
   question: IQuestionData;
+  answers: any;
 };
 
-export const RCheckbox = ({ question }: Props) => {
-  const result = question.answers.flat().reduce((acc: any, cur: any) => {
+export const RCheckbox = ({ question, answers }: Props) => {
+  const result = answers.flat().reduce((acc: any, cur: any) => {
     acc[cur] = (acc[cur] || 0) + 1;
     return acc;
   }, {});

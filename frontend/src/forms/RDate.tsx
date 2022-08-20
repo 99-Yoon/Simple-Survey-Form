@@ -3,12 +3,13 @@ import { IQuestionData } from "../types";
 
 type Props = {
   question: IQuestionData;
+  answers: any;
 };
 
-export const RDate = ({ question }: Props) => {
+export const RDate = ({ question, answers }: Props) => {
   return (
     <div className="m-5">
-      {question.answers.map((answer: any) => (
+      {answers.map((answer: any) => (
         <div key={answer} className="font-bold">
           {answer}
         </div>

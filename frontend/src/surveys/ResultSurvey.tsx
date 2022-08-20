@@ -25,9 +25,9 @@ export const ResultSurvey = () => {
   async function getAnswers() {
     try {
       if (surveyId) {
-        const survey = await answerApi.getAnswers(surveyId);
-        // console.log(survey);
-        setSurvey(survey);
+        const result = await answerApi.getAnswers(surveyId);
+        console.log(result);
+        setSurvey(result);
       } else {
         setLoading(true);
       }
@@ -51,7 +51,11 @@ export const ResultSurvey = () => {
 
       <div className="container w-11/12 place-self-center">
         {survey.questions.map((question) => (
-          <Accordion key={question._id} question={question} />
+          <Accordion
+            key={question._id}
+            question={question.questionInfo}
+            answers={question.answers}
+          />
         ))}
       </div>
     </div>
