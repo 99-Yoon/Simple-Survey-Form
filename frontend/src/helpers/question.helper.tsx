@@ -109,25 +109,22 @@ export const getAnswerElementByType = (
   }
 };
 
-export const getResultElementByType = (
-  question: IQuestionData,
-  answers: any
-) => {
+export const getResultElementByType = (question: IQuestionData) => {
   switch (question.type) {
     case "singletext":
-      return <REssay question={question} answers={answers} />;
+      return <REssay question={question} />;
     case "radio":
-      return <RRadio question={question} answers={answers} />;
+      return <RRadio question={question} />;
     case "checkbox":
-      return <RCheckbox question={question} answers={answers} />;
+      return <RCheckbox question={question} />;
     case "dropdown":
-      return <RDropdown question={question} answers={answers} />;
+      return <RDropdown question={question} />;
     case "file":
-      return <RFile question={question} answers={answers} />;
+      return <RFile question={question} />;
     case "rating":
-      return <RRating question={question} answers={answers} />;
+      return <RRating question={question} />;
     case "date":
-      return <RDate question={question} answers={answers} />;
+      return <RDate question={question} />;
     default:
       return <></>;
   }

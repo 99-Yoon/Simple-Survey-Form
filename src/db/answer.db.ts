@@ -34,6 +34,9 @@ export const getAnswers = async (surveyId: string) => {
       $unwind: "$questionInfo",
     },
 
+    { $set: { "questionInfo.answers": "$answers" } },
+    { $unset: "answers" },
+
     // 질문 순서대로 정렬
     { $sort: { "questionInfo.order": 1 } },
 
@@ -42,7 +45,7 @@ export const getAnswers = async (surveyId: string) => {
       $group: {
         _id: "$surveyId",
         questions: {
-          $push: { questionInfo: "$questionInfo", answers: "$answers" },
+          $push: "$questionInfo",
         },
       },
     },

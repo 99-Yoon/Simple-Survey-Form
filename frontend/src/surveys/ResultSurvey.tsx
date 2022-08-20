@@ -51,11 +51,7 @@ export const ResultSurvey = () => {
 
       <div className="container w-11/12 place-self-center">
         {survey.questions.map((question) => (
-          <Accordion
-            key={question._id}
-            question={question.questionInfo}
-            answers={question.answers}
-          />
+          <Accordion key={question._id} question={question} />
         ))}
       </div>
     </div>

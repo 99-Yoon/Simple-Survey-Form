@@ -4,10 +4,9 @@ import { getResultElementByType } from "../helpers/question.helper";
 
 type AccordionProps = {
   question: IQuestionData;
-  answers: any;
 };
 
-export const Accordion = ({ question, answers }: AccordionProps) => {
+export const Accordion = ({ question }: AccordionProps) => {
   const [isOpened, setOpened] = useState<boolean>(false);
   const [height, setHeight] = useState<string>("0px");
   const contentElement = useRef<HTMLDivElement>(null);
@@ -33,7 +32,7 @@ export const Accordion = ({ question, answers }: AccordionProps) => {
           style={{ height: height }}
           className="bg-gray-100 overflow-hidden transition-all duration-300"
         >
-          {answers && getResultElementByType(question, answers)}
+          {question.answers && getResultElementByType(question)}
         </div>
       </div>
     </div>

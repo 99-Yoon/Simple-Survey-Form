@@ -3,11 +3,10 @@ import { IQuestionData } from "../types";
 
 type Props = {
   question: IQuestionData;
-  answers: any;
 };
 
-export const RDropdown = ({ question, answers }: Props) => {
-  const result = answers.reduce((acc: any, cur: any) => {
+export const RDropdown = ({ question }: Props) => {
+  const result = question.answers.reduce((acc: any, cur: any) => {
     acc[cur] = (acc[cur] || 0) + 1;
     return acc;
   }, {});
