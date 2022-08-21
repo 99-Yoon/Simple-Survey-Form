@@ -23,6 +23,10 @@ export interface ISurvey {
   updatedAt?: string;
 }
 
+export interface ICreateSurvey extends ISurvey {
+  questions: CreateQuestionData[];
+}
+
 interface IChoice {
   value: number;
   text: string;

@@ -2,10 +2,11 @@ import React from "react";
 import { NavLink, useOutletContext } from "react-router-dom";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useSurveys } from "./SurveysLayout";
-import type { ISurvey } from "../types";
+import type { ICreateSurvey, ISurvey } from "../types";
+import { SpinnerIcon } from "../icons";
 
 type SurveyContextType = {
-  survey: ISurvey;
+  survey: ICreateSurvey;
   update: (survey: ISurvey) => Promise<any>;
 };
 
@@ -18,6 +19,16 @@ export const SurveyLayout = () => {
   const { surveys, update } = useSurveys();
   let { surveyId } = useParams<{ surveyId: string }>();
   const survey = surveys.find((survey) => survey._id === surveyId);
+
+  console.log("surveys in survey layout", surveys);
+
+  if (!survey) {
+    return (
+      <div className="flex justify-center mt-5">
+        <SpinnerIcon className="animate-spin h-10 w-10 mr-1 bg-white text-slate-500" />
+      </div>
+    );
+  }
 
   return (
     <div>

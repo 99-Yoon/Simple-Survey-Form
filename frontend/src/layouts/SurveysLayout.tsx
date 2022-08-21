@@ -2,25 +2,25 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import { surveyApi } from "../apis";
 import { catchErrors } from "../helpers";
-import type { ISurvey } from "../types";
+import type { ICreateSurvey, ISurvey } from "../types";
 
 type SurveysContextType = {
   error: string;
   loading: boolean;
-  surveys: ISurvey[];
+  surveys: ICreateSurvey[];
   create: () => Promise<any>;
   remove: (id: string) => Promise<any>;
-  update: (survey: ISurvey) => Promise<any>;
+  update: (survey: ICreateSurvey) => Promise<any>;
 };
 
 export const SurveysLayout = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [surveys, setSurveys] = useState<ISurvey[]>([]);
+  const [surveys, setSurveys] = useState<ICreateSurvey[]>([]);
 
   useEffect(() => {
     const getSurveys = async () => {
-      const surveys: ISurvey[] = await surveyApi.getSurveys();
+      const surveys: ICreateSurvey[] = await surveyApi.getSurveys();
       // console.log(surveys);
       setSurveys(surveys);
     };
@@ -28,18 +28,24 @@ export const SurveysLayout = () => {
   }, []);
 
   const create = async (surveyData: ISurvey) => {
-    const result: ISurvey = await surveyApi.createSurvey(surveyData);
+    const result: ICreateSurvey = await surveyApi.createSurvey(surveyData);
     setSurveys([result, ...surveys]);
     return result;
   };
 
-  const update = async (surveyData: ISurvey) => {
-    const result = await surveyApi.updateSurvey(surveyData);
-    const index = surveys.findIndex((survey) => survey._id === result._id);
-    surveys[index] = result;
-    console.log("result in modify layout:", result);
+  /**
+   * 수정된 설문 객체를 적용한 새로운 설문 배열 생성하여 리랜더링
+   * @param surveyData 바꾸려는 설문 객체
+   */
+  const update = async (surveyData: ICreateSurvey) => {
+    // const result = await surveyApi.updateSurvey(surveyData);
+    // const index = surveys.findIndex((survey) => survey._id === result._id);
+    // surveys[index] = result;
+    const index = surveys.findIndex((survey) => survey._id === surveyData._id);
+    surveys[index] = surveyData;
+    console.log("update in surveys layout layout:", surveyData);
     setSurveys([...surveys]);
-    return result;
+    // return result;
   };
 
   /**

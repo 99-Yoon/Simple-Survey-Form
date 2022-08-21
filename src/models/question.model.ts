@@ -3,6 +3,7 @@ import { model, ObjectId, Schema, Types } from "mongoose";
 export interface IQuestion {
   _id?: Types.ObjectId;
   user?: Types.ObjectId;
+  order: number;
   type: string;
   title?: string;
   isRequired: boolean;
@@ -13,7 +14,8 @@ export interface IQuestion {
 const schema = new Schema<IQuestion>(
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
-    type: { type: String },
+    order: { type: Number },
+    type: { type: String, required: true },
     title: { type: String },
     isRequired: { type: Boolean },
     comment: { type: String },

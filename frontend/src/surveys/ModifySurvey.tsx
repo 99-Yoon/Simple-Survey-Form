@@ -33,6 +33,11 @@ export const ModifySurvey = ({ surveyData, callApi }: Props) => {
     return incompleted;
   };
 
+  /**
+   * 수정된 질문을 입력받아 기존 질문을 대체합니다.
+   * @param question 수정할 질문
+   * @returns 없음
+   */
   const handleQuestion = (question: CreateQuestionData) => {
     const index = questions.findIndex((q) => q._id === question._id);
     if (index < 0) {
@@ -41,21 +46,6 @@ export const ModifySurvey = ({ surveyData, callApi }: Props) => {
     questions[index] = question;
     console.log("handle question questions:", questions);
     setQuestions([...questions]);
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    survey.questions = questions;
-    try {
-      setLoading(true);
-      const result = await callApi(survey);
-      console.log("result:", result);
-      // navigate("/surveys/profile", { replace: true });
-      navigate(-1);
-    } catch (error) {
-      setLoading(false);
-      catchErrors(error, setError);
-    }
   };
 
   const addQuestion = () => {
@@ -76,6 +66,20 @@ export const ModifySurvey = ({ surveyData, callApi }: Props) => {
     const delQuestions = questions.filter((question) => question._id !== id);
     setQuestions(delQuestions);
   }
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    survey.questions = questions;
+    try {
+      setLoading(true);
+      const result = await callApi(survey);
+      console.log("result:", result);
+      navigate(-1);
+    } catch (error) {
+      setLoading(false);
+      catchErrors(error, setError);
+    }
+  };
 
   const disabled = hasIncompleteEditing();
 
