@@ -25,9 +25,9 @@ export const ResultSurvey = () => {
   async function getAnswers() {
     try {
       if (surveyId) {
-        const survey = await answerApi.getAnswers(surveyId);
-        // console.log(survey);
-        setSurvey(survey);
+        const result = await answerApi.getAnswers(surveyId);
+        console.log(result);
+        setSurvey(result);
       } else {
         setLoading(true);
       }

@@ -22,8 +22,8 @@ export const SurveyCard = ({ survey, handleDelete }: Props) => {
 
   return (
     <div className="w-40 h-48 md:w-52 md:h-60 rounded border-2 hover:border-2 hover:border-themeColor">
-      <Link to={`${survey._id}`} state={survey} className="w-full pt-1">
-        <p className="font-bold">
+      <Link to={`${survey._id}`} state={survey} className="w-full">
+        <p className="font-bold text-center mt-1.5">
           {survey.title ? survey.title : "제목없는 설문조사"}
         </p>
 
@@ -32,7 +32,7 @@ export const SurveyCard = ({ survey, handleDelete }: Props) => {
             {survey.comment ? survey.comment : "설명없는 설문조사"}
           </p>
         </div>
-        <p className="text-gray-500 text-sm">
+        <p className="text-gray-500 text-sm text-center">
           {survey.updatedAt?.substring(0, 10)}
         </p>
       </Link>
