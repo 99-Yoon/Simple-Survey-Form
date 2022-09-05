@@ -137,7 +137,7 @@ export const getAnswers = asyncWrap(async (reqExp, res) => {
   const { surveyId } = req.params;
   try {
     const result = await answerDb.getAnswers(surveyId);
-    console.log("result===", result);
+    // console.log("result===", result);
     return res.json(result);
   } catch (error: any) {
     res.status(422).send(error.message || "설문조사 결과 불러오기 오류");

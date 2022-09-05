@@ -1,4 +1,4 @@
-import { Answer, IAnswer } from "../models";
+import { Answer, IAnswer, Survey } from "../models";
 import { model, Schema, Types } from "mongoose";
 
 export const createAnswer = async (answer: IAnswer) => {
@@ -7,6 +7,7 @@ export const createAnswer = async (answer: IAnswer) => {
 };
 
 export const getAnswers = async (surveyId: string) => {
+  const survey = await Survey.findById(surveyId).populate("questions");
   const result = await Answer.aggregate([
     // surveyId에 해당하는 답변들 find
     { $match: { surveyId: new Types.ObjectId(surveyId) } },
@@ -27,45 +28,27 @@ export const getAnswers = async (surveyId: string) => {
         from: "questions",
         localField: "_id",
         foreignField: "_id",
-        as: "questionInfo",
+        as: "question",
       },
     },
+
     {
-      $unwind: "$questionInfo",
-    },
-
-    { $set: { "questionInfo.answers": "$answers" } },
-    { $unset: "answers" },
-
-    // 질문 순서대로 정렬
-    { $sort: { "questionInfo.order": 1 } },
-
-    // surveyId로 묶고 questions 내에 { questionInfo, answers }[]
-    {
-      $group: {
-        _id: "$surveyId",
-        questions: {
-          $push: "$questionInfo",
+      $replaceRoot: {
+        newRoot: {
+          $mergeObjects: [{ $arrayElemAt: ["$question", 0] }, "$$ROOT"],
         },
       },
     },
-
-    // survey DB populate
-    {
-      $lookup: {
-        from: "surveys",
-        localField: "_id",
-        foreignField: "_id",
-        as: "survey",
-      },
-    },
-    {
-      $unwind: "$survey",
-    },
-
-    //밖에 있던 questions를 survey 내부로 이동시키고 survey를 가장 root로 변경
-    { $set: { "survey.questions": "$questions" } },
-    { $replaceRoot: { newRoot: "$survey" } },
+    { $unset: "question" },
+    { $sort: { order: 1 } },
   ]);
-  return result[0];
+
+  console.log("result:", result);
+
+  if (survey && result.length > 0) {
+    const Jsurvey = survey.toJSON();
+    Jsurvey.questions = result;
+    return Jsurvey;
+  }
+  return survey;
 };
