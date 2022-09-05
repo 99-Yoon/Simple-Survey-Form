@@ -45,7 +45,7 @@ export const getAnswers = async (surveyId: string) => {
 
   console.log("result:", result);
 
-  if (survey && result[0]) {
+  if (survey && result.length > 0) {
     const Jsurvey = survey.toJSON();
     Jsurvey.questions = result;
     return Jsurvey;
