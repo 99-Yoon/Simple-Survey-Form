@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { catchErrors } from "../helpers";
 import { SpinnerIcon } from "../icons";
 import { useAuth } from "./auth.context";
@@ -69,17 +69,23 @@ export const Login = () => {
             <p>{error}</p>
           </div>
         )}
-        <div className="text-center mt-3">
+        <div className="flex justify-center items-center mt-3">
+          {loading && (
+            <SpinnerIcon className="animate-spin h-5 w-5 mr-1 text-themeColor" />
+          )}
           <button
             type="submit"
             disabled={loading ? true : false}
-            className="bg-themeColor text-white border rounded w-100 py-2 px-3 mt-5"
+            className="bg-themeColor text-white border rounded w-full py-2 px-3"
           >
-            {loading && (
-              <SpinnerIcon className="animate-spin h-5 w-5 mr-1 text-white" />
-            )}
             로그인
           </button>
+        </div>
+        <div className="flex justify-between mt-4">
+          <p className="text-sm">회원이 아니십니까?</p>
+          <Link to={"/signup"} className="text-sm text-themeColor">
+            회원가입 →
+          </Link>
         </div>
       </form>
     </div>
