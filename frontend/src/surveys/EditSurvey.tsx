@@ -26,10 +26,10 @@ export const EditSurvey = () => {
   //   return result;
   // };
 
-  const handleTitle = (title: string) => {
-    console.log("title in handle title:", title);
+  const handleTitleComment = (state: { title: string; comment: string }) => {
+    console.log("title in handle title and comment:", state);
     // survey.title = title
-    update({ ...survey, title: title });
+    update({ ...survey, title: state.title, comment: state.comment });
   };
 
   /**
@@ -86,7 +86,7 @@ export const EditSurvey = () => {
       addQuestion={addQuestion}
       deleteQuestion={deleteQuestion}
       handleQuestion={updateQuestion}
-      handleTitle={handleTitle}
+      handleTitleComment={handleTitleComment}
       // callApi={update}
     />
   );
