@@ -50,14 +50,13 @@ export const EditSurvey = () => {
   // };
 
   const addQuestion = async () => {
-    const question: CreateQuestionData = {
+    const question: IQuestionData = {
       order: questions.length,
       type: "singletext",
       title: "",
       comment: "",
       isRequired: false,
       content: { choices: [] },
-      isEditing: true,
     };
     // const updatedSurvey = await surveyApi.addQuestion(survey._id!, question);
     await createQuestion(question);

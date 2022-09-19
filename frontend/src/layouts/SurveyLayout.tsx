@@ -2,14 +2,19 @@ import React from "react";
 import { NavLink, useOutletContext } from "react-router-dom";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { useSurveys } from "./SurveysLayout";
-import type { CreateQuestionData, ICreateSurvey, ISurvey } from "../types";
+import type {
+  CreateQuestionData,
+  ICreateSurvey,
+  IQuestionData,
+  ISurvey,
+} from "../types";
 import { SpinnerIcon } from "../icons";
 import { surveyApi } from "../apis";
 
 type SurveyContextType = {
   survey: ICreateSurvey;
   update: (survey: ISurvey) => Promise<any>;
-  createQuestion: (question: CreateQuestionData) => Promise<any>;
+  createQuestion: (question: IQuestionData) => Promise<any>;
   removeQuestion: (questionId: string) => Promise<any>;
   updateQuestion: (question: CreateQuestionData) => Promise<any>;
 };
@@ -17,7 +22,7 @@ type SurveyContextType = {
 const activeStyle =
   "w-36 h-12 flex justify-center items-center bg-themeColor p-1 text-white text-center font-bold text-xl";
 const inActiveStyle =
-  "w-36 h-12 flex justify-center items-center bg-white border border-themeColor p-1 text-center font-bold text-xl";
+  "w-36 h-12 flex justify-center items-center bg-white border border-themeColor first:border-r-0 last:border-l-0 p-1 text-center font-bold text-xl";
 
 export const SurveyLayout = () => {
   const { surveys, update, updateLocalSurveysList } = useSurveys();
@@ -34,10 +39,10 @@ export const SurveyLayout = () => {
     );
   }
 
-  const createQuestion = async (question: CreateQuestionData) => {
+  const createQuestion = async (question: IQuestionData) => {
     const newQuestion = await surveyApi.addQuestion(survey._id!, question);
     console.log("new question:", newQuestion);
-
+    newQuestion.isEditing = true;
     survey.questions.push(newQuestion);
     updateLocalSurveysList(survey);
   };
@@ -72,21 +77,21 @@ export const SurveyLayout = () => {
     <div>
       <div className="flex justify-center items-center mt-6">
         <NavLink
-          to={`/surveys/${surveyId}`}
-          end={true}
+          to={`/surveys/${surveyId}/edit`}
           className={({ isActive }) =>
             isActive
               ? activeStyle + " rounded-l-3xl"
               : inActiveStyle + " rounded-l-3xl"
           }
         >
-          설문 미리보기
+          설문지 수정
         </NavLink>
         <NavLink
-          to={`/surveys/${surveyId}/edit`}
+          to={`/surveys/${surveyId}`}
+          end={true}
           className={({ isActive }) => (isActive ? activeStyle : inActiveStyle)}
         >
-          설문지 수정
+          설문 미리보기
         </NavLink>
         <NavLink
           to={`/surveys/${surveyId}/result`}
