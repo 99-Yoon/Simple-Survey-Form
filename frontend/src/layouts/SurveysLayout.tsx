@@ -11,6 +11,7 @@ type SurveysContextType = {
   create: () => Promise<any>;
   remove: (id: string) => Promise<any>;
   update: (survey: ICreateSurvey) => Promise<any>;
+  updateLocalSurveysList: (survey: ICreateSurvey) => void;
 };
 
 export const SurveysLayout = () => {
@@ -38,14 +39,25 @@ export const SurveysLayout = () => {
    * @param surveyData 바꾸려는 설문 객체
    */
   const update = async (surveyData: ICreateSurvey) => {
-    // const result = await surveyApi.updateSurvey(surveyData);
-    // const index = surveys.findIndex((survey) => survey._id === result._id);
-    // surveys[index] = result;
-    const index = surveys.findIndex((survey) => survey._id === surveyData._id);
-    surveys[index] = surveyData;
-    console.log("update in surveys layout layout:", surveyData);
+    const result = await surveyApi.updateSurvey(surveyData);
+    const index = surveys.findIndex((survey) => survey._id === result._id);
+    surveys[index] = result;
+    // const index = surveys.findIndex((survey) => survey._id === surveyData._id);
+    // surveys[index] = surveyData;
+    // console.log("update in surveys layout layout:", surveyData);
+    console.log("updated survey data:", result);
     setSurveys([...surveys]);
     // return result;
+  };
+
+  const updateLocalSurveysList = (surveyData: ICreateSurvey) => {
+    const index = surveys.findIndex((survey) => survey._id === surveyData._id);
+    surveys[index] = surveyData;
+    // const index = surveys.findIndex((survey) => survey._id === surveyData._id);
+    // surveys[index] = surveyData;
+    // console.log("update in surveys layout layout:", surveyData);
+    console.log("updated local survey data:", surveyData);
+    setSurveys([...surveys]);
   };
 
   /**
@@ -74,7 +86,17 @@ export const SurveysLayout = () => {
 
   return (
     <>
-      <Outlet context={{ error, loading, surveys, create, remove, update }} />
+      <Outlet
+        context={{
+          error,
+          loading,
+          surveys,
+          create,
+          remove,
+          update,
+          updateLocalSurveysList,
+        }}
+      />
     </>
   );
 };

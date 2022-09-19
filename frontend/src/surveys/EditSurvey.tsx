@@ -8,7 +8,8 @@ import { SpinnerIcon } from "../icons";
 import { ModifySurveyView } from "./ModifySurveyView";
 
 export const EditSurvey = () => {
-  const { survey, update } = useSurvey();
+  const { survey, createQuestion, removeQuestion, update, updateQuestion } =
+    useSurvey();
   // const [survey, setSurvey] = useState<ISurvey>(surveyData);
   // const [questions, setQuestions] = useState<CreateQuestionData[]>(() => {
   //   const questions = survey.questions;
@@ -36,21 +37,20 @@ export const EditSurvey = () => {
    * @param question 수정할 질문
    * @returns 없음
    */
-  const updateQuestion = (question: CreateQuestionData) => {
-    const index = questions.findIndex((q) => q._id === question._id);
-    if (index < 0) {
-      return;
-    }
-    questions[index] = question;
-    console.log("questions in update question:", questions);
-    // setQuestions([...questions]);
-    survey.questions = questions;
-    update(survey);
-  };
+  // const updateQuestion = (question: CreateQuestionData) => {
+  //   const index = questions.findIndex((q) => q._id === question._id);
+  //   if (index < 0) {
+  //     return;
+  //   }
+  //   questions[index] = question;
+  //   console.log("questions in update question:", questions);
+  //   // setQuestions([...questions]);
+  //   survey.questions = questions;
+  //   update(survey);
+  // };
 
-  const addQuestion = () => {
+  const addQuestion = async () => {
     const question: CreateQuestionData = {
-      _id: Math.random().toString(),
       order: questions.length,
       type: "singletext",
       title: "",
@@ -59,11 +59,16 @@ export const EditSurvey = () => {
       content: { choices: [] },
       isEditing: true,
     };
+    // const updatedSurvey = await surveyApi.addQuestion(survey._id!, question);
+    await createQuestion(question);
+    // console.log("new question:", updatedSurvey);
+    // await update(updatedSurvey);
     // setQuestions([...questions, question]);
   };
 
   async function deleteQuestion(id: string) {
-    const delQuestions = questions.filter((question) => question._id !== id);
+    await removeQuestion(id);
+    // const delQuestions = questions.filter((question) => question._id !== id);
     // setQuestions(delQuestions);
   }
 
@@ -83,7 +88,7 @@ export const EditSurvey = () => {
       deleteQuestion={deleteQuestion}
       handleQuestion={updateQuestion}
       handleTitle={handleTitle}
-      callApi={update}
+      // callApi={update}
     />
   );
 };

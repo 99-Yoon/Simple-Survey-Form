@@ -20,10 +20,14 @@ router
 
 router
   .route("/:surveyId/questions")
-  .post(
+  .post(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.addQuestion);
+
+router
+  .route("/:surveyId/questions/:questionId")
+  .delete(
     authCtrl.requireLogin,
     authCtrl.authenticate,
-    questionCtrl.createQuestion
+    surveyCtrl.deleteQuestion
   );
 
 router.param("surveyId", surveyCtrl.userBySurveyId);

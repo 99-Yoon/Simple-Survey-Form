@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Types } from "mongoose";
-import { surveyDb } from "../db";
+import { questionDb, surveyDb } from "../db";
 import { asyncWrap } from "../helpers/asyncWrap";
 import { ISurvey } from "../models";
 
@@ -8,6 +8,23 @@ export interface TypedRequestAuth<T> extends Request {
   auth: T;
   user: any;
 }
+
+/**
+ * 설문에 새로운 질문을 추가
+ */
+export const addQuestion = asyncWrap(async (reqExp: Request, res: Response) => {
+  const req = reqExp as TypedRequestAuth<{ userId: string }>;
+  // Question controller 이용 질문 생성
+  const { userId } = req.auth;
+  const { _id, ...questionInput } = req.body;
+  questionInput.user = userId;
+  const newQuestion = await questionDb.createQuestion(questionInput);
+
+  // 생성된 질문을 survey에 추가
+  const { surveyId } = req.params;
+  await surveyDb.addQuestion(surveyId, newQuestion);
+  res.json(newQuestion);
+});
 
 export const createSurvey = asyncWrap(
   async (reqExp: Request, res: Response) => {
@@ -20,6 +37,19 @@ export const createSurvey = asyncWrap(
     return res.json(newSurvey);
   }
 );
+
+export const deleteQuestion = asyncWrap(async (req, res) => {
+  const { surveyId, questionId } = req.params;
+  const deletedQuestion = await questionDb.deleteQuestionById(questionId);
+  const survey = await surveyDb.removeQuestion(surveyId, questionId);
+  return res.json(deletedQuestion);
+});
+
+export const deleteSurvey = asyncWrap(async (req, res) => {
+  const { surveyId } = req.params;
+  const survey = await surveyDb.deleteSurvey(surveyId);
+  return res.json(survey);
+});
 
 export const getSurveyById = asyncWrap(async (req, res) => {
   const { surveyId } = req.params;
@@ -39,12 +69,6 @@ export const updateSurvey = asyncWrap(async (req, res) => {
   const survey = req.body;
   const newSurvey = await surveyDb.updateSurvey(survey);
   return res.json(newSurvey);
-});
-
-export const deleteSurvey = asyncWrap(async (req, res) => {
-  const { surveyId } = req.params;
-  const survey = await surveyDb.deleteSurvey(surveyId);
-  return res.json(survey);
 });
 
 export const userBySurveyId = async (

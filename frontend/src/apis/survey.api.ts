@@ -1,9 +1,32 @@
 import axios from "axios";
-import { ISurvey } from "../types";
+import { CreateQuestionData, IQuestionData, ISurvey } from "../types";
 import baseUrl from "./baseUrl";
+
+export const addQuestion = async (
+  surveyId: string,
+  question: IQuestionData
+) => {
+  const { data } = await axios.post(
+    `${baseUrl}/surveys/${surveyId}/questions`,
+    question
+  );
+  return data;
+};
 
 export const createSurvey = async (survey: ISurvey) => {
   const { data } = await axios.post(`${baseUrl}/surveys`, survey);
+  return data;
+};
+
+export const deleteQuestion = async (surveyId: string, questionId: string) => {
+  const { data } = await axios.delete(
+    `${baseUrl}/surveys/${surveyId}/questions/${questionId}`
+  );
+  return data;
+};
+
+export const deleteSurvey = async (surveyId: string) => {
+  const { data } = await axios.delete(`${baseUrl}/surveys/${surveyId}`);
   return data;
 };
 
@@ -22,11 +45,6 @@ export const getSurveys = async () => {
   return data;
 };
 
-export const updateSurvey = async (survey: ISurvey) => {
-  const { data } = await axios.put(`${baseUrl}/surveys/${survey._id}`, survey);
-  return data;
-};
-
 export const resultSurvey = async (survey: ISurvey) => {
   const { data } = await axios.put(
     `${baseUrl}/surveys/${survey._id}/result`,
@@ -35,7 +53,18 @@ export const resultSurvey = async (survey: ISurvey) => {
   return data;
 };
 
-export const deleteSurvey = async (surveyId: string) => {
-  const { data } = await axios.delete(`${baseUrl}/surveys/${surveyId}`);
+export const updateQuestion = async (
+  surveyId: string,
+  question: CreateQuestionData
+) => {
+  const { data } = await axios.put(
+    `${baseUrl}/surveys/${surveyId}/questions/${question._id}`,
+    question
+  );
+  return data;
+};
+
+export const updateSurvey = async (survey: ISurvey) => {
+  const { data } = await axios.put(`${baseUrl}/surveys/${survey._id}`, survey);
   return data;
 };
