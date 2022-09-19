@@ -50,6 +50,10 @@ export const SurveysLayout = () => {
     // return result;
   };
 
+  /**
+   * 로컬 설문데이터 상태 업데이트
+   * @param surveyData 로컬 설문데이터
+   */
   const updateLocalSurveysList = (surveyData: ICreateSurvey) => {
     const index = surveys.findIndex((survey) => survey._id === surveyData._id);
     surveys[index] = surveyData;

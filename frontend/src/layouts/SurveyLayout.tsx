@@ -13,10 +13,10 @@ import { surveyApi } from "../apis";
 
 type SurveyContextType = {
   survey: ICreateSurvey;
-  update: (survey: ISurvey) => Promise<any>;
   createQuestion: (question: IQuestionData) => Promise<any>;
   removeQuestion: (questionId: string) => Promise<any>;
   updateQuestion: (question: CreateQuestionData) => Promise<any>;
+  updateTitleComment: (state: { title: string; comment: string }) => void;
 };
 
 const activeStyle =
@@ -58,6 +58,11 @@ export const SurveyLayout = () => {
     updateLocalSurveysList(survey);
   };
 
+  /**
+   * 수정된 질문을 입력받아 기존 질문을 대체합니다.
+   * @param question 수정할 질문
+   * @returns 없음
+   */
   const updateQuestion = async (question: CreateQuestionData) => {
     const updatedQuestion = await surveyApi.updateQuestion(
       survey._id!,
@@ -71,8 +76,18 @@ export const SurveyLayout = () => {
     }
     questions[index] = question;
     console.log("questions in update question:", questions);
-    // setQuestions([...questions]);
     survey.questions = questions;
+    updateLocalSurveysList(survey);
+  };
+
+  const updateTitleComment = async (state: {
+    title: string;
+    comment: string;
+  }) => {
+    survey.title = state.title;
+    survey.comment = state.comment;
+    console.log("title in handle title and comment:", state);
+    const result = await surveyApi.updateSurvey(survey);
     updateLocalSurveysList(survey);
   };
 
@@ -112,8 +127,8 @@ export const SurveyLayout = () => {
           survey,
           createQuestion,
           removeQuestion,
-          update,
           updateQuestion,
+          updateTitleComment,
         }}
       />
     </div>
