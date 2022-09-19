@@ -14,7 +14,7 @@ export const AQuestion = ({ question, answer }: Props) => {
         {question.isRequired ? (
           <div className="text-xs text-red-600 justify-end">* 필수질문</div>
         ) : (
-          <></>
+          <div></div>
         )}
         <div className="md:text-xl text-base font-bold">{question.title}</div>
       </div>

@@ -15,17 +15,17 @@ export const Header = () => {
       <div className="hidden md:flex">
         {user.isLoggedIn ? (
           <div>
+            <Link to="/surveys">
+              <button className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md">
+                프로필
+              </button>
+            </Link>
             <button
               onClick={() => logout(() => navigate("/"))}
               className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md"
             >
               로그아웃
             </button>
-            <Link to="/surveys">
-              <button className="font-bold text-gray-600 hover:text-themeColor mx-1 py-2 px-3 rounded-md">
-                프로필
-              </button>
-            </Link>
           </div>
         ) : (
           <div>
@@ -46,15 +46,12 @@ export const Header = () => {
       <div className="md:hidden">
         {user.isLoggedIn ? (
           <div className="flex px-4">
-            <button
-              onClick={() => logout(() => navigate("/"))}
-              className="mr-3"
-            >
+            <Link to="/surveys">
+              <UserIcon className="h-7 w-7 mx-4" />
+            </Link>
+            <button onClick={() => logout(() => navigate("/"))}>
               <LogoutIcon className="h-7 w-7" />
             </button>
-            <Link to="/surveys">
-              <UserIcon className="h-7 w-7" />
-            </Link>
           </div>
         ) : (
           <div className="flex px-4">
