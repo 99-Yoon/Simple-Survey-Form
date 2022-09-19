@@ -13,7 +13,7 @@ type Props = {
   deleteQuestion: (id: string) => void;
   handleQuestion: (question: CreateQuestionData) => void;
   handleTitle: Function;
-  callApi: (surveyData: ISurvey) => Promise<any>;
+  // callApi: (surveyData: ISurvey) => Promise<any>;
 };
 
 export const ModifySurveyView = ({
@@ -23,8 +23,8 @@ export const ModifySurveyView = ({
   deleteQuestion,
   handleQuestion,
   handleTitle,
-  callApi,
-}: Props) => {
+}: // callApi,
+Props) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   // const [survey, setSurvey] = useState<ISurvey>(surveyData);

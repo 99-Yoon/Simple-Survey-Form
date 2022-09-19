@@ -28,9 +28,7 @@ export const createQuestion = asyncWrap(
         return res.json(newQuestion);
       }
     } catch (error: any) {
-      return res
-        .status(500)
-        .send(error.message || "질문을 생성하는 중 오류 발생");
+      return res.status(500).send(error.message || "질문 생성 오류");
     }
   }
 );

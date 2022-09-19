@@ -1,12 +1,14 @@
 import { HydratedDocument } from "mongoose";
 import { Survey, ISurvey, Question, IQuestion } from "../models";
 
-export const findUserBySurveyId = async (surveyId: string) => {
-  const survey = await Survey.findById(surveyId).populate("user");
-  console.log(survey);
-  if (survey !== null) {
-    console.log(survey.user);
-    return survey.user;
+export const addQuestion = async (surveyId: string, question: any) => {
+  if (question !== null) {
+    const updatedSurvey = await Survey.findOneAndUpdate(
+      { _id: surveyId },
+      { $push: { questions: question } },
+      { new: true }
+    ).populate("questions");
+    return updatedSurvey;
   }
   return null;
 };
@@ -30,6 +32,32 @@ export const createSurvey = async (surveyData: ISurvey) => {
   });
   const newSurvey = await (await survey.save()).populate("questions");
   return newSurvey;
+};
+
+export const removeQuestion = async (surveyId: string, questionId: string) => {
+  const updatedSurvey = await Survey.findOneAndUpdate(
+    { _id: surveyId },
+    { $pull: { questions: questionId } },
+    { new: true }
+  );
+
+  return updatedSurvey;
+};
+
+export const deleteSurvey = async (surveyId: string) => {
+  console.log("survey id", surveyId);
+  const survey = await Survey.findOneAndDelete({ _id: surveyId });
+  return survey;
+};
+
+export const findUserBySurveyId = async (surveyId: string) => {
+  const survey = await Survey.findById(surveyId).populate("user");
+  console.log(survey);
+  if (survey !== null) {
+    console.log(survey.user);
+    return survey.user;
+  }
+  return null;
 };
 
 export const getSurveyById = async (surveyId: string) => {
@@ -59,12 +87,6 @@ export const updateSurvey = async (survey: HydratedDocument<ISurvey>) => {
     new: true,
   }).populate("questions");
   return newSurvey;
-};
-
-export const deleteSurvey = async (surveyId: string) => {
-  console.log("survey id", surveyId);
-  const survey = await Survey.findOneAndDelete({ _id: surveyId });
-  return survey;
 };
 
 export const putNewQuestion = async (newQuestion: any, surveyId: string) => {
