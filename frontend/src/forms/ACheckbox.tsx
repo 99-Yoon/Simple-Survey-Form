@@ -49,7 +49,7 @@ export const ACheckbox = ({
   // console.log("content:", content);
 
   return (
-    <div className="flex w-full gap-2 justify-center my-3">
+    <div className="md:flex gap-2 justify-center my-3">
       {element.content.choices.map((choice) => (
         <div key={choice.value} className="mx-2">
           <input
@@ -58,7 +58,7 @@ export const ACheckbox = ({
             value={choice.text}
             onChange={handleChange}
           />
-          <label className="text-lg">{choice.text}</label>
+          <label className="md:text-lg text-base">{choice.text}</label>
         </div>
       ))}
     </div>

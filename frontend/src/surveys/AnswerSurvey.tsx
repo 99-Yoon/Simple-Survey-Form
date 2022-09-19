@@ -114,8 +114,12 @@ export const AnswerSurvey = () => {
     <form onSubmit={handleSubmit}>
       <div className="flex flex-col place-items-center">
         <div className="flex flex-col container place-items-center mt-4">
-          <p className="font-bold text-4xl text-center m-2">{survey.title}</p>
-          <p className="font-bold text-1xl text-center m-2">{survey.comment}</p>
+          <p className="font-bold md:text-4xl text-2xl text-center m-2">
+            {survey.title}
+          </p>
+          <p className="font-bold md:text-1xl text-center m-2">
+            {survey.comment}
+          </p>
           {answers.map((answer) => {
             return (
               <AQuestion

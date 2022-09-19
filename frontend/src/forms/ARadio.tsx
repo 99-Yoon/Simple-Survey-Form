@@ -16,7 +16,7 @@ export const ARadio = ({ element, answer: answerQuestion }: IAnswerProps) => {
     console.log(answerQuestion);
   };
   return (
-    <div className="flex w-full gap-2 justify-center my-3">
+    <div className="md:flex gap-2 justify-center my-3">
       {element.content.choices.map((choice) => (
         <div key={choice.value} className="mx-2">
           <input
@@ -27,7 +27,7 @@ export const ARadio = ({ element, answer: answerQuestion }: IAnswerProps) => {
             onChange={handleChange}
             value={choice.text}
           ></input>
-          <label className="text-lg" id={choice.text}>
+          <label className="md:text-lg text-base" id={choice.text}>
             {choice.text}
           </label>
         </div>
