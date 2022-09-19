@@ -65,6 +65,12 @@ export const getSurveys = asyncWrap(async (reqExp: Request, res: Response) => {
   return res.json(surveys);
 });
 
+export const updateQuestion = asyncWrap(async (req: Request, res: Response) => {
+  const question = req.body;
+  const updatedQuestion = await questionDb.updateQuestion(question);
+  return res.json(updatedQuestion);
+});
+
 export const updateSurvey = asyncWrap(async (req, res) => {
   const survey = req.body;
   const updatedSurvey = await surveyDb.updateSurvey(survey);

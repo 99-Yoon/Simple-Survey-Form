@@ -24,6 +24,7 @@ router
 
 router
   .route("/:surveyId/questions/:questionId")
+  .put(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.updateQuestion)
   .delete(
     authCtrl.requireLogin,
     authCtrl.authenticate,

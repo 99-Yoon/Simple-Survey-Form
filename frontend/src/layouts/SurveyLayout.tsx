@@ -59,7 +59,10 @@ export const SurveyLayout = () => {
   };
 
   const updateQuestion = async (question: CreateQuestionData) => {
-    await surveyApi.updateQuestion(survey._id!, question);
+    const updatedQuestion = await surveyApi.updateQuestion(
+      survey._id!,
+      question
+    );
 
     const questions = survey.questions;
     const index = questions.findIndex((q) => q._id === question._id);
