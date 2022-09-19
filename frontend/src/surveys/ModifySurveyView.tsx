@@ -5,6 +5,7 @@ import { SpinnerIcon } from "../icons";
 import { CreateQuestionData, ISurvey } from "../types";
 import { QuestionsList } from "./QuestionsList";
 import { SurveyTitle } from "./SurveyTitle";
+import { SurveyTitleAndComment } from "./SurveyTitleAndComment";
 
 type Props = {
   questions: CreateQuestionData[];
@@ -12,7 +13,7 @@ type Props = {
   addQuestion: () => void;
   deleteQuestion: (id: string) => void;
   handleQuestion: (question: CreateQuestionData) => void;
-  handleTitle: Function;
+  handleTitleComment: Function;
   // callApi: (surveyData: ISurvey) => Promise<any>;
 };
 
@@ -22,7 +23,7 @@ export const ModifySurveyView = ({
   addQuestion,
   deleteQuestion,
   handleQuestion,
-  handleTitle,
+  handleTitleComment,
 }: // callApi,
 Props) => {
   const [error, setError] = useState("");
@@ -104,8 +105,13 @@ Props) => {
       )}
       <form>
         <div className="flex flex-col place-items-center">
-          <SurveyTitle text={survey.title} handleTitle={handleTitle} />
-          <div className="flex flex-col container place-items-center mt-4">
+          {/* <SurveyTitle text={survey.title} handleTitle={handleTitle} /> */}
+          <SurveyTitleAndComment
+            title={survey.title}
+            comment={survey.comment}
+            handleTitleComment={handleTitleComment}
+          />
+          {/* <div className="flex flex-col container place-items-center mt-4">
             <input
               type="text"
               name="title"
@@ -125,7 +131,7 @@ Props) => {
               value={survey.comment}
               onChange={handleChange}
             ></input>
-          </div>
+          </div> */}
           <QuestionsList
             questions={questions}
             handleQuestion={handleQuestion}
