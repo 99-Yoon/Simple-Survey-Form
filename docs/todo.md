@@ -1,5 +1,21 @@
 # 할일
 
+## 로드맵
+
+- 서버로 올리기
+  - 도커 앱
+- 결과 보이기 기능 추가?
+  - 사용자 인터페이스는 어떻게 꾸미나?
+  - 그래프 라이브러리는 어떤 것을 사용하나?
+    - [D3.js](https://d3js.org/): free, steep learning curve
+    - [Plotly](https://plotly.com/): free, paid, dependency: D3.js, Stack.gl
+    - [Chart.js](https://github.com/chartjs/Chart.js): free, open source, dependency: Moment.js
+  - 평균, 표준편차,
+  - 그래프: 막대, 꺽은선
+- 조건있는 설문지 양식 만들기
+- 설문 자료 다운로드(csv) 받기 기능
+- 설문 업로드? 기능
+
 ## 리덕스
 
 리덕스는 전역 상태를 관리하는 프레임워크입니다.
