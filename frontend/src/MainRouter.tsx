@@ -18,6 +18,8 @@ import {
   ResultLayout,
 } from "./layouts";
 import { Home } from "./home";
+import { OAuthRedirectHandler } from "./auth/OAuthRedirectHandler";
+import { LoginSuccess } from "./commons/LoginSuccess";
 
 export const MainRouter = () => {
   return (
@@ -26,6 +28,8 @@ export const MainRouter = () => {
         <Route element={<BaseLayout />}>
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />} />
+          <Route path="/login/success" element={<LoginSuccess />} />
+          <Route path="/oauth/kakao" element={<OAuthRedirectHandler />} />
           <Route path="/signup" element={<SignUp />} />
           <Route element={<ResultLayout />}>
             <Route path="/results/:surveyId" element={<ResultSurvey />} />

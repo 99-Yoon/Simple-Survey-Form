@@ -3,6 +3,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { catchErrors } from "../helpers";
 import { SpinnerIcon } from "../icons";
 import { useAuth } from "./auth.context";
+import { REST_API_KEY, REDIRECT_URI } from "../auth";
+// import { authApi } from "../apis";
+import KakaoLoginImg from "../icons/kakao_login_medium_wide.png";
 
 interface LocationState {
   state: { from: string };
@@ -34,6 +37,20 @@ export const Login = () => {
       catchErrors(error, setError);
     }
   }
+
+  // async function kakaoLogin() {
+  //   try {
+  //     // await authApi.kakaoLogin();
+  //     console.log("성공?");
+  //   } catch (error) {
+  //     setLoading(false);
+  //     catchErrors(error, setError);
+  //   }
+  // }
+
+  const kakaoLogin = () => {
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -88,6 +105,11 @@ export const Login = () => {
           </Link>
         </div>
       </form>
+      <div>
+        <button type="button" onClick={kakaoLogin}>
+          <img src={KakaoLoginImg} className="my-2"></img>
+        </button>
+      </div>
     </div>
   );
 };

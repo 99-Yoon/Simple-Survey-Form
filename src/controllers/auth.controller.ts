@@ -6,12 +6,17 @@ import isEmail from "validator/lib/isEmail";
 import { asyncWrap } from "../helpers";
 import { roleDb, userDb } from "../db";
 import { jwtCofig, envConfig, cookieConfig } from "../config";
+import axios from "axios";
 
 export interface TypedRequestAuth<T> extends Request {
   auth: T;
   user: any;
 }
 
+const REST_API_KEY = process.env.REST_API_KEY as string;
+const REDIRECT_URI = process.env.REDIRECT_URI as string;
+const CLIENT_SECRET_KEY = process.env.CLIENT_SECRET_KEY as string;
+console.log("restapikey", REST_API_KEY);
 /**
  * 함수를 호출하기 전에 req에 user 정보를 지정해야 합니다.
  */
@@ -72,7 +77,9 @@ export const login = asyncWrap(async (req, res) => {
   const user = await userDb.findUserByEmail(email, true);
   console.log("user =", user);
   if (!user) {
-    return res.status(422).send(`${email} 사용자가 존재하지않습니다 회원가입을 해주세요`);
+    return res
+      .status(422)
+      .send(`${email} 사용자가 존재하지않습니다 회원가입을 해주세요`);
   }
   // 2) 비밀번호 확인
   const passwordMatch = await bcrypt.compare(password, user.password);
@@ -148,4 +155,31 @@ export const signup = asyncWrap(async (req, res) => {
   });
   // 5) 사용자 반환
   res.json(newUser);
+});
+
+export const kakaoAuthenticate = asyncWrap(async (req, res) => {
+  // console.log(req.query);
+  // const code = req.query.code as string;
+  console.log(req.body);
+  const code = req.body.code;
+  try {
+    const params = new URLSearchParams({
+      grant_type: "authorization_code",
+      client_id: REST_API_KEY,
+      redirect_uri: REDIRECT_URI,
+      code: code,
+      client_secret: CLIENT_SECRET_KEY,
+    });
+    const kakaoResponse = await axios.post(
+      "https://kauth.kakao.com/oauth/token",
+      params
+    );
+    console.log(kakaoResponse.data);
+    console.log("jwt decode:", jwt.decode(kakaoResponse.data.id_token));
+    // return res.redirect("http://localhost:8080/login/success");
+    res.json({ kakaoUserData: jwt.decode(kakaoResponse.data.id_token) });
+  } catch (error) {
+    console.log(error);
+    res.send("에러");
+  }
 });

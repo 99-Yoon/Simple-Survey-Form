@@ -19,3 +19,11 @@ export const signup = async (user: SignupUser) => {
   const { data } = await axios.post(`${baseUrl}/auth/signup`, user);
   return data;
 };
+
+export const getKakaoUserData = async (code: string) => {
+  const { data } = await axios.post(`${baseUrl}/auth/oauth/kakao`, {
+    code: code,
+  });
+  console.log("data=", data);
+  return data.kakaoUserData;
+};

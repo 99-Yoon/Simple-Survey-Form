@@ -1,8 +1,9 @@
 import cookieParser from "cookie-parser";
+import * as dotenv from "dotenv";
+dotenv.config();
 import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import router from "./routes";
-
 const app = express();
 
 app.use(express.json());
