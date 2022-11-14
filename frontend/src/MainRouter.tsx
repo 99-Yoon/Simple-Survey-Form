@@ -16,10 +16,12 @@ import {
   SurveyLayout,
   SurveysLayout,
   ResultLayout,
+  AdminLayout,
 } from "./layouts";
 import { Home } from "./home";
 import { OAuthRedirectHandler } from "./auth/OAuthRedirectHandler";
 import { LoginSuccess } from "./commons/LoginSuccess";
+import { Admin, SocialLogin } from "./admin";
 
 export const MainRouter = () => {
   return (
@@ -33,6 +35,11 @@ export const MainRouter = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route element={<ResultLayout />}>
             <Route path="/results/:surveyId" element={<ResultSurvey />} />
+          </Route>
+
+          <Route element={<AdminLayout />}>
+            <Route path="/admin" element={<Admin />}></Route>
+            <Route path="/admin/social-login" element={<SocialLogin />}></Route>
           </Route>
 
           <Route element={<AnswerLayout />}>

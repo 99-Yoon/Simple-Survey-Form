@@ -27,3 +27,18 @@ export const getKakaoUserData = async (code: string) => {
   console.log("data=", data);
   return data.kakaoUserData;
 };
+
+export const saveOauthKeys = async (
+  socialType: string,
+  REST_API_KEY: string,
+  REDIRECT_URI: string,
+  CLIENT_SECRET_KEY: string
+) => {
+  const { data } = await axios.post(`${baseUrl}/auth/oauth`, {
+    socialType,
+    REST_API_KEY,
+    REDIRECT_URI,
+    CLIENT_SECRET_KEY,
+  });
+  return data;
+};

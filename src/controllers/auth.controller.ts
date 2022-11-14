@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import isLength from "validator/lib/isLength";
 import isEmail from "validator/lib/isEmail";
 import { asyncWrap } from "../helpers";
-import { roleDb, userDb } from "../db";
+import { roleDb, userDb, oauthDb } from "../db";
 import { jwtCofig, envConfig, cookieConfig } from "../config";
 import axios from "axios";
 
@@ -182,4 +182,13 @@ export const kakaoAuthenticate = asyncWrap(async (req, res) => {
     console.log(error);
     res.send("에러");
   }
+});
+
+export const saveOauthKeys = asyncWrap(async (req, res, next) => {
+  console.log(req.body);
+  try {
+    const oauth = await oauthDb.createSocialKey(req.body);
+    console.log(oauth);
+    return res.json(oauth);
+  } catch (error) {}
 });
