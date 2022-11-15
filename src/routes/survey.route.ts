@@ -10,7 +10,7 @@ router
 
 router
   .route("/:surveyId")
-  .get(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.getSurveyById)
+  .get(surveyCtrl.getSurveyById)
   .put(authCtrl.requireLogin, authCtrl.authenticate, surveyCtrl.updateSurvey)
   .delete(
     authCtrl.requireLogin,
