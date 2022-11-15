@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "./axios.config";
 import { SignupUser } from "../types";
 import baseUrl from "./baseUrl";
 
