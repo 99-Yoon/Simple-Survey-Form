@@ -104,34 +104,6 @@ export const createAnswerWithFile = asyncWrap(async (reqExp, res) => {
   res.json(newAnswer);
 });
 
-// export const getAnswers = asyncWrap(async (reqExp, res) => {
-//   const req = reqExp as TypedRequest;
-//   const { surveyId } = req.params;
-//   try {
-//     const survey = await surveyDb.getSurveyById(surveyId);
-//     const answers = await answerDb.getAnswers(surveyId);
-//     console.log(answers);
-//     const jsonSurvey = survey?.toJSON();
-//     if (jsonSurvey && answers) {
-//       const a = answers.map(async (a) => {
-//         const targetObj = jsonSurvey.questions.find(
-//           (q: any) => String(q._id) === String(a._id)
-//         ) as any;
-//         if (targetObj) {
-//           if (a.file.length) {
-//             targetObj.answers = a.file;
-//           } else {
-//             targetObj.answers = a.answers;
-//           }
-//         }
-//       });
-//       await Promise.all(a);
-//     }
-//     return res.json(jsonSurvey);
-//   } catch (error: any) {
-//     res.status(422).send(error.message || "설문조사 결과 불러오기 오류");
-//   }
-// });
 export const getAnswers = asyncWrap(async (reqExp, res) => {
   const req = reqExp as TypedRequest;
   const { surveyId } = req.params;

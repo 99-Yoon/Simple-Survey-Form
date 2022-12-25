@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import isLength from "validator/lib/isLength";
 import isEmail from "validator/lib/isEmail";
 import { asyncWrap } from "../helpers";
-import { roleDb, userDb } from "../db";
+import { roleDb, userDb, oauthDb } from "../db";
 import { jwtCofig, envConfig, cookieConfig } from "../config";
 import axios from "axios";
 
@@ -158,28 +158,100 @@ export const signup = asyncWrap(async (req, res) => {
 });
 
 export const kakaoAuthenticate = asyncWrap(async (req, res) => {
-  // console.log(req.query);
-  // const code = req.query.code as string;
-  console.log(req.body);
+  // console.log(req.body);
   const code = req.body.code;
   try {
-    const params = new URLSearchParams({
-      grant_type: "authorization_code",
-      client_id: REST_API_KEY,
-      redirect_uri: REDIRECT_URI,
-      code: code,
-      client_secret: CLIENT_SECRET_KEY,
-    });
-    const kakaoResponse = await axios.post(
-      "https://kauth.kakao.com/oauth/token",
-      params
-    );
-    console.log(kakaoResponse.data);
-    console.log("jwt decode:", jwt.decode(kakaoResponse.data.id_token));
-    // return res.redirect("http://localhost:8080/login/success");
-    res.json({ kakaoUserData: jwt.decode(kakaoResponse.data.id_token) });
+    const socialKeys = await oauthDb.getSocialKey("kakao");
+    if (socialKeys) {
+      const params = new URLSearchParams({
+        grant_type: "authorization_code",
+        client_id: socialKeys.REST_API_KEY,
+        redirect_uri: socialKeys.REDIRECT_URI,
+        code: code,
+        client_secret: socialKeys.CLIENT_SECRET_KEY,
+      });
+      const kakaoResponse = await axios.post(
+        "https://kauth.kakao.com/oauth/token",
+        params
+      );
+      const kakaoUserData = jwt.decode(kakaoResponse.data.id_token) as any;
+      //카카오에서 받아온 user data를 db에 저장
+      if (kakaoUserData) {
+        const userExist = await userDb.isUser(kakaoUserData.email);
+        if (userExist) {
+          const kakaoUser = await userDb.isSocialType(
+            kakaoUserData.email,
+            "kakao"
+          );
+          if (kakaoUser) {
+            // 3) 비밀번호가 맞으면 토큰 생성
+            const token = jwt.sign({ userId: kakaoUser.id }, jwtCofig.secret, {
+              expiresIn: jwtCofig.expires,
+            });
+            // 4) 토큰을 쿠키에 저장
+            res.cookie(cookieConfig.name, token, {
+              maxAge: cookieConfig.maxAge,
+              path: "/",
+              httpOnly: envConfig.mode === "production",
+              secure: envConfig.mode === "production",
+            });
+            // 5) 사용자 반환
+            res.json({
+              isLoggedIn: true,
+              email: kakaoUser.email,
+            });
+          } else {
+            return res
+              .status(422)
+              .send(
+                `다른 로그인 방식의 ${kakaoUserData.email} 사용자가 이미 존재합니다`
+              );
+          }
+        } else {
+          const newUser = await userDb.createUser({
+            email: kakaoUserData.email,
+            password: "",
+            socialType: "kakao",
+          });
+          // 3) 비밀번호가 맞으면 토큰 생성
+          const token = jwt.sign({ userId: newUser.id }, jwtCofig.secret, {
+            expiresIn: jwtCofig.expires,
+          });
+          // 4) 토큰을 쿠키에 저장
+          res.cookie(cookieConfig.name, token, {
+            maxAge: cookieConfig.maxAge,
+            path: "/",
+            httpOnly: envConfig.mode === "production",
+            secure: envConfig.mode === "production",
+          });
+          // 5) 사용자 반환
+          res.json({
+            isLoggedIn: true,
+            email: newUser.email,
+          });
+        }
+      }
+    }
   } catch (error) {
     console.log(error);
     res.send("에러");
   }
+});
+
+export const saveOauthKeys = asyncWrap(async (req, res, next) => {
+  console.log(req.body);
+  try {
+    const oauth = await oauthDb.createSocialKey(req.body);
+    console.log(oauth);
+    return res.json(oauth);
+  } catch (error) {}
+});
+
+export const getOauthKeys = asyncWrap(async (req, res, next) => {
+  console.log(req.params);
+  try {
+    const socialKeys = await oauthDb.getSocialKey(req.params.socialType);
+    console.log(socialKeys);
+    return res.json(socialKeys);
+  } catch (error) {}
 });

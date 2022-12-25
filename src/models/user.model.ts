@@ -6,6 +6,7 @@ export interface IUser {
   password: string;
   role?: Types.ObjectId;
   avatar?: Types.ObjectId;
+  socialType?: string;
 }
 
 const validateEmail = (email: string) => {
@@ -22,9 +23,10 @@ const schema = new Schema<IUser>(
       validate: [validateEmail, "이메일을 입력해주세요"],
     },
     name: { type: String },
-    password: { type: String, required: true, select: false },
+    password: { type: String, select: false },
     role: { type: Schema.Types.ObjectId, ref: "Role" },
     avatar: { type: Schema.Types.ObjectId, ref: "FileInfo" },
+    socialType: { type: String },
   },
   {
     toJSON: {

@@ -16,6 +16,7 @@ export const createUser = async (user: IUser) => {
     password: hash,
     role: userRole,
     avatar: user.avatar,
+    socialType: user.socialType,
     isNew: true,
   });
   const retUser = await newUser.save();
@@ -69,4 +70,9 @@ export const isValidUserId = async (userId: string) => {
   } else {
     return false;
   }
+};
+
+export const isSocialType = async (socialType: string, email: string) => {
+  const user = await User.findOne({ email, socialType });
+  return user;
 };
