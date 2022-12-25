@@ -3,8 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { catchErrors } from "../helpers";
 import { SpinnerIcon } from "../icons";
 import { useAuth } from "./auth.context";
-import { REST_API_KEY, REDIRECT_URI } from "../auth";
-// import { authApi } from "../apis";
+// import { REST_API_KEY, REDIRECT_URI } from "../auth";
+import { authApi } from "../apis";
 import KakaoLoginImg from "../icons/kakao_login_medium_wide.png";
 
 interface LocationState {
@@ -38,18 +38,17 @@ export const Login = () => {
     }
   }
 
-  // async function kakaoLogin() {
-  //   try {
-  //     // await authApi.kakaoLogin();
-  //     console.log("성공?");
-  //   } catch (error) {
-  //     setLoading(false);
-  //     catchErrors(error, setError);
-  //   }
-  // }
-
-  const kakaoLogin = () => {
-    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const kakaoLogin = async () => {
+    // const data = {REST_API_KEY:"", REDIRECT_URI:""}
+    try {
+      // DB에서 카카오 API키 받아온 후 전달
+      const data = await authApi.getOauthKeys("kakao");
+      console.log(data);
+      window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${data.REST_API_KEY}&redirect_uri=${data.REDIRECT_URI}&response_type=code`;
+    } catch (error) {
+      setLoading(false);
+      catchErrors(error, setError);
+    }
   };
 
   return (

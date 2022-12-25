@@ -10,3 +10,8 @@ export const createSocialKey = async (socialKeys: IOauth) => {
   const oauth = await newOauth.save();
   return oauth;
 };
+
+export const getSocialKey = async (socialType: string) => {
+  const socialKeys = await Oauth.findOne({ socialType: socialType });
+  return socialKeys;
+};
