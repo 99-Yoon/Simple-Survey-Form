@@ -74,7 +74,7 @@ export const ModifySurvey = ({ surveyData, callApi }: Props) => {
       setLoading(true);
       const result = await callApi(survey);
       console.log("result:", result);
-      navigate(-1);
+      navigate("/surveys");
     } catch (error) {
       setLoading(false);
       catchErrors(error, setError);
