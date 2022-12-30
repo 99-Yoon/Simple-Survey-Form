@@ -94,7 +94,7 @@ export const ModifySurvey = ({ surveyData, callApi }: Props) => {
             <input
               type="text"
               name="title"
-              className="font-bold text-4xl text-center m-2 border-b-2"
+              className="w-11/12 md:w-1/2 font-bold text-4xl text-center m-2 border-b-2"
               placeholder="설문지 제목"
               autoComplete="on"
               value={survey.title}
@@ -103,7 +103,7 @@ export const ModifySurvey = ({ surveyData, callApi }: Props) => {
             <input
               type="text"
               name="comment"
-              className="font-bold text-1xl text-center m-2 border-b-2 resize-none"
+              className="w-11/12 md:w-1/2 font-bold text-1xl text-center m-2 border-b-2 resize-none"
               placeholder="설문조사에 대한 설명을 입력해주세요"
               autoComplete="on"
               size={50}

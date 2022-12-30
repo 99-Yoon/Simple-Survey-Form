@@ -44,7 +44,7 @@ export const SurveyTitle = ({ text, handleTitle }: Props) => {
       <input
         type="text"
         name="title"
-        className="font-bold text-4xl text-center m-2 border-b-2"
+        className="w-11/12 md:w-1/2 font-bold text-4xl text-center m-2 border-b-2"
         placeholder="설문지 제목"
         autoComplete="on"
         value={title}

@@ -10,7 +10,7 @@ export const SurveyComment = () => {
       <input
         type="text"
         name="comment"
-        className="font-bold text-1xl text-center m-2 border-b-2 resize-none"
+        className="w-11/12 md:w-1/2 font-bold text-1xl text-center m-2 border-b-2 resize-none"
         placeholder="설문조사에 대한 설명을 입력해주세요"
         autoComplete="on"
         size={50}
