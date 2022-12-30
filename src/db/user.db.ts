@@ -73,6 +73,7 @@ export const isValidUserId = async (userId: string) => {
 };
 
 export const isSocialType = async (socialType: string, email: string) => {
-  const user = await User.findOne({ email, socialType });
+  const user = await User.findOne({ email: email, socialType: socialType });
+  console.log("유우우우저: ", user);
   return user;
 };

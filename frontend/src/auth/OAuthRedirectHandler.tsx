@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { authApi } from "../apis";
 import { catchErrors } from "../helpers";
 const LOCAL_USER_INFO = "survey-user-info";
 
 export const OAuthRedirectHandler = () => {
+  const navigate = useNavigate();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   const [message, setMessage] = useState(
     "잠시만 기다려 주세요! 로그인 중입니다."
   );
@@ -28,6 +29,7 @@ export const OAuthRedirectHandler = () => {
               isLoggedIn: user.isLoggedIn,
             })
           );
+          window.location.replace("/");
         }
       } catch (error) {
         setLoading(false);

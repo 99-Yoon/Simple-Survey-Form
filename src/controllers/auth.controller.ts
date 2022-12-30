@@ -175,32 +175,37 @@ export const kakaoAuthenticate = asyncWrap(async (req, res) => {
         params
       );
       const kakaoUserData = jwt.decode(kakaoResponse.data.id_token) as any;
-      //카카오에서 받아온 user data를 db에 저장
+      console.log(kakaoUserData);
       if (kakaoUserData) {
+        // 카카오 계정이든 아니든 같은 이메일이 있는지 확인
         const userExist = await userDb.isUser(kakaoUserData.email);
         if (userExist) {
+          // 이메일이 있을 경우
+          // 카카오 계정으로 이메일이 있는지 확인
           const kakaoUser = await userDb.isSocialType(
-            kakaoUserData.email,
-            "kakao"
+            "kakao",
+            kakaoUserData.email
           );
+          console.log("카카오 유저: ", kakaoUser);
           if (kakaoUser) {
-            // 3) 비밀번호가 맞으면 토큰 생성
+            // 1) 카카오 유저가 있을 경우 토큰 생성
             const token = jwt.sign({ userId: kakaoUser.id }, jwtCofig.secret, {
               expiresIn: jwtCofig.expires,
             });
-            // 4) 토큰을 쿠키에 저장
+            // 2) 토큰을 쿠키에 저장
             res.cookie(cookieConfig.name, token, {
               maxAge: cookieConfig.maxAge,
               path: "/",
               httpOnly: envConfig.mode === "production",
               secure: envConfig.mode === "production",
             });
-            // 5) 사용자 반환
+            // 3) 사용자 반환
             res.json({
               isLoggedIn: true,
               email: kakaoUser.email,
             });
           } else {
+            // 카카오 유저가 아닌 다른 이메일 유저일 경우
             return res
               .status(422)
               .send(
@@ -208,23 +213,25 @@ export const kakaoAuthenticate = asyncWrap(async (req, res) => {
               );
           }
         } else {
+          // 이미 존재하는 이메일이 없을 경우
+          // 1) email이랑 password(sub:고유 회원번호) DB에 저장
           const newUser = await userDb.createUser({
             email: kakaoUserData.email,
-            password: "",
+            password: kakaoUserData.sub,
             socialType: "kakao",
           });
-          // 3) 비밀번호가 맞으면 토큰 생성
+          // 2) 토큰 생성
           const token = jwt.sign({ userId: newUser.id }, jwtCofig.secret, {
             expiresIn: jwtCofig.expires,
           });
-          // 4) 토큰을 쿠키에 저장
+          // 3) 토큰을 쿠키에 저장
           res.cookie(cookieConfig.name, token, {
             maxAge: cookieConfig.maxAge,
             path: "/",
             httpOnly: envConfig.mode === "production",
             secure: envConfig.mode === "production",
           });
-          // 5) 사용자 반환
+          // 4) 사용자 반환
           res.json({
             isLoggedIn: true,
             email: newUser.email,
@@ -234,7 +241,7 @@ export const kakaoAuthenticate = asyncWrap(async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.send("에러");
+    res.send("카카오 로그인 에러");
   }
 });
 
