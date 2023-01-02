@@ -14,8 +14,8 @@ export const RRating = ({ question }: Props) => {
   return (
     <div className="m-5">
       <div>{question.content.minRateDescription}</div>
-      {question.content.choices.map((choice: any) => (
-        <div key={choice.text} className="">
+      {question.content.choices.map((choice: any, index: number) => (
+        <div key={index} className="">
           <span className="font-bold">{choice.text}</span>
           <span className="ml-3">
             - {result[choice.text] ? result[choice.text] : 0}
