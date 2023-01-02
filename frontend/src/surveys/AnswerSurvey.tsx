@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { answerApi, surveyApi } from "../apis";
 import { catchErrors } from "../helpers";
 import { SpinnerIcon } from "../icons";
@@ -12,6 +12,7 @@ export const AnswerSurvey = () => {
   const [survey, setSurvey] = useState<ISurvey>();
   const [answers, setAnswers] = useState<IAnswer[]>([]);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     surveyId && getSurvey(surveyId);
@@ -30,52 +31,57 @@ export const AnswerSurvey = () => {
     if (!survey) {
       return;
     }
-    try {
-      const fileAnswers = answers.filter(
-        (answer) => answer.question.type === "file"
-      );
-      const otherAnswers = answers.filter(
-        (answer) => answer.question.type !== "file"
-      );
+    if (confirm("제출하시겠습니까?")) {
+      try {
+        const fileAnswers = answers.filter(
+          (answer) => answer.question.type === "file"
+        );
+        const otherAnswers = answers.filter(
+          (answer) => answer.question.type !== "file"
+        );
 
-      console.log("file answers:", fileAnswers);
-      console.log("other answers:", otherAnswers);
+        console.log("file answers:", fileAnswers);
+        console.log("other answers:", otherAnswers);
 
-      const forms = fileAnswers.map((answer) => {
-        const formData = new FormData();
-        formData.append("surveyId", survey._id!);
-        formData.append("questionId", answer.question._id!);
-        formData.append("guestId", "guest");
+        const forms = fileAnswers.map((answer) => {
+          const formData = new FormData();
+          formData.append("surveyId", survey._id!);
+          formData.append("questionId", answer.question._id!);
+          formData.append("guestId", "guest");
 
-        const files: FileList = answer.content;
-        files &&
-          [...files].map((f) => {
-            console.log("파일 없음", f);
-            formData.append("uploadFiles", f);
-          });
-        return formData;
-      });
-      console.log("forms", forms);
-      setError("");
-      const results = await answerApi.save(
-        otherAnswers.map((answer) => ({
-          questionId: answer.question._id!,
-          surveyId: survey._id!,
-          guestId: "guest",
-          content: answer.content,
-        }))
-      );
-      console.log("results:", results);
+          const files: FileList = answer.content;
+          files &&
+            [...files].map((f) => {
+              console.log("파일 없음", f);
+              formData.append("uploadFiles", f);
+            });
+          return formData;
+        });
+        console.log("forms", forms);
+        setError("");
+        const results = await answerApi.save(
+          otherAnswers.map((answer) => ({
+            questionId: answer.question._id!,
+            surveyId: survey._id!,
+            guestId: "guest",
+            content: answer.content,
+          }))
+        );
+        console.log("results:", results);
 
-      const result = await Promise.all(
-        forms.map(async (form) => await answerApi.saveForm(form))
-      );
+        const result = await Promise.all(
+          forms.map(async (form) => await answerApi.saveForm(form))
+        );
 
-      console.log("result:", result);
-    } catch (error) {
-      catchErrors(error, setError);
-    } finally {
-      // setLoading(false);
+        console.log("result:", result);
+        navigate("/");
+      } catch (error) {
+        catchErrors(error, setError);
+      } finally {
+        // setLoading(false);
+      }
+    } else {
+      return;
     }
   };
 
