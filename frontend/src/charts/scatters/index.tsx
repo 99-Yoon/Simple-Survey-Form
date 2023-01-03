@@ -1,0 +1,1 @@
+export { CirclesWithG } from "./CirclesWithG";
