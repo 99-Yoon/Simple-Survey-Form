@@ -1,5 +1,6 @@
 import React from "react";
 import { IQuestionData } from "../types";
+import chartImg2 from "../icons/chartImg2.png";
 
 type Props = {
   question: IQuestionData;
@@ -14,6 +15,7 @@ export const RRating = ({ question }: Props) => {
   return (
     <div className="m-5">
       <div>{question.content.minRateDescription}</div>
+      <img src={chartImg2} />
       {question.content.choices.map((choice: any, index: number) => (
         <div key={index} className="">
           <span className="font-bold">{choice.text}</span>

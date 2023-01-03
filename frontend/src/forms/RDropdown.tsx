@@ -1,5 +1,6 @@
 import React from "react";
 import { IQuestionData } from "../types";
+import chartImg1 from "../icons/chartImg1.png";
 
 type Props = {
   question: IQuestionData;
@@ -13,6 +14,7 @@ export const RDropdown = ({ question }: Props) => {
 
   return (
     <div className="m-5">
+      <img src={chartImg1} />
       {question.content.choices.map((choice: any, index: number) => (
         <div key={index} className="">
           <span className="font-bold">{choice.text}</span>
