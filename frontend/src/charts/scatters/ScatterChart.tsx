@@ -7,8 +7,6 @@ import {
   AxisVerticalScaleLinear,
   Orient,
 } from "../axes";
-import { CirclesWithG } from ".";
-import { generateRandomDataset } from "../helpers";
 import { TextsWithG } from "../texts";
 import { Circles } from "./Circles";
 

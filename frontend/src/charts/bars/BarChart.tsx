@@ -1,3 +1,4 @@
+import React from "react";
 import { max, min, range } from "d3";
 import { scaleLinear, scaleBand } from "d3-scale";
 import { BarText } from "../texts";
