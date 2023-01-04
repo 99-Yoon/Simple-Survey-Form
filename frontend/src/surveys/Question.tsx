@@ -18,9 +18,16 @@ export const Question = ({
   const isEditing = question.isEditing;
 
   async function handleEditComplete() {
-    question.isEditing = false;
-    console.log("editing completed:", question);
-    handleQuestion(question);
+    question.content.choices.map((choice) => {
+      if (choice.text.trim() === "") {
+        alert("질문작성이 완료되지 않았습니다.");
+        return (question.isEditing = true);
+      } else {
+        question.isEditing = false;
+        console.log("editing completed:", question);
+        handleQuestion(question);
+      }
+    });
   }
 
   function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {

@@ -1,1 +1,0 @@
-export { CirclesWithG } from "./CirclesWithG";

@@ -59,6 +59,7 @@ export interface IRadio extends IQuestionData {
   content: IBasicContent & {
     hasOther: boolean;
     otherText: string;
+    
   };
 }
 
