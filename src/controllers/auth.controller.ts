@@ -124,7 +124,7 @@ export const requireLogin = asyncWrap(async (reqExp, res, next) => {
     next();
   } catch (error) {
     res.clearCookie(cookieConfig.name);
-    console.log("error in requreLogin===\n", error);
+    console.log("error in requireLogin===\n", error);
     return res
       .status(401)
       .json({ message: "로그인이 필요합니다", redirectUrl: "/login" });
