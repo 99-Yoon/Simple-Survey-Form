@@ -1,4 +1,4 @@
-# 💡Simple Survey
+# 💡Simple Survey Form
 
 - 설문조사 제작 사이트
 
@@ -76,12 +76,12 @@
 
 ## 2. env에 필요한 것들
 
-### Client
+#### `Client`
 
 - REACT_APP_TMDB_API_KEY
 - REACT_APP_KAKAO_KEY
 
-### Root
+#### `Root`
 
 - TMDB_APP_KEY
 - GMAIL_CLIENTID
