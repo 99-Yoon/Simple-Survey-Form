@@ -34,7 +34,7 @@
 
 # 3. ERD 설계
 
-![ERD설계]()
+![ERD설계](https://github.com/99-Yoon/Simple-Survey-Form/blob/a5ddeec25c698c29fd68724538d977b385e926e2/docs/ERD.PNG)
 
 # 4. 핵심 기능
 

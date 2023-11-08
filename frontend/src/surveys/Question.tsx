@@ -18,30 +18,31 @@ export const Question = ({
   const isEditing = question.isEditing;
 
   async function handleEditComplete() {
-    question.content.choices.map((choice) => {
-      if (choice.text.trim() === "") {
-        alert("질문작성이 완료되지 않았습니다.");
-        return (question.isEditing = true);
-      } else {
-        question.isEditing = false;
-        console.log("editing completed:", question);
-        handleQuestion(question);
-      }
-    });
+    if (question.content.choices.length > 0) {
+      question.content.choices.map((choice) => {
+        if (choice.text.trim() === "") {
+          alert("질문작성이 완료되지 않았습니다.");
+          return (question.isEditing = true);
+        } else {
+          question.isEditing = false;
+          handleQuestion(question);
+        }
+      });
+    } else {
+      question.isEditing = false;
+      handleQuestion(question);
+    }
   }
 
   function handleSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     const selectedType = event.currentTarget.value;
-    console.log(selectedType);
 
     const selectedKind =
       getEnumKeyByEnumValue(QUESTION_TYPES, selectedType) ?? "singletext";
-    console.log("selected kind:", selectedKind);
     setQuestion({ ...question, type: selectedKind });
   }
 
   const handleElement = () => {
-    console.log("handle element");
     setQuestion({ ...question });
   };
 
@@ -79,7 +80,6 @@ export const Question = ({
         <input
           type="text"
           name="title"
-          id={question._id}
           className="text-xl font-bold border-b-2 w-11/12"
           placeholder={"Question Title"}
           value={question.title}
@@ -91,7 +91,6 @@ export const Question = ({
         <input
           type="text"
           name="comment"
-          id={question._id}
           className="border w-11/12"
           placeholder="질문에 대한 설명을 입력해주세요"
           value={question.comment}
@@ -102,7 +101,6 @@ export const Question = ({
       {getElementByQuestionType(question, handleElement, isEditing)}
       <div className="flex flex-row place-content-between w-11/12 py-2">
         <select
-          id={question._id}
           name="type"
           onChange={handleSelect}
           disabled={!isEditing}
@@ -114,15 +112,12 @@ export const Question = ({
         <div className="place-self-end py-2">
           <input
             type="checkbox"
-            id="isRequired"
             name="isRequired"
             onChange={handleChange}
             disabled={!isEditing}
             checked={question.isRequired}
           />
-          <label htmlFor="isRequired" className="px-1">
-            필수
-          </label>
+          <span className="px-1">필수</span>
           {isEditing ? (
             <>
               <button type="button" className="px-1" onClick={onCancel}>
