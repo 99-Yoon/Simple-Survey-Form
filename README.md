@@ -74,16 +74,14 @@
 
 ## 1. 실행 관련
 
+- server : npm run dev
+- client : /cd frontend / npm run dev
+
 ## 2. env에 필요한 것들
 
 #### `Client`
 
-- REACT_APP_TMDB_API_KEY
-- REACT_APP_KAKAO_KEY
+#### `Server`
 
-#### `Root`
-
-- TMDB_APP_KEY
-- GMAIL_CLIENTID
-- GMAIL_CLIENTSECRET
-- GMAIL_REFRESH_TOKEN
+- REST_API_KEY
+- REDIRECT_URI
