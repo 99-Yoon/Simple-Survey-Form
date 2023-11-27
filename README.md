@@ -38,17 +38,17 @@
 
 # 4. 핵심 기능
 
-이 서비스에서 제가 맡은 핵심 기능은 설문조사 제작과 카카오 로그인입니다.
+이 서비스에서 제가 맡은 핵심 기능은 설문조사 제작 및 배포와 카카오 로그인입니다.
 
 ## 4-1. 설문조사 제작
 
 <details>
-<summary><b>설문조사 제작 설명 펼치기</b></summary>
+<summary><b>설문조사 제작 및 배포 설명 펼치기</b></summary>
 <div markdown="1">
 
-### (1)
+### (1) 설문지 제작
 
-**1.ㅇㄴㄹㅇㄻ**
+<img src="./docs/images/create1.png">
 
 </div>
 </details>
@@ -61,7 +61,7 @@
 <summary><b>카카오 로그인 설명 펼치기</b></summary>
 <div markdown="1">
 
-### RESTful API란?
+### (1) RESTful API란?
 
 Representational State Transfer(REST)는 기본적으로 네트워크에서 통신을 관리하기 위한 지침으로 만들어진 소프트웨어 아키텍쳐이다.  REST 아키텍처 스타일을 따르는 API를 REST API라고 하며, REST 아키텍처를 구현하는 웹 서비스를 RESTful 웹 서비스라고 한다.
 
@@ -86,7 +86,7 @@ API 개발자는 서버 애플리케이션 API 문서에서 클라이언트가 R
 - XML 또는 JSON 방식의 본문
 - 헤더 : 서버, 인코딩, 날짜 등
 
-### 카카오 로그인 과정
+### (2) 카카오 로그인 과정
 
 사전 작업은 다음과 같다. 자세한 내용은 **[카카오 로그인 > 설정하기](https://developers.kakao.com/docs/latest/ko/kakaologin/prerequisite)** 참고
 
@@ -153,9 +153,7 @@ const kakaoResponse = await axios.post(
 
 ### 두 번째 로그인
 
-이미 한 번 카카오 로그인을 진행했고 동의항목에 동의 한 경우에는,
-
-카카오에서 쿠키를 확인하고 바로 인가코드를 보내준다. 이후 과정은 위와 동일하다.
+이미 한 번 카카오 로그인을 진행했고 동의항목에 동의 한 경우에는, 카카오에서 쿠키를 확인하고 바로 인가코드를 보내준다. 이후 과정은 위와 동일하다.
 
 </div>
 </details>
