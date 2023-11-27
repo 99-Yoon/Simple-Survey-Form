@@ -158,7 +158,6 @@ export const signup = asyncWrap(async (req, res) => {
 });
 
 export const kakaoAuthenticate = asyncWrap(async (req, res) => {
-  // console.log(req.body);
   const code = req.body.code;
   try {
     const socialKeys = await oauthDb.getSocialKey("kakao");
