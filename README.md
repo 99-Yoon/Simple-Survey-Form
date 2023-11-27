@@ -99,8 +99,8 @@ API 개발자는 서버 애플리케이션 API 문서에서 클라이언트가 R
 
 **1\. 카카오 계정 로그인**
 
-![로그인화면](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdBYeVb%2FbtsAvY8EAmV%2Fi6gY2kEOKwk28dTs3PfZwK%2Fimg.png)
-![카카오로그인화면](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FRjoZK%2FbtsAF4FpNDj%2FRFdGlaKZRaBdrqyBz49JPk%2Fimg.png)
+![로그인화면](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdBYeVb%2FbtsAvY8EAmV%2Fi6gY2kEOKwk28dTs3PfZwK%2Fimg.png){:height="300"}
+![카카오로그인화면](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FRjoZK%2FbtsAF4FpNDj%2FRFdGlaKZRaBdrqyBz49JPk%2Fimg.png){:height="300"}
 
 ```ts
 //카카오 로그인 버튼 클릭 시
