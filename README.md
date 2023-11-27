@@ -113,8 +113,8 @@ window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${data
 
 **2\. 동의화면 및 인가코드 받기**
 
-![동의화면](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FLEDPZ%2FbtsAzDbvir6%2F4Nbf6gurG1zKKyDK23P6KK%2Fimg.png)
-![인가코드](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb6Qch2%2FbtsAxhfQB0S%2FXtKrZKR5HGmylk1GiP7ZF1%2Fimg.png)
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FLEDPZ%2FbtsAzDbvir6%2F4Nbf6gurG1zKKyDK23P6KK%2Fimg.png" alt="동의화면" height="200px">
+<img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb6Qch2%2FbtsAxhfQB0S%2FXtKrZKR5HGmylk1GiP7ZF1%2Fimg.png" alt="인가코드화면" height="200px">
 
 - 로그인을 하면 아까 요청했던 주소로 돌아가 **동의화면이 출력**된다.
 - 동의하고 계속하기 클릭 시, **redirect_uri**로 요청에 대한 응답이 전달된다.
